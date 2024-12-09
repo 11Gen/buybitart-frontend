@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
@@ -8,14 +8,14 @@ import "./App.css";
 import Home from "./pages/Home";
 import Nav from "./components/Nav";
 import Shop from "./pages/Shop";
-import { ReactLenis, useLenis } from "lenis/react";
+import { ReactLenis } from "lenis/react";
 import Product from "./pages/Product";
 import { motion } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 const App = () => {
-  const lenis = useLenis();
+  const lenisRef = useRef();
 
   const router = useRoutes([
     {
@@ -35,19 +35,14 @@ const App = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (!lenis) return;
+    function update(time) {
+      lenisRef.current?.lenis?.raf(time * 1000);
+    }
 
-    const update = (time) => lenis.raf(time * 1000);
-
-    lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add(update);
-    gsap.ticker.lagSmoothing(0);
 
-    return () => {
-      lenis.off("scroll", ScrollTrigger.update);
-      gsap.ticker.remove(update);
-    };
-  }, [lenis]);
+    return () => gsap.ticker.remove(update);
+  }, []);
 
   useEffect(() => {
     ScrollTrigger.clearScrollMemory("manual");
@@ -76,7 +71,7 @@ const App = () => {
     <>
       <ReactLenis
         root
-        autoRaf={false}
+        ref={lenisRef}
         options={{
           duration: 2,
           easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
@@ -85,6 +80,7 @@ const App = () => {
           smooth: true,
           smoothTouch: true,
           touchMultiplier: 2,
+          autoRaf: false,
         }}
       >
         <Nav />
@@ -96,7 +92,7 @@ const App = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
             onAnimationComplete={() =>
-              setTimeout(() => lenis?.scrollTo(0, { immediate: true }), 50)
+              setTimeout(() => lenisRef.current?.lenis?.scrollTo(0, { immediate: true }), 50)
             }
           >
             {router}

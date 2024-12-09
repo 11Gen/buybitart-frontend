@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import ContactForm from "../components/ContactForm";
 import useResponsive from "../hooks/useResponsive";
 import { Swiper, SwiperSlide } from "swiper/react";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import { products } from "../utils/data";
 // Import Swiper styles
 import "swiper/css";
@@ -17,53 +18,25 @@ const Home = () => {
   const { isBigLaptop, isSmallMobile, isMobile } = useResponsive();
 
   useEffect(() => {
-    // GSAP Animations
-    // gsap.to(".stickySection", {
-    //   scrollTrigger: {
-    //     trigger: ".stickySection",
-    //     start: "top top",
-    //     end: () =>
-    //       "+=" +
-    //       (window.innerHeight +
-    //         document.querySelector(".website-content").offsetHeight * 0.5),
-    //     scrub: 1,
-    //     pin: true,
-    //   },
-    //   y: 250,
-    //   scale: 0.75,
-    //   rotation: -15,
-    //   ease: "power3.out",
-    // });
+    if (!isBigLaptop) {
+      const element = document.querySelector(".cardsCont");
+      if (element) {
+        const animation = gsap.to(".horizontalSection", {
+          x: -element.offsetWidth,
+          scrollTrigger: {
+            trigger: ".website-content",
+            start: "top top",
+            end: `+=${window.innerHeight}`,
+            pin: true,
+            scrub: 1,
+          },
+        });
 
-    // gsap.fromTo(
-    //   ".website-content",
-    //   { x: -100, scale: 0.3, rotation: 15 },
-    //   {
-    //     scrollTrigger: {
-    //       trigger: ".website-content",
-    //       start: "top 200%",
-    //       end: "top 75%",
-    //       scrub: 1,
-    //     },
-    //     x: 0,
-    //     scale: 1,
-    //     rotation: 0,
-    //     ease: "power3.out",
-    //   }
-    // );
-
-    if (!isBigLaptop)
-      gsap.to(".horizontalSection", {
-        x: () => -document.querySelector(".cardsCont").offsetWidth,
-        scrollTrigger: {
-          trigger: ".website-content",
-          start: `top top`,
-          end: `+=${window.innerHeight}`,
-          pin: true,
-          // markers: true,
-          scrub: 1,
-        },
-      });
+        return () => {
+          animation.kill();
+        };
+      }
+    }
   }, []);
 
   return (
