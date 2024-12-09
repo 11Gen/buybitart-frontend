@@ -6,11 +6,13 @@ const Footer = () => {
     <footer className="w-full h-auto min-h-[202px] flex items-center justify-center px-[16px] xl:px-[6.25rem]">
       <div className="w-full h-auto min-h-[121px] flex justify-between md:flex-row flex-col md:gap-0 gap-8 md:my-0 my-16 flex-wrap">
         <div className="relative w-auto h-auto flex flex-col gap-4">
-          <img
-            src="/logo.svg"
-            alt=""
-            className="w-[60px] h-[40px] object-contain"
-          />
+          <Link className="w-auto h-auto relative" to={'/'}>
+            <img
+              src="/logo.svg"
+              alt=""
+              className="w-[60px] h-[40px] object-contain"
+            />
+          </Link>
           <p className="font-main font-[300] text-sm">2024 © 5Ksana</p>
           <Link to={"/privacy"} className="font-main font-[300] text-sm">
             Privacy policy
@@ -53,11 +55,15 @@ const Footer = () => {
           <div className="flex flex-col w-auto h-auto gap-2">
             <h5 className="font-main font-[400]">Payments</h5>
             <div className="flex gap-1 w-auto h-auto relative">
-                <img src="/Mastercard.svg" alt="" className="w-[40px] h-[27.43px]" />
-                <img src="/Visa.svg" alt="" className="w-[40px] h-[27.43px]" />
-                <img src="/Bitcoin.svg" alt="" className="w-[40px] h-[27.43px]" />
-                <img src="/Amex.svg" alt="" className="w-[40px] h-[27.43px]" />
-                <img src="/JCB.svg" alt="" className="w-[40px] h-[27.43px]" />
+              <img
+                src="/Mastercard.svg"
+                alt=""
+                className="w-[40px] h-[27.43px]"
+              />
+              <img src="/Visa.svg" alt="" className="w-[40px] h-[27.43px]" />
+              <img src="/Bitcoin.svg" alt="" className="w-[40px] h-[27.43px]" />
+              <img src="/Amex.svg" alt="" className="w-[40px] h-[27.43px]" />
+              <img src="/JCB.svg" alt="" className="w-[40px] h-[27.43px]" />
             </div>
           </div>
         </div>
