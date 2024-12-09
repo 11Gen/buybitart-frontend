@@ -1,20 +1,63 @@
-import React from "react";
+import React, { useRef, useState } from "react";
+import CategoryButton from "../components/CategoryButton";
+import Footer from "../components/Footer";
+import CardProduct from "../components/CardProduct";
+import { products } from "../utils/data";
+import useResponsive from "../hooks/useResponsive";
+import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
 
 const Shop = () => {
+  const [currentCategory, setCurrentCategory] = useState(null);
+  const [isAuction, setIsAuction] = useState(true);
+  const { isMobile } = useResponsive();
+
+  const categories = [
+    "category",
+    "category",
+    "category",
+    "category",
+    "category",
+    "category",
+    "category",
+    "category",
+    "category",
+    "category",
+    "category",
+    "category",
+    "category",
+  ];
+
   return (
     <div className="w-[100vw] h-full">
-      <div className="w-full h-full relative mt-[106px] px-[16px] xl:px-[6.25rem]">
-        <div className="w-full h-full relative flex justify-between items-center">
-          <h2 className="font-main font-[600] text-4xl uppercase">Shop</h2>
+      <div className="w-full h-full min-h-[155px] sticky top-[30px] xl:top-[51px] mt-[72px] px-[16px] pb-4 flex flex-col justify-end xl:px-[6.25rem] overflow-x-hidden z-[2] webkitBgBlurIos16 bg-gradient-to-t from-[#000000]/75 to-[#000] border-b-[1px] border-[#FFFFFF1A]">
+        <div className="w-full h-auto relative flex justify-between items-end">
+          <h2 className="font-main font-[600] text-4xl leading-[100%] uppercase">
+            Shop
+          </h2>
 
           <div className="flex w-auto h-full items-center gap-6">
-            <button className="bg-[#FCCB00] w-[157px] flex items-center justify-center gap-[10px] rounded-xl h-[40px] font-main font-[500] text-base text-[#241D00]">
+            <button
+              onClick={() => setIsAuction(!isAuction)}
+              className={`${
+                isAuction
+                  ? "bg-[#FCCB00] text-[#241D00] hover:bg-[#D4A900] hover:text-[#1C1600]"
+                  : "bg-[#212121] text-[#fff] hover:bg-[#FFFFFF1A] hover:text-[rgba(255,255,255,0.85)]"
+              } ${
+                isMobile ? "w-[43px]" : "w-[157px]"
+              } flex items-center justify-center gap-[10px] rounded-xl h-[43px] font-main font-[500] text-base transition duration-[250ms]`}
+            >
               <svg
                 width="24"
                 height="25"
                 viewBox="0 0 24 25"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
+                className={`${
+                  isAuction ? "" : "invert brightness-0"
+                } transition duration-[250ms]`}
               >
                 <path
                   d="M12.0001 14.506L5.84411 21.733C5.64833 21.9609 5.40759 22.1459 5.13699 22.2764C4.86639 22.4069 4.57176 22.4801 4.27154 22.4915C3.97132 22.5028 3.672 22.4521 3.39231 22.3424C3.11263 22.2327 2.85861 22.0664 2.64617 21.8539C2.43374 21.6415 2.26746 21.3875 2.15775 21.1078C2.04805 20.8281 1.99729 20.5288 2.00864 20.2286C2.01999 19.9284 2.09322 19.6337 2.22373 19.3631C2.35425 19.0925 2.53924 18.8518 2.76711 18.656L9.99411 12.5M22.0001 12.405L15.9051 18.5M12.0951 2.5L6.00011 8.595M11.3331 3.262L6.76211 7.833C6.76211 7.833 9.04811 10.881 11.3331 13.167C13.6191 15.452 16.6671 17.738 16.6671 17.738L21.2381 13.167C21.2381 13.167 18.9521 10.119 16.6671 7.833C14.3811 5.548 11.3331 3.262 11.3331 3.262Z"
@@ -24,20 +67,21 @@ const Shop = () => {
                   strokeLinejoin="round"
                 />
               </svg>
-              Auction
+              {isMobile ? null : "Auction"}
             </button>
-            <button className="w-auto flex items-center justify-center gap-1 rounded-xl h-[40px] font-main font-[400] text-base text-white">
+            <button className="w-auto flex items-center justify-center gap-1 rounded-xl h-[43px] font-main font-[400] text-base text-white hover:text-[rgba(255,255,255,0.85)] transition duration-[250ms] group">
               Filters
               <svg
                 width="24"
                 height="25"
                 viewBox="0 0 24 25"
                 fill="none"
+                className="group-hover:opacity-85 transition duration-[250ms]"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <mask
                   id="mask0_287_2280"
-                  style={{maskType: "alpha"}}
+                  style={{ maskType: "alpha" }}
                   maskUnits="userSpaceOnUse"
                   x="0"
                   y="0"
@@ -56,7 +100,35 @@ const Shop = () => {
             </button>
           </div>
         </div>
+        <Swiper
+          slidesPerView={"auto"}
+          spaceBetween={8}
+          className="mt-[20px] xl:mt-[27px] w-full h-auto flex items-center !mx-0"
+        >
+          {(categories || []).map((category, index) => (
+            <SwiperSlide className={`!w-auto !flex-shrink-0 mr-2`} key={index}>
+              {category ? (
+                <CategoryButton
+                  data={category}
+                  index={index + 1}
+                  currentCategory={currentCategory}
+                  setCurrentCategory={setCurrentCategory}
+                />
+              ) : (
+                <div className="w-[110px] h-[35px] opacity-0 pointer-events-none"></div>
+              )}
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
+
+      <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 w-full px-[16px] xl:px-[6.25rem] relative mt-[37px] mb-[53px]">
+        {(products || []).map((product, index) => (
+          <CardProduct data={product} key={index} />
+        ))}
+      </div>
+
+      <Footer />
     </div>
   );
 };

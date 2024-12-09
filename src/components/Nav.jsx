@@ -1,9 +1,24 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const Nav = () => {
+  const location = useLocation();
+  const [isSolidBG, setIsSolidBG] = useState(false);
+
+  useEffect(() => {
+    if (location.pathname == "/shop") return setIsSolidBG(true);
+
+    return setIsSolidBG(false);
+  }, [location]);
+  
   return (
-    <nav className="w-full xl:h-[65px] h-[52px] fixed inset-0 px-[16px] xl:px-[6.25rem] py-[0.781rem] flex justify-between z-[1000] border-b-[1px] border-[#fff] webkitBgBlurIos16">
+    <nav
+      className={`w-full xl:h-[65px] h-[52px] fixed inset-0 px-[16px] xl:px-[6.25rem] py-[0.781rem] flex justify-between z-[1000] ${
+        isSolidBG
+          ? "bg-black"
+          : "webkitBgBlurIos16 border-b-[1px] border-[#FFFFFF1A]"
+      }`}
+    >
       <div className="logo w-auto h-full relative">
         <Link to={"/"}>
           <img
@@ -15,7 +30,7 @@ const Nav = () => {
         </Link>
       </div>
       <div className="w-auto flex h-full items-center gap-[3.75rem]">
-        <div className="xl:flex h-auto w-auto items-center gap-6 font-slab uppercase font-[500] hidden">
+        <div className="xl:flex h-auto w-auto items-center gap-6 font-main uppercase font-[500] hidden">
           <Link
             to={"/shop"}
             className="p-[0.625rem] hover:opacity-75 transition-opacity duration-[250ms]"
@@ -42,14 +57,14 @@ const Nav = () => {
           </Link>
         </div>
 
-        <button className="hidden xl:flex font-slab rounded-[1.25rem] w-[107px] h-[40px] bg-[#FCCB00] text-[#522700] font-[600] items-center justify-center hover:bg-white hover:text-black transition-colors duration-[250ms]">
+        <button className="hidden xl:flex font-main rounded-[1.25rem] w-[107px] h-[40px] bg-[#FCCB00] text-[#522700] font-[600] items-center justify-center hover:bg-[#D4A900] hover:text-[#1C1600] transition-colors duration-[250ms]">
           Login
         </button>
 
         <div className="flex w-auto h-[24px] items-center gap-4">
-          <button className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#fff] transition-colors duration-[250ms]">
+          <button className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#212121] transition-colors duration-[250ms]">
             <svg
-              className="xl:w-[24px] relative top-[-1px] xl:h-[24px] w-[28px] h-[28px] group-hover:invert transition duration-[250ms]"
+              className="xl:w-[24px] relative top-[-1px] xl:h-[24px] w-[28px] h-[28px]"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -62,9 +77,9 @@ const Nav = () => {
               />
             </svg>
           </button>
-          <button className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#fff] transition-colors duration-[250ms] flex justify-center items-center">
+          <button className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#212121] transition-colors duration-[250ms] flex justify-center items-center">
             <svg
-              className="xl:w-[24px] relative top-[-1px] xl:h-[24px] w-[28px] h-[28px] group-hover:invert transition duration-[250ms]"
+              className="xl:w-[24px] relative top-[-1px] xl:h-[24px] w-[28px] h-[28px]"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +93,7 @@ const Nav = () => {
               />
             </svg>
           </button>
-          <button className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#fff] transition-colors duration-[250ms] justify-center items-center xl:hidden flex">
+          <button className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#212121] transition-colors duration-[250ms] justify-center items-center xl:hidden flex">
             <div className="xl:w-[24px] w-[28px] xl:h-[24px] h-[28px] relative flex flex-col justify-center items-center gap-1.5">
               <div className="w-full h-[1.5px] relative bg-white" />
               <div className="w-full h-[1.5px] relative bg-white" />

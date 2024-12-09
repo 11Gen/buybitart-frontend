@@ -3,15 +3,15 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="w-full h-auto min-h-[202px] flex items-center justify-center">
-      <div className="max-w-[85vw] w-full h-auto min-h-[121px] flex justify-between md:flex-row flex-col md:gap-0 gap-8 md:my-0 my-16 flex-wrap">
+    <footer className="w-full h-auto min-h-[202px] flex items-center justify-center px-[16px] xl:px-[6.25rem]">
+      <div className="w-full h-auto min-h-[121px] flex justify-between md:flex-row flex-col md:gap-0 gap-8 md:my-0 my-16 flex-wrap">
         <div className="relative w-auto h-auto flex flex-col gap-4">
           <img
             src="/logo.svg"
             alt=""
             className="w-[60px] h-[40px] object-contain"
           />
-          <p className="font-slab font-[300] text-sm">2024 © 5Ksana</p>
+          <p className="font-main font-[300] text-sm">2024 © 5Ksana</p>
           <Link to={"/privacy"} className="font-main font-[300] text-sm">
             Privacy policy
           </Link>
@@ -37,14 +37,14 @@ const Footer = () => {
             <h5 className="font-main font-[400]">Contact Information</h5>
             <a
               href={`mailto:info@5ksana.art`}
-              className="relative w-auto h-auto flex gap-1"
+              className="relative w-auto h-auto flex gap-1 opacity-90"
             >
               <img
                 src="/email.svg"
                 alt=""
                 className="w-[24px] h-[24px] object-contain"
               />
-              <span className="font-slab font-[300] underline">
+              <span className="font-main font-[300] underline underline-offset-1">
                 info@5ksana.art
               </span>
             </a>
