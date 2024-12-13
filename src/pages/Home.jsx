@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Model from "../components/Model";
 import CardShow from "../components/CardShow";
@@ -7,18 +7,27 @@ import { Link } from "react-router-dom";
 import ContactForm from "../components/ContactForm";
 import useResponsive from "../hooks/useResponsive";
 import { Swiper, SwiperSlide } from "swiper/react";
-import ScrollTrigger from "gsap/ScrollTrigger";
 import { products } from "../utils/data";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 
-const Home = () => {
+const Home = ({setCart, cart}) => {
   const btcRef = useRef();
   const { isBigLaptop, isSmallMobile, isMobile } = useResponsive();
+  const [isScrollStopped, setIsScrollStopped] = useState(false);
 
   useEffect(() => {
-    if (!isBigLaptop) {
+    const timeout = setTimeout(() => setIsScrollStopped(false), 8000);
+
+    return () => {
+      clearTimeout(timeout);
+      setIsScrollStopped(false);
+    };
+  }, [isScrollStopped]);
+
+  useEffect(() => {
+    if (!isBigLaptop && !isScrollStopped) {
       const element = document.querySelector(".cardsCont");
       if (element) {
         const animation = gsap.to(".horizontalSection", {
@@ -37,11 +46,13 @@ const Home = () => {
         };
       }
     }
-  }, []);
+  }, [isScrollStopped, isBigLaptop]);
 
   return (
     <>
-      <div className="w-[100vw] h-full overflow-x-hidden">
+      <div
+        className={`w-[100vw] ${isScrollStopped ? 'h-[100svh] overflow-hidden' : 'h-full overflow-x-hidden'}`}
+      >
         {/* Sticky Section */}
         <section className="stickySection relative w-[100vw] h-auto xl:min-h-[100svh] bg-black pt-[4.063rem] px-[16px] xl:px-[6.25rem]">
           <div className="w-full h-[100%] xl:h-[100vh] flex xl:flex-row flex-col-reverse items-center justify-between relative">
@@ -64,7 +75,16 @@ const Home = () => {
                 >
                   Browse Gallery
                 </Link>
-                <button className="w-[130px] opacity-50 h-[130px] flex items-center justify-center relative rounded-full mt-14 sm:mt-[70px] xl:mx-0 mx-auto group">
+                <button
+                  onClick={() =>
+                    gsap.to(window, {
+                      duration: 1,
+                      scrollTo: document.querySelector(".website-content"),
+                      ease: "power1.inOut",
+                    })
+                  }
+                  className="w-[130px] opacity-50 hover:opacity-70 transition-opacity duration-700 h-[130px] flex items-center justify-center relative rounded-full mt-14 sm:mt-[70px] xl:mx-0 mx-auto group"
+                >
                   <img
                     src="/roundedScroll.svg"
                     alt=""
@@ -92,7 +112,9 @@ const Home = () => {
         </section>
 
         {/* Website Content */}
-        <section className="website-content z-[1] relative w-full h-auto overflow-hidden">
+        <section
+          className={`website-content z-[1] relative ${isScrollStopped ? 'hidden' : 'block'} w-full h-auto overflow-hidden`}
+        >
           <div className="w-full h-auto sm:h-[100vh] sm:pb-0 pb-10 relative">
             <div className="w-auto xl:w-max h-auto xl:h-[100vh] xl:mt-0 mt-[120px] relative xl:flex-row flex-col flex xl:justify-center xl:items-center horizontalSection">
               <h2
@@ -112,14 +134,14 @@ const Home = () => {
                     >
                       {products.slice(0, 2).map((product, index) => (
                         <SwiperSlide className="!w-[316px]" key={index}>
-                          <CardShow data={product} />
+                          <CardShow data={product} setCart={setCart} cart={cart} />
                         </SwiperSlide>
                       ))}
                     </Swiper>
                   ) : (
                     <>
                       {products.slice(0, 2).map((product, index) => (
-                        <CardShow data={product} key={index} />
+                        <CardShow data={product} key={index} setCart={setCart} cart={cart} />
                       ))}
                     </>
                   )}

@@ -11,7 +11,6 @@ const Canvas = forwardRef(
       let spline = null;
 
       if (!ref.current?.model) {
-        // If the model is not already loaded, load it
         const canvas = document.getElementById(id);
         spline = new Application(canvas);
 
@@ -43,13 +42,13 @@ const Canvas = forwardRef(
       return () => {
         if (spline) {
           console.log("Disposing WebGL context for", type3D);
-          spline.dispose(); // Dispose of the WebGL context on unmount
+          spline.dispose();
           ref.current = null;
         }
       };
     }, [scene, ref]);
 
-    return <canvas id={id} className={`${className ? className : ''} active:scale-95 transition-transform duration-300`}></canvas>;
+    return <canvas id={id} className={`${className ? className : ''} active:scale-95 transition-transform duration-300 touch-auto`}></canvas>;
   }
 );
 

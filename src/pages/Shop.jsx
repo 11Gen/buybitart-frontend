@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CategoryButton from "../components/CategoryButton";
 import Footer from "../components/Footer";
 import CardProduct from "../components/CardProduct";
@@ -9,9 +9,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 
-const Shop = () => {
+const Shop = ({setCart, cart}) => {
   const [currentCategory, setCurrentCategory] = useState(null);
   const [isAuction, setIsAuction] = useState(true);
+  const [page, setPage] = useState(1)
   const { isMobile } = useResponsive();
 
   const categories = [
@@ -29,10 +30,11 @@ const Shop = () => {
     "category",
     "category",
   ];
+  
 
   return (
-    <div className="w-[100vw] h-full">
-      <div className="w-full h-full min-h-[155px] sticky top-[30px] xl:top-[51px] mt-[72px] px-[16px] pb-4 flex flex-col justify-end xl:px-[6.25rem] overflow-x-hidden z-[2] webkitBgBlurIos16 bg-gradient-to-t from-[#000000]/75 to-[#000] border-b-[1px] border-[#FFFFFF1A]">
+    <div className="w-[100vw] h-full contShop">
+      <div className="w-full h-full min-h-[155px] sticky top-[30px] xl:top-[51px] mt-[72px] px-[16px] pb-4 flex flex-col justify-end xl:px-[6.25rem] overflow-x-hidden z-[2] webkitBgBlurIos16 bg-gradient-to-t from-[#000000]/75 to-[#000] to-[85%] border-b-[1px] border-[#FFFFFF1A]">
         <div className="w-full h-auto relative flex justify-between items-end">
           <h2 className="font-main font-[600] text-4xl leading-[100%] uppercase">
             Shop
@@ -122,10 +124,48 @@ const Shop = () => {
         </Swiper>
       </div>
 
-      <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 w-full px-[16px] xl:px-[6.25rem] relative mt-[37px] mb-[53px]">
+      <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 w-full px-[16px] xl:px-[6.25rem] relative mt-[37px] mb-[47px]">
         {(products || []).map((product, index) => (
-          <CardProduct data={product} key={index} />
+          <CardProduct data={product} key={index} setCart={setCart} cart={cart} />
         ))}
+      </div>
+
+      <div className="w-full flex justify-center items-center h-auto px-[16px] xl:px-[6.25rem] mb-[53px]">
+        <div className="w-auto h-[40px] flex items-center gap-2">
+          <button className="h-full flex items-center justify-center w-[40px]">
+            <img
+              src="/chevron_left.svg"
+              alt=""
+              className="w-[24px] h-[24px] object-contain"
+            />
+          </button>
+
+          <div className="w-auto h-full flex gap-1 items-center">
+            <button className="w-[40px] h-[40px] bg-[#FCCB00] rounded-full flex items-center justify-center font-main font-[400] text-base text-[#241D00]">
+              1
+            </button>
+            <button className="w-[40px] h-[40px] bg-[#FFFFFF1A] rounded-full flex items-center justify-center font-main font-[400] text-base text-white">
+              2
+            </button>
+            <button className="w-[40px] h-[40px] bg-[#FFFFFF1A] rounded-full flex items-center justify-center font-main font-[400] text-base text-white">
+              ...
+            </button>
+            <button className="w-[40px] h-[40px] bg-[#FFFFFF1A] rounded-full flex items-center justify-center font-main font-[400] text-base text-white">
+              7
+            </button>
+            <button className="w-[40px] h-[40px] bg-[#FFFFFF1A] rounded-full flex items-center justify-center font-main font-[400] text-base text-white">
+              8
+            </button>
+          </div>
+
+          <button className="h-full flex items-center justify-center w-[40px]">
+            <img
+              src="/chevron_right.svg"
+              alt=""
+              className="w-[24px] h-[24px] object-contain"
+            />
+          </button>
+        </div>
       </div>
 
       <Footer />

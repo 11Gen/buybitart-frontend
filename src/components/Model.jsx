@@ -13,12 +13,12 @@ const Model = ({ btcRef }) => {
 
     return () => {
       if (btcRef.current?.model) {
-        btcRef.current.model.dispose(); // Clean up the WebGL context when unmounting
-        btcRef.current = null; // Reset the reference
+        btcRef.current.model.dispose();
+        btcRef.current = null;
         console.log('Model cleaned up');
       }
     };
-  }, [btcRef]); // Ensure this runs when the component is rendered or btcRef changes
+  }, [btcRef]);
 
   return (
     <div className={`w-full min-h-[50vh] md:h-full overflow-hidden relative flex items-center justify-center xl:scale-100 sm:scale-90`}>

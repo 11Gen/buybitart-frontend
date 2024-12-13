@@ -14,15 +14,18 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-::-webkit-scrollbar {
-  background: #000;
-  width: 7px;
+body::-webkit-scrollbar {
+  background: #00000000;
+  width: 14px;
 }
 
-::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb {
   background: #1a1a1a;
-  border-radius: 10px;
+  border: 4px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+  border-radius: 9999px;
 }
+
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -37,6 +40,22 @@
 body {
   width: 100%;
   min-height: 100vh;
+  /* overflow-x: hidden; */
+  overflow-anchor: none;
+  -webkit-overflow-scrolling:touch;
+}
+
+@media screen and (min-width: 960px) {
+  #scrollItemsCart::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  #scrollItemsCart::-webkit-scrollbar-thumb {
+    background: #d7d7d7;
+    border: 3px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+    border-radius: 9999px;
+  }
 }
 
 html {
@@ -52,3 +71,27 @@ html {
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
 }
+
+.indicatorL {
+  position: relative;
+}
+
+.indicatorL::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -7px;
+  width: 7px;
+  height: 7px;
+  background: #FCCB00;
+  border-radius: 2px;
+  transform: translateY(-50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 250ms ease 0s;
+}
+
+.indicatorL.active::before {
+  opacity: 1;
+  visibility: visible;
+} 
