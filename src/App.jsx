@@ -5,6 +5,13 @@ import ScrollToPlugin from "gsap/ScrollToPlugin";
 import { useLocation, useRoutes } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import "./App.css";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+
 import Home from "./pages/Home";
 import Nav from "./components/Nav";
 import Shop from "./pages/Shop";
@@ -13,6 +20,8 @@ import Product from "./pages/Product";
 import { motion } from "framer-motion";
 import useResponsive from "./hooks/useResponsive";
 import useLocalStorage from "use-local-storage";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -32,7 +41,7 @@ const App = () => {
     },
     {
       path: "/shop/:hash",
-      element: <Product />,
+      element: <Product setCart={setCart} cart={cart} />,
     },
   ]);
 
@@ -119,6 +128,19 @@ const App = () => {
           </AnimatePresence>
         </>
       )}
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        newestOnTop={false}
+        closeOnClick
+        hideProgressBar
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </>
   );
 };

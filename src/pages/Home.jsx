@@ -8,9 +8,6 @@ import ContactForm from "../components/ContactForm";
 import useResponsive from "../hooks/useResponsive";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { products } from "../utils/data";
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
 
 const Home = ({setCart, cart}) => {
   const btcRef = useRef();

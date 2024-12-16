@@ -8,7 +8,7 @@ const Nav = ({ cart, setCart }) => {
   const location = useLocation();
   const [isSolidBG, setIsSolidBG] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isAuthOpen, setIsAuthOpen] = useState(true);
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
 
   function popupCartOpen() {
     setIsCartOpen(true);

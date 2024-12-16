@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import CartItem from "./CartItem";
-import { products } from "../utils/data";
 import { Link } from "react-router-dom";
 
 const Cart = ({ isCartOpen, cart, setCart, popupClose }) => {

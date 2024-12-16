@@ -181,7 +181,7 @@ const Auth = ({ isAuthOpen, popupClose, setIsAuthOpen }) => {
 
             <div className="w-full h-auto flex gap-1.5 items-center text-base justify-center font-main leading-[19.2px]">
               <span className="font-[300] text-[#D8D8D8]">
-                Dont’t have an account?
+                Already have an account?
               </span>
               <button
                 onClick={setLogin}

@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useResponsive from "../hooks/useResponsive";
+import { toast } from "react-toastify";
+import PriceLabel from "./PriceLabel";
 
 const CardShow = ({ data, setCart, cart }) => {
   const { isSmallMobile, isMobile } = useResponsive();
   const [isAdded, setIsAdded] = useState(
     Boolean(cart.find((item) => item.hash === data.hash))
   );
+  const shortName = data.hash.split("-");
+  const capitalizeShortName = shortName
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
 
   function addToCart() {
     setIsAdded(true);
     const exsistedOne = cart.find((item) => item.hash === data.hash);
+    toast.success(`"${capitalizeShortName}" Added to cart`);
     if (exsistedOne)
       return setCart(
         cart.map((item) =>
@@ -52,13 +59,7 @@ const CardShow = ({ data, setCart, cart }) => {
           </div>
         </Link>
         <div className="w-full h-auto flex justify-between items-center z-[1] relative mt-2">
-          <Link
-            to={`/shop/${data.hash}`}
-            className="flex w-max h-[32px] rounded-[20px] p-1 pr-2.5 gap-[8px] items-center z-[1] relative bg-[#2c2c2e]"
-          >
-            <img src="/btcIcon.png" alt="" className="w-[24px] h-[24px]" />
-            <span className="font-main font-[400]">{data.price}</span>
-          </Link>
+          <PriceLabel IsCardHash={data.hash} price={data.price} />
           <button
             onClick={addToCart}
             className={`py-[3px] px-2 ${
