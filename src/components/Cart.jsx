@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import CartItem from "./CartItem";
 import { Link } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 
 const Cart = ({ isCartOpen, cart, setCart, popupClose }) => {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -25,8 +26,9 @@ const Cart = ({ isCartOpen, cart, setCart, popupClose }) => {
         <div className="flex w-full h-auto items-center justify-between">
           <h4 className="font-main text-2xl leading-[29px] font-[600] uppercase relative">
             Cart
-
-            <span className="absolute font-[200] text-sm top-1/2 -translate-y-1/2 right-[-55px] tracking-wide capitalize opacity-60">{cart.length} items</span>
+            <span className="absolute font-[200] text-sm top-1/2 -translate-y-1/2 right-[-55px] tracking-wide capitalize opacity-60">
+              {cart.length} items
+            </span>
           </h4>
 
           <button
@@ -42,36 +44,39 @@ const Cart = ({ isCartOpen, cart, setCart, popupClose }) => {
           </button>
         </div>
 
-          <div
-            className="flex flex-col w-full sm:gap-6 gap-8 h-full flex-1 max-h-[540px] overflow-y-auto"
-            id="scrollItemsCart"
-            style={{
-              overflowY: "auto",
-              maxHeight: "540px",
-            }}
-          >
-            {cart.length ? (
-              cart.map((product, index) => (
-                <CartItem
-                  data={product}
-                  key={index}
-                  cart={cart}
-                  setCart={setCart}
-                />
-              ))
-            ) : (
-              <div className="w-full h-full flex flex-col gap-2 flex-1 justify-center items-center">
-                <img
-                  src="/empty-box.svg"
-                  alt=""
-                  className="w-full h-full max-h-[170px] sm:max-h-[225px] object-contain invert opacity-40"
-                />
-                <p className="font-main sm:text-xl text-lg font-[300] opacity-40">
-                  No products added to cart yet.
-                </p>
-              </div>
-            )}
-          </div>
+        <div
+          className="flex flex-col w-full sm:gap-6 gap-8 h-full flex-1 max-h-[540px] overflow-y-auto"
+          id="scrollItemsCart"
+          style={{
+            overflowY: "auto",
+            maxHeight: "540px",
+          }}
+        >
+          {cart.length ? (
+            <AnimatePresence>
+              {cart.map((product, index) => (
+              <CartItem
+                data={product}
+                key={product.title}
+                cart={cart}
+                setCart={setCart}
+                index={index}
+              />
+              ))}
+            </AnimatePresence>
+          ) : (
+            <div className="w-full h-full flex flex-col gap-2 flex-1 justify-center items-center">
+              <img
+                src="/empty-box.svg"
+                alt=""
+                className="w-full h-full max-h-[170px] sm:max-h-[225px] object-contain invert opacity-40"
+              />
+              <p className="font-main sm:text-xl text-lg font-[300] opacity-40">
+                No products added to cart yet.
+              </p>
+            </div>
+          )}
+        </div>
 
         <img
           src="/line.svg"
@@ -98,6 +103,7 @@ const Cart = ({ isCartOpen, cart, setCart, popupClose }) => {
 
           <Link
             to="/payment"
+            onClick={popupClose}
             className="w-auto h-[40px] rounded-full py-[10px] px-6 bg-[#FCCB00] text-[#522700] hover:bg-[#D4A900] hover:text-[#1C1600] transition-colors duration-[250ms] font-main font-[600] text-base text-center flex justify-center items-center"
           >
             Pay

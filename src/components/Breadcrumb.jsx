@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 
-const Breadcamp = () => {
+const Breadcamp = ({auction}) => {
   const {hash} = useParams();
   return (
     <div className="w-auto h-auto flex items-center gap-2 font-main text-base leading-[19.2px] font-[400]">
@@ -62,7 +62,7 @@ const Breadcamp = () => {
         </g>
       </svg>
       <span className="capitalize text-[#fff]">
-        {hash.split("-").join(" ")}
+        {hash.split("-").join(" ")} {auction ? '(Auction)' : ''}
       </span>
     </div>
   );

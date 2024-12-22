@@ -9,7 +9,6 @@ import "./App.css";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
-import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
 import Home from "./pages/Home";
@@ -22,6 +21,10 @@ import useResponsive from "./hooks/useResponsive";
 import useLocalStorage from "use-local-storage";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import About from "./pages/About";
+import Auction from "./pages/Auction";
+import Payment from "./pages/Payment";
+import Admin from "./pages/Admin";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -42,6 +45,26 @@ const App = () => {
     {
       path: "/shop/:hash",
       element: <Product setCart={setCart} cart={cart} />,
+    },
+    {
+      path: "/auction/:hash",
+      element: <Auction />,
+    },
+    {
+      path: "/about",
+      element: <About />,
+    },
+    {
+      path: "/payment",
+      element: <Payment cart={cart} />,
+    },
+    {
+      path: "/payment",
+      element: <Payment cart={cart} />,
+    },
+    {
+      path: import.meta.env.VITE_ADMIN_ROUTE,
+      element: <Admin />,
     },
   ]);
 

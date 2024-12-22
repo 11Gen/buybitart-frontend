@@ -11,17 +11,19 @@ const variants = {
 
 const Modal = ({ children, isOpen }) => {
   const lenis = useLenis();
-  const { isMobile } = useResponsive();
+  const { isMobile, isBigLaptop } = useResponsive();
 
   useEffect(() => {
     if (!isMobile) {
       if (isOpen) {
         document.documentElement.style.overflow = "hidden";
+        document.querySelector('.navBar').style.paddingRight = isBigLaptop ? "" : "calc(6.25rem + 14px)";
         lenis?.stop();
         ScrollTrigger.normalizeScroll(false);
       } else {
         lenis?.start();
         document.documentElement.style.overflow = "";
+        document.querySelector('.navBar').style.paddingRight = "";
         ScrollTrigger.normalizeScroll(true);
       }
 

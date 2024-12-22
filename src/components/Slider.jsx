@@ -34,7 +34,7 @@ const Slider = ({ data, sliderRef, sliderContainerRef }) => {
   }, []);
 
   return (
-    <div className="w-full max-w-[768px] h-[622px] flex flex-col gap-6 items-center" ref={sliderContainerRef}>
+    <div className="w-full 2xl:max-w-[768px] max-w-[628px] 2xl:h-[622px] h-[522px] flex flex-col gap-6 items-center" ref={sliderContainerRef}>
       <Swiper
         spaceBetween={10}
         loop={true}

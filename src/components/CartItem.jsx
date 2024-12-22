@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import useResponsive from "../hooks/useResponsive";
+import { useAnimate, usePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
-const CartItem = ({ data, cart, setCart }) => {
+const CartItem = ({ data, cart, setCart, index }) => {
   const [qty, setQty] = useState(data.quantity);
   const { isSmallMobile } = useResponsive();
+  const [isPresent, safeToRemove] = usePresence();
+  const [scope, animate] = useAnimate();
 
   useEffect(() => {
     if (qty !== data.quantity) setQty(data.quantity);
@@ -23,8 +27,47 @@ const CartItem = ({ data, cart, setCart }) => {
     setCart(cart.filter((item) => item.hash !== data.hash));
   }
 
+  useEffect(() => {
+    if (!isPresent) {
+      const exitAnimation = async () => {
+        await animate(
+          scope.current,
+          {
+            opacity: 0,
+            x: -24,
+          },
+          {
+            delay: index * 0.15,
+          }
+        );
+        safeToRemove();
+      };
+
+      exitAnimation();
+    } else {
+      const enterAnimation = async () => {
+        await animate(
+          scope.current,
+          {
+            opacity: [0, 1],
+            x: [-24, 0],
+          },
+          {
+            delay: index * 0.15,
+          }
+        );
+      };
+
+      enterAnimation();
+    }
+  }, [isPresent]);
+
   return (
-    <div className="w-full sm:h-[258px] h-auto flex sm:flex-row flex-col sm:gap-8 gap-3">
+    <motion.div
+      ref={scope}
+      layout
+      className="w-full sm:h-[258px] h-auto flex sm:flex-row flex-col sm:gap-8 gap-3"
+    >
       <div className="w-full h-auto flex sm:gap-8 gap-2">
         <img
           src={data.image}
@@ -184,7 +227,7 @@ const CartItem = ({ data, cart, setCart }) => {
           <span>{data.price}</span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

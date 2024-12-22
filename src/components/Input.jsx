@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Input = ({type, placeholder, className, id}) => {
+const Input = ({type, placeholder, className, id, autocomplete}) => {
   return (
     <>
-      <input type={type} placeholder={placeholder} className={className} id={id} />
+      <input type={type} placeholder={placeholder} className={className} id={id} autoComplete={autocomplete} />
     </>
   )
 }

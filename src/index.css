@@ -40,9 +40,6 @@ body::-webkit-scrollbar-thumb {
 body {
   width: 100%;
   min-height: 100vh;
-  /* overflow-x: hidden; */
-  overflow-anchor: none;
-  -webkit-overflow-scrolling:touch;
 }
 
 @media screen and (min-width: 960px) {
@@ -100,10 +97,58 @@ html {
   visibility: visible;
 } 
 
+.indicatorR {
+  position: relative;
+}
+
+.indicatorR::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 10.5px;
+  width: 7px;
+  height: 7px;
+  background: #FCCB00;
+  border-radius: 2px;
+  transform: translateY(-50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 250ms ease 0s;
+}
+
+.indicatorR.active::before {
+  opacity: 1;
+  visibility: visible;
+  transition: all 250ms ease 0.3s;
+} 
+
+
 .thumbS .swipper-wrapper {
   margin: 0 auto !important;
 }
 
 .dropShadowCustom {
   filter: drop-shadow(0px 0px 10px #000);
+}
+
+.sliderSwitch:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  border-radius: 20px;
+  left: 0.15em;
+  bottom: 0.1em;
+  background-color: #adb5bd;
+  transition: .3s;
+}
+
+.inpCheckSwitch:checked + .sliderSwitch {
+  background-color: #FCCB00;
+  border: 1px solid #FCCB00;
+}
+
+.inpCheckSwitch:checked + .sliderSwitch:before {
+  transform: translateX(1.15em);
+  background-color: #fff;
 }

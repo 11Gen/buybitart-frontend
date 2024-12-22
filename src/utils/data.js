@@ -289,3 +289,133 @@ export const products = [
 `
   },
 ];
+
+export const productsAuction = [
+  {
+    image:
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/IMG_2234-528x427.jpg.webp",
+    color: "#f7c46b",
+    title: "Painting-Embroidery «Sunny El Salvador and Bitcoin»",
+    allImages: [
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/IMG_2234-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/IMG_2235-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/IMG_2236-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/IMG_2237-528x427.jpg.webp",
+    ],
+    video: "https://5ksana.art/wp-content/uploads/2024/05/Sunny-Bitcoin.mp4",
+    hash: "sunny-btc",
+    price: "0.0450BTC",
+    dimensions: "35x42",
+    delivery: "International-Free",
+    timeToEnd: '2 days',
+    description: `<p>El Salvador became the first country to embrace Bitcoin as legal tender, marking a bold step toward a new financial future where innovation and opportunity converge.</p>
+
+    <span>Material:</span>
+        <ul>
+            <span>– piece of fabric;</span> <br/>
+            <span>– beads;</span> <br/>
+            <span>– sequins;</span> <br/>
+            <span>– crystal;</span> <br/>
+            <span>– metallic theards;</span> <br/>
+            <span>– wood frame.</span>
+        </ul>
+     `,
+  },
+  {
+    image:
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_0538-528x427.jpg.webp",
+    color: "#494c60",
+    title: "Painting-Embroidery «Fiery Bitcoin»",
+    allImages: [
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_0538-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_0541-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_0540-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_0539-528x427.jpg.webp",
+    ],
+    video: "https://5ksana.art/wp-content/uploads/2024/04/btc.mp4",
+    hash: "fiery-bitcoin",
+    price: "0.0500BTC",
+    dimensions: "55x50",
+    timeToEnd: '23 hours',
+    delivery: "International-Free",
+    description: `<p>Painting  “Fiery Bitcoin”  embroidered and decorated with beads, rhinestones and Swarovski stones</p>
+
+                  <p>Embroidery is a decorative needlecraft that uses yarn or thread on canvas or fabric, but can also
+                  incorporate materials such as beads, pearls, or ribbon.</p>
+
+                  <span>Materials:</span>
+
+                  <ul>
+                    <span>- fabric</span><br/>
+                    <span>- beads Preciosa</span><br/>
+                    <span>- threads Tytan 100 for bead embroidery</span><br/>
+                    <span>- needles for beadwork</span><br/>
+                    <span>- Swarovski stones</span><br/>
+                    <span>- Rhinestones</span><br/>
+                  </ul>
+
+                  <p>«And maybe, – the first woman has started talking, – soul of the person lives in his hands?
+                  Because all, what we do in peace, we do hands». <br/> (c) Ray Bradbury “Embroider”</p>
+`
+  },
+  {
+    image:
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9177-528x427.jpg.webp",
+    color: "#4dacf0",
+    title: "Painting-Embroidery «World of Bitcoin»",
+    allImages: [
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9177-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9184-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9180-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9178-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9174-528x427.jpg.webp",
+    ],
+    hash: "world-of-bitcoin",
+    price: "0.0800BTC",
+    dimensions: "35x50",
+    timeToEnd: '1 hour',
+    delivery: "International-Free",
+    description: `<p>«World of Bitcoin» is a cool artwork that mixes Bitcoin with space stuff. In the middle, there’s a shiny Bitcoin symbol that looks like an eye in the sky, kind of like the stars. The picture shows space looking awesome, like the digital money world is huge. There’s a big explosion thing too, showing how Bitcoin shakes up things, like when stars are born.</p>
+
+                  <span>Materials:</span>
+
+                  <ul>
+                    <span>- Threads DMC” New Colors ” Embroidery Floss Pack;</span><br/>
+                    <span>- DMC Gold Embroidery Hand Needles;</span><br/>
+                    <span>- Fabric;</span><br/>
+                    <span>- Handmade decorative frame.</span>
+                  </ul>
+                 `
+  },
+  {
+    image:
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9691-528x427.jpg.webp",
+    color: "#d54c61",
+    title: "Painting-Embroidery «The Girl with the BITCOIN eye»",
+    allImages: [
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9691-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9685-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9687-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9637-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9638-528x427.jpg.webp",
+    ],
+    hash: "girl-with-btc-eye",
+    price: "0.0500BTC",
+    dimensions: "50x20",
+    timeToEnd: '3 weeks',
+    delivery: "International-Free",
+    description: `<p>“The Girl with the Bitcoin Eye” is a painting-embroidery created in the diptych technique. It consists of two parts, each of which represents a separate painting</p>
+
+                  <p>The girl’s eye is depicted as a symbolic Bitcoin. This digital symbol of financial revolution becomes an integral part of her gaze, reflecting the new technologies and digital era we live in.</p>
+
+                  <span>Materials:</span>
+
+                  <ul>
+                    <span>- Threads DMC” New Colors ” Embroidery Floss Pack;</span><br/>
+                    <span>- DMC Gold Embroidery Hand Needles;</span><br/>
+                    <span>- Fabric</span><br/>
+                    <span>- Handmade decorative frame</span>
+                  </ul>
+`
+  },
+];

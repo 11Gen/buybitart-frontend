@@ -1,18 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import CategoryButton from "../components/CategoryButton";
 import Footer from "../components/Footer";
 import CardProduct from "../components/CardProduct";
-import { products } from "../utils/data";
+import { products, productsAuction } from "../utils/data";
 import useResponsive from "../hooks/useResponsive";
 import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
+import { AnimatePresence } from "framer-motion";
 
-const Shop = ({setCart, cart}) => {
+const Shop = ({ setCart, cart }) => {
   const [currentCategory, setCurrentCategory] = useState(null);
   const [isAuction, setIsAuction] = useState(true);
-  const [page, setPage] = useState(1)
+  const [auctionProducts, setAuctionProducts] = useState([...productsAuction]);
+  const [page, setPage] = useState(1);
   const { isMobile } = useResponsive();
 
   const categories = [
@@ -30,7 +29,6 @@ const Shop = ({setCart, cart}) => {
     "category",
     "category",
   ];
-  
 
   return (
     <div className="w-[100vw] h-full contShop">
@@ -125,9 +123,27 @@ const Shop = ({setCart, cart}) => {
       </div>
 
       <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 w-full px-[16px] xl:px-[6.25rem] relative mt-[37px] mb-[47px]">
-        {(products || []).map((product, index) => (
-          <CardProduct data={product} key={index} setCart={setCart} cart={cart} />
-        ))}
+        <AnimatePresence>
+          {(isAuction ? auctionProducts : []).map((product, index) => (
+            <CardProduct
+              data={product}
+              key={product.timeToEnd}
+              setCart={setCart}
+              cart={cart}
+              index={index}
+              auction
+            />
+          ))}
+          {(products || []).map((product, index) => (
+            <CardProduct
+              data={product}
+              key={index}
+              setCart={setCart}
+              index={index}
+              cart={cart}
+            />
+          ))}
+        </AnimatePresence>
       </div>
 
       <div className="w-full flex justify-center items-center h-auto px-[16px] xl:px-[6.25rem] mb-[53px]">

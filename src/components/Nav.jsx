@@ -3,12 +3,16 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import Modal from "./Modal";
 import Cart from "./Cart";
 import Auth from "./Auth";
+import useResponsive from "../hooks/useResponsive";
 
 const Nav = ({ cart, setCart }) => {
   const location = useLocation();
   const [isSolidBG, setIsSolidBG] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const {isBigLaptop} = useResponsive();
 
   function popupCartOpen() {
     setIsCartOpen(true);
@@ -26,7 +30,19 @@ const Nav = ({ cart, setCart }) => {
     setIsAuthOpen(false);
   }
 
+  function menuToggle() {
+    setIsMenuOpen(!isMenuOpen);
+    if(!isMenuOpen) document.documentElement.style.overflow = "hidden";
+    else document.documentElement.style.overflow = "";
+  }
+
+  function menuClose() {
+    setIsMenuOpen(false);
+    document.documentElement.style.overflow = "";
+  }
+
   useEffect(() => {
+    if(isMenuOpen) setIsMenuOpen(false);
     if (location.pathname == "/shop") return setIsSolidBG(true);
 
     return setIsSolidBG(false);
@@ -35,14 +51,14 @@ const Nav = ({ cart, setCart }) => {
   return (
     <>
       <nav
-        className={`w-full xl:h-[65px] border-b-[1px] h-[52px] fixed inset-0 px-[16px] xl:px-[6.25rem] py-[0.781rem] flex justify-between z-[1000] ${
+        className={`w-full xl:h-[65px] border-b-[1px] h-[52px] fixed inset-0 px-[16px] xl:px-[6.25rem] py-[0.781rem] navBar flex justify-between z-[1000] ${
           isSolidBG
             ? "bg-black border-[#ffffff00]"
             : "webkitBgBlurIos16 border-[#FFFFFF1A]"
         }`}
       >
-        <div className="logo w-auto h-full relative">
-          <Link to={"/"}>
+        <div className="logo w-auto h-full relative z-[2]">
+          <Link to={"/"} onClick={isBigLaptop ? menuClose : null}>
             <img
               src="/logo.svg"
               alt=""
@@ -51,7 +67,7 @@ const Nav = ({ cart, setCart }) => {
             />
           </Link>
         </div>
-        <div className="w-auto flex h-full items-center gap-[3.75rem]">
+        <div className="w-auto flex h-full items-center gap-[3.75rem] z-[2]">
           <div className="xl:flex h-auto w-auto items-center gap-6 font-main uppercase font-[500] hidden">
             <NavLink
               to={"/shop"}
@@ -95,7 +111,10 @@ const Nav = ({ cart, setCart }) => {
             </NavLink>
           </div>
 
-          <button onClick={popupAuthOpen} className="hidden xl:flex font-main rounded-[1.25rem] w-[107px] h-[40px] bg-[#FCCB00] text-[#522700] font-[600] items-center justify-center hover:bg-[#D4A900] hover:text-[#1C1600] transition-colors duration-[250ms]">
+          <button
+            onClick={popupAuthOpen}
+            className="hidden xl:flex font-main rounded-[1.25rem] w-[107px] h-[40px] bg-[#FCCB00] text-[#522700] font-[600] items-center justify-center hover:bg-[#D4A900] hover:text-[#1C1600] transition-colors duration-[250ms]"
+          >
             Login
           </button>
 
@@ -144,14 +163,88 @@ const Nav = ({ cart, setCart }) => {
                 {cart.length}
               </span>
             </button>
-            <button className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#212121] transition-colors duration-[250ms] justify-center items-center xl:hidden flex">
-              <div className="xl:w-[24px] w-[28px] xl:h-[24px] h-[28px] relative flex flex-col justify-center items-center gap-1.5">
-                <div className="w-full h-[1.5px] relative bg-white" />
-                <div className="w-full h-[1.5px] relative bg-white" />
-                <div className="w-full h-[1.5px] relative bg-white" />
+            <button
+              className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group transition-colors duration-[250ms] justify-center items-center xl:hidden flex"
+              onClick={menuToggle}
+            >
+              <div className="xl:w-[24px] w-[28px] xl:h-[24px] h-[28px] relative flex flex-col justify-center items-center gap-1.5 top-[2px]">
+                <div
+                  className={`w-full h-[1px] absolute left-1/2 -translate-x-[50%] transition-[top,transform] duration-500 bg-white ${
+                    isMenuOpen ? "top-[12px] rotate-45" : "top-[6px]"
+                  }`}
+                />
+                <div
+                  className={`w-full h-[1px] absolute top-[12px] left-1/2  bg-white transition-[opacity,transform,visibility] duration-500 -translate-x-[50%] ${
+                    isMenuOpen
+                      ? "opacity-0 invisible -translate-x-[-350%]"
+                      : "opacity-100 visible"
+                  }`}
+                />
+                <div
+                  className={`w-full h-[1px] absolute left-1/2 -translate-x-[50%] transition-[top,transform] duration-500 bg-white ${
+                    isMenuOpen ? "top-[12px] -rotate-45" : "top-[18px]"
+                  }`}
+                />
               </div>
             </button>
           </div>
+        </div>
+
+        <div
+          className={`w-full h-[calc(310px+52px)] absolute left-0 bg-black border-b-[1px] border-b-[#ffffff1A] pt-[52px] flex flex-col gap-6 px-[16px] transition-[top,opacity,visibility] duration-700 ${isMenuOpen ? 'top-0 opacity-100 visible pointer-events-auto' : '-top-[calc(310px+52px+10px)] opacity-0 invisible pointer-events-none'}`}
+        >
+          <div className="flex flex-col gap-3 w-full h-auto mt-[12px] relative font-main font-[400]">
+            <NavLink
+              to={"/shop"}
+              onClick={menuClose}
+              className={({ isActive }) =>
+                `p-[10px] indicatorR transition-colors duration-[250ms] rounded-lg ${
+                  isActive ? "active bg-[#FFFFFF1A]" : ""
+                }`
+              }
+            >
+              Shop
+            </NavLink>
+            <NavLink
+              to={"/gallery"}
+              onClick={menuClose}
+              className={({ isActive }) =>
+                `p-[10px] indicatorR transition-colors duration-[250ms] rounded-lg ${
+                  isActive ? "active bg-[#FFFFFF1A]" : ""
+                }`
+              }
+            >
+              Bitcoin art gallery
+            </NavLink>
+            <NavLink
+              to={"/contact"}
+              onClick={menuClose}
+              className={({ isActive }) =>
+                `p-[10px] indicatorR transition-colors duration-[250ms] rounded-lg ${
+                  isActive ? "active bg-[#FFFFFF1A]" : ""
+                }`
+              }
+            >
+              Contact
+            </NavLink>
+            <NavLink
+              to={"/about"}
+              onClick={menuClose}
+              className={({ isActive }) =>
+                `p-[10px] indicatorR transition-colors duration-[250ms] rounded-lg ${
+                  isActive ? "active bg-[#FFFFFF1A]" : ""
+                }`
+              }
+            >
+              About me
+            </NavLink>
+          </div>
+          <button
+            onClick={popupAuthOpen}
+            className="flex font-main rounded-[1.25rem] w-full h-[40px] bg-[#FCCB00] text-[#522700] font-[600] items-center justify-center hover:bg-[#D4A900] hover:text-[#1C1600] transition-colors duration-[250ms]"
+          >
+            Login
+          </button>
         </div>
       </nav>
 
