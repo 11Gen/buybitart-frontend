@@ -8,7 +8,7 @@ const About = () => {
       <div className="w-[100vw] h-full">
         <div className="w-full h-full relative mt-[calc(52px+50px)] xl:mt-[calc(65px+50px)] px-[16px] xl:px-[6.25rem] sm:mb-10 mb-20">
           <div className="w-full h-auto flex flex-col lg:gap-8 sm:gap-6 gap-4 relative">
-            <h2 className="font-main uppercase lg:text-6xl sm:text-4xl text-3xl font-[600] tracking-wide">
+            <h2 className="font-main uppercase sm:text-4xl text-3xl font-[600] tracking-wide">
               About Me
             </h2>
 

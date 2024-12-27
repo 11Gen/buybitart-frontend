@@ -15,7 +15,7 @@ const Slider = ({ data, sliderRef, sliderContainerRef }) => {
   const mainSlider = useRef();
 
   const slides = useMemo(
-    () => [data.video ? data.video : null, ...data.allImages].filter(Boolean),
+    () => [data.video ? data.video : null, ...data.images].filter(Boolean),
     [data]
   );
 
@@ -53,7 +53,7 @@ const Slider = ({ data, sliderRef, sliderContainerRef }) => {
                 height="100%"
                 className="w-full h-full object-cover"
                 controls
-                light={data.image}
+                light={data.images[0]}
               />
             ) : (
               <img
@@ -101,7 +101,7 @@ const Slider = ({ data, sliderRef, sliderContainerRef }) => {
               key={index}
             >
               <img
-                src={item.includes(".mp4") ? data.image : item}
+                src={item.includes(".mp4") ? data.images[0] : item}
                 className={`w-full h-full ${
                   item.includes(".mp4") ? "object-scale-down" : "object-cover"
                 }`}

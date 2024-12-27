@@ -1,8 +1,6 @@
 export const products = [
   {
-    image: "/product1.png",
-    color: "#bea2ff",
-    allImages: [
+    images: [
       "/product1.png",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/08/IMG_4374-5-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/08/IMG_4372-4-528x427.jpg.webp",
@@ -35,10 +33,7 @@ export const products = [
                   `,
   },
   {
-    image:
-      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_2057-528x427.jpg.webp",
-    color: "#efe7d2",
-    allImages: [
+    images: [
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_2057-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/image-17-04-24-11-45-528x427.jpeg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_2055-528x427.jpg.webp",
@@ -54,11 +49,8 @@ export const products = [
       "<b>My Painting – Embroidery  «Hal Finney» dedication pays tribute to the legendary cryptographer Hal Finney</b>",
   },
   {
-    image:
-      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/image-12-04-24-18-44-528x427.png.webp",
-    color: "#3a6295",
     title: "Painting-Embroidery «Genesis block»",
-    allImages: [
+    images: [
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/image-12-04-24-18-44-528x427.png.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/IMG_1793-1-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/IMG_1794-528x427.jpg.webp",
@@ -72,11 +64,8 @@ export const products = [
                     QR-CODE Shatoshi’s Nakamoto bitcoin address 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa, which is the address Satoshi used to receive the 50 BTC reward from mining the first block on the Bitcoin blockchain. This block is also known as the genesis block</p>`,
   },
   {
-    image:
-      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/IMG_2228-528x427.jpg.webp",
-    color: "#efe7d2",
     title: "Painting-Embroidery «Bitcoin’s Specialty Pizza Challenge»",
-    allImages: [
+    images: [
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/IMG_2228-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/IMG_2230-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/IMG_2231-528x427.jpg.webp",
@@ -99,15 +88,11 @@ export const products = [
                     <span>– theards;</span><br/>
                     <span>– wood frame.</span>
                   </ul>
-`
-
+`,
   },
   {
-    image:
-      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/IMG_2234-528x427.jpg.webp",
-    color: "#f7c46b",
     title: "Painting-Embroidery «Sunny El Salvador and Bitcoin»",
-    allImages: [
+    images: [
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/IMG_2234-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/IMG_2235-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/IMG_2236-528x427.jpg.webp",
@@ -132,11 +117,8 @@ export const products = [
      `,
   },
   {
-    image:
-      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_0538-528x427.jpg.webp",
-    color: "#494c60",
     title: "Painting-Embroidery «Fiery Bitcoin»",
-    allImages: [
+    images: [
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_0538-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_0541-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_0540-528x427.jpg.webp",
@@ -165,14 +147,11 @@ export const products = [
 
                   <p>«And maybe, – the first woman has started talking, – soul of the person lives in his hands?
                   Because all, what we do in peace, we do hands». <br/> (c) Ray Bradbury “Embroider”</p>
-`
+`,
   },
   {
-    image:
-      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9177-528x427.jpg.webp",
-    color: "#4dacf0",
     title: "Painting-Embroidery «World of Bitcoin»",
-    allImages: [
+    images: [
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9177-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9184-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9180-528x427.jpg.webp",
@@ -193,14 +172,11 @@ export const products = [
                     <span>- Fabric;</span><br/>
                     <span>- Handmade decorative frame.</span>
                   </ul>
-                 `
+                 `,
   },
   {
-    image:
-      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_1490-528x427.jpg.webp",
-    color: "#e8dfae",
     title: "Painting «BULLCOIN»",
-    allImages: [
+    images: [
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_1490-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_0532-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_0533-528x427.jpg.webp",
@@ -225,14 +201,11 @@ export const products = [
                     <span>– physical coins (2 pcs.) of Bitcoin ( Denarium 2015)</span><br/>
                     <span>– wood frame.</span><br/>
                   </ul>
-`
+`,
   },
   {
-    image:
-      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_0543-528x427.jpg.webp",
-    color: "#afc3dc",
     title: "Painting «BITWINGS» (TGBEX physical coin – 1 BITCOIN)",
-    allImages: [
+    images: [
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_0543-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_0542-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_0544-528x427.jpg.webp",
@@ -256,14 +229,11 @@ export const products = [
                         <span>– TGBEX physical coin – 1 bitcoin (UNLOADED & UNNUMBERED)</span><br/>
                         <span>– wood frame.</span>
                   </ul>
-                 `
+                 `,
   },
   {
-    image:
-      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9691-528x427.jpg.webp",
-    color: "#d54c61",
     title: "Painting-Embroidery «The Girl with the BITCOIN eye»",
-    allImages: [
+    images: [
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9691-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9685-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9687-528x427.jpg.webp",
@@ -286,17 +256,14 @@ export const products = [
                     <span>- Fabric</span><br/>
                     <span>- Handmade decorative frame</span>
                   </ul>
-`
+`,
   },
 ];
 
 export const productsAuction = [
   {
-    image:
-      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/IMG_2234-528x427.jpg.webp",
-    color: "#f7c46b",
     title: "Painting-Embroidery «Sunny El Salvador and Bitcoin»",
-    allImages: [
+    images: [
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/IMG_2234-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/IMG_2235-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/05/IMG_2236-528x427.jpg.webp",
@@ -307,7 +274,7 @@ export const productsAuction = [
     price: "0.0450BTC",
     dimensions: "35x42",
     delivery: "International-Free",
-    timeToEnd: '2 days',
+    timeToEnd: "2 days",
     description: `<p>El Salvador became the first country to embrace Bitcoin as legal tender, marking a bold step toward a new financial future where innovation and opportunity converge.</p>
 
     <span>Material:</span>
@@ -322,11 +289,8 @@ export const productsAuction = [
      `,
   },
   {
-    image:
-      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_0538-528x427.jpg.webp",
-    color: "#494c60",
     title: "Painting-Embroidery «Fiery Bitcoin»",
-    allImages: [
+    images: [
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_0538-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_0541-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_0540-528x427.jpg.webp",
@@ -336,7 +300,7 @@ export const productsAuction = [
     hash: "fiery-bitcoin",
     price: "0.0500BTC",
     dimensions: "55x50",
-    timeToEnd: '23 hours',
+    timeToEnd: "23 hours",
     delivery: "International-Free",
     description: `<p>Painting  “Fiery Bitcoin”  embroidered and decorated with beads, rhinestones and Swarovski stones</p>
 
@@ -356,14 +320,11 @@ export const productsAuction = [
 
                   <p>«And maybe, – the first woman has started talking, – soul of the person lives in his hands?
                   Because all, what we do in peace, we do hands». <br/> (c) Ray Bradbury “Embroider”</p>
-`
+`,
   },
   {
-    image:
-      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9177-528x427.jpg.webp",
-    color: "#4dacf0",
     title: "Painting-Embroidery «World of Bitcoin»",
-    allImages: [
+    images: [
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9177-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9184-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9180-528x427.jpg.webp",
@@ -373,7 +334,7 @@ export const productsAuction = [
     hash: "world-of-bitcoin",
     price: "0.0800BTC",
     dimensions: "35x50",
-    timeToEnd: '1 hour',
+    timeToEnd: "1 hour",
     delivery: "International-Free",
     description: `<p>«World of Bitcoin» is a cool artwork that mixes Bitcoin with space stuff. In the middle, there’s a shiny Bitcoin symbol that looks like an eye in the sky, kind of like the stars. The picture shows space looking awesome, like the digital money world is huge. There’s a big explosion thing too, showing how Bitcoin shakes up things, like when stars are born.</p>
 
@@ -385,14 +346,11 @@ export const productsAuction = [
                     <span>- Fabric;</span><br/>
                     <span>- Handmade decorative frame.</span>
                   </ul>
-                 `
+                 `,
   },
   {
-    image:
-      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9691-528x427.jpg.webp",
-    color: "#d54c61",
     title: "Painting-Embroidery «The Girl with the BITCOIN eye»",
-    allImages: [
+    images: [
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9691-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9685-528x427.jpg.webp",
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9687-528x427.jpg.webp",
@@ -402,7 +360,7 @@ export const productsAuction = [
     hash: "girl-with-btc-eye",
     price: "0.0500BTC",
     dimensions: "50x20",
-    timeToEnd: '3 weeks',
+    timeToEnd: "3 weeks",
     delivery: "International-Free",
     description: `<p>“The Girl with the Bitcoin Eye” is a painting-embroidery created in the diptych technique. It consists of two parts, each of which represents a separate painting</p>
 
@@ -416,6 +374,97 @@ export const productsAuction = [
                     <span>- Fabric</span><br/>
                     <span>- Handmade decorative frame</span>
                   </ul>
-`
+`,
+  },
+];
+
+export const galleryProducts = [
+  {
+    title: "Wooden boxes «Bitcoin»",
+    images: [
+      "https://5ksana.art/wp-content/uploads/2024/04/11-1.webp",
+      "https://5ksana.art/wp-content/uploads/2024/04/22-1-528x427.webp",
+      "https://5ksana.art/wp-content/uploads/2024/04/33-1-528x427.webp",
+    ],
+    hash: "boxes-btc",
+    description: `<p>I created custom-made wooden boxes to store physically Bitcoin coins! Only handmade!</p>`,
+  },
+  {
+    title: "Geometric Coin Sculptures «BITCOIN-SYMBOL OF THE MODERN WORLD»",
+    images: [
+      "https://5ksana.art/wp-content/uploads/2024/04/IMG_1281-5-scaled.jpg",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_1282-5-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_1280-6-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_1283-4-528x427.jpg.webp",
+    ],
+    video: "https://5ksana.art/wp-content/uploads/2024/04/IMG_1277-1-2.mp4",
+    hash: "btc-symbol-modern-world",
+    description: `<p>Geometric Coin Sculptures «BITCOIN-SYMBOL OF THE MODERN WORLD» <br/><br/>
+                  The United States of America has many symbols – a star-striped flag, the Statue of Liberty, Hollywood and many others. I believe that the main symbol of the world is BITCOIN! Here, in confirmation of this conviction, I created a series of works with the general name «BITCOIN-SYMBOL OF THE MODERN WORLD»<br/><br/>
+                  I’m pleased to present to you my sculptures «BITCOIN-SYMBOL OF THE MODERN WORLD», depicting a typical digital representation of the currency, but with a special twist!
+                  One of the hallmarks of my work is taking objects from the digital realm and illustrating them using interesting material like coins « Denarium Bitcoin».<br/>
+                  Bitcoin offer independence from the monopolistic pyramid scheme of tyranny and should be embraced by freedom loving people everywhere.<br/><br/>
+                  I used a jeweler’s saw to cut precise notches in coins from currencies «Denarium Bitcoin» and then joined them together in several geometric forms.<br/><br/>
+                  
+                  Material: 50 pcs. coins «Denarium Bitcoin»<br/><br/>
+                  
+                  Size: diameter 13 cm.</p>`,
+  },
+  {
+    title: "Sculpture «Bitcoin Tower»",
+    images: [
+      "https://5ksana.art/wp-content/uploads/2024/04/9-3-scaled.jpeg",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/5-1-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/8-1-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/10-1-528x427.jpeg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/6-3-528x427.jpeg.webp",
+    ],
+    video:
+      "https://5ksana.art/wp-content/uploads/2024/04/video_2021-07-06_11-47-49.mp4",
+    hash: "sculpture-btc-tower",
+    description: `<p>The «Bitcoin Tower» symbolizes the fortress, inviolability and the desire for absolute freedom! Thus, the tower means the opportunity to rise above the situation, look at it from a height, see it completely, which will allow you to assess all aspects of what is happening and make the right decision. Looking at the situation or something from above, the observed becomes visible in the palm of your hand. The tower embodies the clarity of the eye and the clarity of consciousness, as well as the freedom of choice!<br/><br/>
+                  «Bitcoin Tower» is a symbol of promotion and success! The tower stands as a symbol of active promotion to the top, despite the obstacles of the state, banks and other people. This is a symbol of a new thinking of a person, a statement in a new status!<br/><br/>
+                  On a wooden stand, I drew different symbols, formulas for financial success! (THE MAGICKAL USES OF RUNES – are an alphabetic script used by the peoples of Northern Europe from the first century C.E. until well into the Middle Ages. In addition to their use as a written alphabet, the runes also were a system of symbols used for magic and divination).<br/><br/>
+                  Runes are loaded with power. I also draw them in different places — on my car for safety in travel, on the doorpost of my home for protection, on flower pots to aid in the growth of plants. The list of possibilities is endless.<br/><br/>
+                  On a wooden stand I painted the “Flower of Prosperity” rune to attract good luck and financial well-being!<br/><br/>
+
+Material:<br/>
+– handmade oak stand;<br/>
+– 160 pcs. coins «Denarium Bitcoin» (Denarium 1/10 BTC 2015, Denarium 1/100 BTC 2015, Denarium Bitcoin 2015);<br/>
+– hand-painted.<br/><br/>
+
+Size: height – 31 cm.;<br/>
+width – 9 cm;<br/><br/>
+
+Weight: 1,5 kg.</p>`,
+  },
+  {
+    title: "Sculpture «Bitcoin Crown»",
+    images: [
+      "https://5ksana.art/wp-content/uploads/2024/04/IMG_6605-scaled.jpg",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/1-2-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/2-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/6-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/8-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/9-528x427.jpg.webp",
+    ],
+    video: "https://5ksana.art/wp-content/uploads/2024/04/Bitcoin-Crown.mp4",
+    hash: "sculpture-btc-crown",
+    description: `<p>Bitcoin Crown is called freedom, a crown that seldom slaves enjoy. I think you deserves every crown.<br/><br/>
+                  Dimension: diameter 12 см ( 4,7 inch.)<br/><br/>
+                  Material: physical coins (16 pcs.) of Bitcoin ( Denarium 2015).</p>`,
+  },
+  {
+    title: "Wooden boxes «ClayCastCrypto»",
+    images: [
+      "https://5ksana.art/wp-content/uploads/2024/04/55.webp",
+      "https://5ksana.art/wp-content/uploads/2024/04/11-2-528x427.webp",
+      "https://5ksana.art/wp-content/uploads/2024/04/22-2-528x427.webp",
+      "https://5ksana.art/wp-content/uploads/2024/04/33-2-528x427.webp",
+      "https://5ksana.art/wp-content/uploads/2024/04/44-1-528x427.webp",
+    ],
+    hash: "wood-boxes-claycast",
+    description: `<p>Wooden boxes for storage of jewelry made to order for <a href="https://twitter.com/ClayCastCrypto">ClayCastCrypto</a> (@ClayCastCrypto).<br/><br/>
+                  Thanks for your order!</p>`,
   },
 ];

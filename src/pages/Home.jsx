@@ -8,23 +8,16 @@ import ContactForm from "../components/ContactForm";
 import useResponsive from "../hooks/useResponsive";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { products } from "../utils/data";
+import { TitleAnimation } from "../components/animatedText";
+import {motion} from 'framer-motion';
 
-const Home = ({setCart, cart}) => {
+const Home = ({ setCart, cart }) => {
   const btcRef = useRef();
+  const [isAnimend, setIsAnimend] = useState(false)
   const { isBigLaptop, isSmallMobile, isMobile } = useResponsive();
-  const [isScrollStopped, setIsScrollStopped] = useState(false);
 
   useEffect(() => {
-    const timeout = setTimeout(() => setIsScrollStopped(false), 8000);
-
-    return () => {
-      clearTimeout(timeout);
-      setIsScrollStopped(false);
-    };
-  }, [isScrollStopped]);
-
-  useEffect(() => {
-    if (!isBigLaptop && !isScrollStopped) {
+    if (!isBigLaptop) {
       const element = document.querySelector(".cardsCont");
       if (element) {
         const animation = gsap.to(".horizontalSection", {
@@ -43,22 +36,26 @@ const Home = ({setCart, cart}) => {
         };
       }
     }
-  }, [isScrollStopped, isBigLaptop]);
+  }, [isBigLaptop]);
+
+  useEffect(() => {
+    const showTime = setTimeout(() => setIsAnimend(true), 7000)
+
+    return () => clearTimeout(showTime)
+  }, [])
 
   return (
     <>
-      <div
-        className={`w-[100vw] ${isScrollStopped ? 'h-[100svh] overflow-hidden' : 'h-full overflow-x-hidden'}`}
-      >
+      <div className={`w-[100vw] h-full overflow-x-hidden`}>
         {/* Sticky Section */}
-        <section className="stickySection relative w-[100vw] h-auto xl:min-h-[100svh] bg-black pt-[4.063rem] px-[16px] xl:px-[6.25rem]">
+        <section className={`stickySection relative w-[100vw] h-auto xl:min-h-[100svh] bg-black pt-[4.063rem] px-[16px] xl:px-[6.25rem] transition-[left] duration-[850ms] ${!isBigLaptop ? isAnimend ? 'left-0' : 'left-[-22.5%]' : ''}`}>
           <div className="w-full h-[100%] xl:h-[100vh] flex xl:flex-row flex-col-reverse items-center justify-between relative">
-            <div className="w-full h-auto relative xl:mt-[0px] mt-[20px] z-[1]">
+            <div className={`w-full h-auto relative xl:mt-[0px] mt-[20px] z-[1] transition-[left,opacity] duration-700 delay-200 ${!isBigLaptop ? isAnimend ? 'left-0 opacity-100 pointer-events-auto' : 'left-[-10%] opacity-0 pointer-events-none' : ''}`}>
               <div className="w-auto xl:max-w-[413px] h-auto relative flex flex-col">
                 <h1
                   className={`font-main font-[700] ${
                     isSmallMobile ? "text-7xl" : "text-8xl"
-                  } sm:text-9xl uppercase sm:tracking-wider xl:text-left text-center w-auto`}
+                  } sm:text-9xl uppercase sm:tracking-wider xl:text-left text-center`}
                 >
                   5ksana
                 </h1>
@@ -80,7 +77,7 @@ const Home = ({setCart, cart}) => {
                       ease: "power1.inOut",
                     })
                   }
-                  className="w-[130px] opacity-50 hover:opacity-70 transition-opacity duration-700 h-[130px] flex items-center justify-center relative rounded-full mt-14 sm:mt-[70px] xl:mx-0 mx-auto group"
+                  className={`w-[130px] opacity-50 hover:opacity-70 transition-[opacity,left] duration-700 h-[130px] flex items-center justify-center relative rounded-full mt-14 sm:mt-[70px] xl:mx-0 mx-auto group ${!isBigLaptop ? isAnimend ? 'left-0 opacity-100 delay-300' : '-left-[20%] opacity-0' : ''}`}
                 >
                   <img
                     src="/roundedScroll.svg"
@@ -92,13 +89,14 @@ const Home = ({setCart, cart}) => {
                     src="/down-arrow.svg"
                     alt=""
                     className="w-[28px] h-[28px] object-contain group-hover:scale-110 transition-transform duration-700"
+                    draggable={false}
                   />
                 </button>
               </div>
             </div>
 
             <div className="w-full h-full relative">
-              <div className="absolute w-[35rem] h-[35rem] bg-[#FFB82BB2] opacity-70 left-[50%] xl:left-[55%] top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full webkitBlurIos250 pointer-events-none xl:scale-100 scale-[0.5] sm:scale-[0.75]" />
+              <motion.div initial={{opacity: 0}} animate={{opacity: 70}} transition={{duration: 7}} className={`absolute w-[35rem] h-[35rem] bg-[#FFB82BB2] left-[50%] xl:left-[55%] top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full webkitBlurIos250 pointer-events-none xl:scale-100 scale-[0.5] sm:scale-[0.75]`} />
               <div className="w-full h-full relative flex justify-center items-center">
                 <Model btcRef={btcRef} />
               </div>
@@ -110,7 +108,7 @@ const Home = ({setCart, cart}) => {
 
         {/* Website Content */}
         <section
-          className={`website-content z-[1] relative ${isScrollStopped ? 'hidden' : 'block'} w-full h-auto overflow-hidden`}
+          className={`website-content z-[1] relative block w-full h-auto overflow-hidden`}
         >
           <div className="w-full h-auto sm:h-[100vh] sm:pb-0 pb-10 relative">
             <div className="w-auto xl:w-max h-auto xl:h-[100vh] xl:mt-0 mt-[120px] relative xl:flex-row flex-col flex xl:justify-center xl:items-center horizontalSection">
@@ -131,14 +129,23 @@ const Home = ({setCart, cart}) => {
                     >
                       {products.slice(0, 2).map((product, index) => (
                         <SwiperSlide className="!w-[316px]" key={index}>
-                          <CardShow data={product} setCart={setCart} cart={cart} />
+                          <CardShow
+                            data={product}
+                            setCart={setCart}
+                            cart={cart}
+                          />
                         </SwiperSlide>
                       ))}
                     </Swiper>
                   ) : (
                     <>
                       {products.slice(0, 2).map((product, index) => (
-                        <CardShow data={product} key={index} setCart={setCart} cart={cart} />
+                        <CardShow
+                          data={product}
+                          key={index}
+                          setCart={setCart}
+                          cart={cart}
+                        />
                       ))}
                     </>
                   )}

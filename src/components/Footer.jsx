@@ -26,9 +26,6 @@ const Footer = () => {
           <Link to={"/gallery"} className="uppercase font-main font-[500]">
             Bitcoin art gallery
           </Link>
-          <Link to={"/contact"} className="uppercase font-main font-[500]">
-            Contact
-          </Link>
           <Link to={"/about"} className="uppercase font-main font-[500]">
             About me
           </Link>

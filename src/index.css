@@ -14,6 +14,11 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+::selection {
+  background: #FCCB00;
+  color: black;
+}
+
 body::-webkit-scrollbar {
   background: #00000000;
   width: 14px;

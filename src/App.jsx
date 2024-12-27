@@ -24,7 +24,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import About from "./pages/About";
 import Auction from "./pages/Auction";
 import Payment from "./pages/Payment";
-import Admin from "./pages/Admin";
+import AdminItems from "./pages/Admin/AdminItems";
+import AdminAddItems from "./pages/Admin/AdminAddItems";
+import Gallery from "./pages/Gallery";
+import GalleryProduct from "./pages/GalleryProduct";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -55,16 +58,24 @@ const App = () => {
       element: <About />,
     },
     {
-      path: "/payment",
-      element: <Payment cart={cart} />,
+      path: "/gallery",
+      element: <Gallery />,
+    },
+    {
+      path: "/gallery/:hash",
+      element: <GalleryProduct />,
     },
     {
       path: "/payment",
       element: <Payment cart={cart} />,
     },
     {
-      path: import.meta.env.VITE_ADMIN_ROUTE,
-      element: <Admin />,
+      path: `${import.meta.env.VITE_ADMIN_ROUTE}/items`,
+      element: <AdminItems />,
+    },
+    {
+      path: `${import.meta.env.VITE_ADMIN_ROUTE}/items/plus`,
+      element: <AdminAddItems />,
     },
   ]);
 
@@ -141,9 +152,9 @@ const App = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.7 }}
               onAnimationComplete={() =>
-                setTimeout(() => window.scrollTo(0, 0), 50)
+                setTimeout(() => window.scrollTo(0, 0), 70)
               }
             >
               {router}

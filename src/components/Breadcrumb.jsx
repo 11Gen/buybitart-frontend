@@ -1,11 +1,14 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 
-const Breadcamp = ({auction}) => {
-  const {hash} = useParams();
+const Breadcamp = ({ auction, difRoute }) => {
+  const { hash } = useParams();
   return (
     <div className="w-auto h-auto flex items-center gap-2 font-main text-base leading-[19.2px] font-[400]">
-      <Link to="/" className="text-[#AAAAAA] hover:text-[#fff] transition-colors duration-[250ms]">
+      <Link
+        to="/"
+        className="text-[#AAAAAA] hover:text-[#fff] transition-colors duration-[250ms]"
+      >
         Home
       </Link>
       <svg
@@ -33,9 +36,21 @@ const Breadcamp = ({auction}) => {
           />
         </g>
       </svg>
-      <Link to="/shop" className="text-[#AAAAAA] hover:text-[#fff] transition-colors duration-[250ms]">
-        Shop
-      </Link>
+      {difRoute ? (
+        <Link
+          to={`/${difRoute.toLowerCase()}`}
+          className="text-[#AAAAAA] hover:text-[#fff] transition-colors duration-[250ms]"
+        >
+          {difRoute}
+        </Link>
+      ) : (
+        <Link
+          to="/shop"
+          className="text-[#AAAAAA] hover:text-[#fff] transition-colors duration-[250ms]"
+        >
+          Shop
+        </Link>
+      )}
       <svg
         width="24"
         height="24"
@@ -62,7 +77,7 @@ const Breadcamp = ({auction}) => {
         </g>
       </svg>
       <span className="capitalize text-[#fff]">
-        {hash.split("-").join(" ")} {auction ? '(Auction)' : ''}
+        {hash.split("-").join(" ")} {auction ? "(Auction)" : ""}
       </span>
     </div>
   );

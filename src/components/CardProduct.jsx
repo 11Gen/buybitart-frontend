@@ -115,7 +115,7 @@ const CardProduct = ({ data, setCart, cart, auction, index }) => {
             <></>
           )}
           <img
-            src={data.image}
+            src={data.images[0]}
             alt={data.title}
             draggable={false}
             className="z-[1] relative h-[23.313rem] w-auto object-cover object-center rounded-lg"

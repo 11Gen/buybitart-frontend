@@ -7,12 +7,13 @@ import useResponsive from "../hooks/useResponsive";
 
 const Nav = ({ cart, setCart }) => {
   const location = useLocation();
+  const [isAdminPage, setIsAdminPage] = useState(false);
   const [isSolidBG, setIsSolidBG] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const {isBigLaptop} = useResponsive();
+  const { isBigLaptop } = useResponsive();
 
   function popupCartOpen() {
     setIsCartOpen(true);
@@ -32,7 +33,7 @@ const Nav = ({ cart, setCart }) => {
 
   function menuToggle() {
     setIsMenuOpen(!isMenuOpen);
-    if(!isMenuOpen) document.documentElement.style.overflow = "hidden";
+    if (!isMenuOpen) document.documentElement.style.overflow = "hidden";
     else document.documentElement.style.overflow = "";
   }
 
@@ -42,16 +43,19 @@ const Nav = ({ cart, setCart }) => {
   }
 
   useEffect(() => {
-    if(isMenuOpen) setIsMenuOpen(false);
-    if (location.pathname == "/shop") return setIsSolidBG(true);
+    if (isMenuOpen) setIsMenuOpen(false);
+    if (location.pathname == "/shop" || location.pathname.includes(`${import.meta.env.VITE_ADMIN_ROUTE}/`)) setIsSolidBG(true);
+    else setIsSolidBG(false);
 
-    return setIsSolidBG(false);
+    if (location.pathname.includes(`${import.meta.env.VITE_ADMIN_ROUTE}/`))
+      setIsAdminPage(true);
+    else setIsAdminPage(false);
   }, [location]);
 
   return (
     <>
       <nav
-        className={`w-full xl:h-[65px] border-b-[1px] h-[52px] fixed inset-0 px-[16px] xl:px-[6.25rem] py-[0.781rem] navBar flex justify-between z-[1000] ${
+        className={`w-full xl:h-[65px] border-b-[1px] h-[52px] fixed top-0 px-[16px] left-0 xl:px-[6.25rem] py-[0.781rem] navBar flex justify-between z-[1000] ${
           isSolidBG
             ? "bg-black border-[#ffffff00]"
             : "webkitBgBlurIos16 border-[#FFFFFF1A]"
@@ -69,182 +73,302 @@ const Nav = ({ cart, setCart }) => {
         </div>
         <div className="w-auto flex h-full items-center gap-[3.75rem] z-[2]">
           <div className="xl:flex h-auto w-auto items-center gap-6 font-main uppercase font-[500] hidden">
-            <NavLink
-              to={"/shop"}
-              className={({ isActive }) =>
-                `p-[0.625rem] hover:opacity-75 transition-opacity duration-[250ms] indicatorL ${
-                  isActive ? "active" : ""
-                }`
-              }
-            >
-              Shop
-            </NavLink>
-            <NavLink
-              to={"/gallery"}
-              className={({ isActive }) =>
-                `p-[0.625rem] hover:opacity-75 transition-opacity duration-[250ms] indicatorL ${
-                  isActive ? "active" : ""
-                }`
-              }
-            >
-              Bitcoin art gallery
-            </NavLink>
-            <NavLink
-              to={"/contact"}
-              className={({ isActive }) =>
-                `p-[0.625rem] hover:opacity-75 transition-opacity duration-[250ms] indicatorL ${
-                  isActive ? "active" : ""
-                }`
-              }
-            >
-              Contact
-            </NavLink>
-            <NavLink
-              to={"/about"}
-              className={({ isActive }) =>
-                `p-[0.625rem] hover:opacity-75 transition-opacity duration-[250ms] indicatorL ${
-                  isActive ? "active" : ""
-                }`
-              }
-            >
-              About me
-            </NavLink>
+            {isAdminPage ? (
+              <>
+                <NavLink
+                  to={`${import.meta.env.VITE_ADMIN_ROUTE}/items`}
+                  className={({ isActive }) =>
+                    `p-[0.625rem] hover:opacity-75 transition-opacity duration-[250ms] indicatorL ${
+                      isActive ? "active" : ""
+                    }`
+                  }
+                >
+                  Items
+                </NavLink>
+                <NavLink
+                  to={`${import.meta.env.VITE_ADMIN_ROUTE}/content`}
+                  className={({ isActive }) =>
+                    `p-[0.625rem] hover:opacity-75 transition-opacity duration-[250ms] indicatorL ${
+                      isActive ? "active" : ""
+                    }`
+                  }
+                >
+                  Content
+                </NavLink>
+                <NavLink
+                  to={`${import.meta.env.VITE_ADMIN_ROUTE}/notifications`}
+                  className={({ isActive }) =>
+                    `p-[0.625rem] hover:opacity-75 transition-opacity duration-[250ms] indicatorL ${
+                      isActive ? "active" : ""
+                    }`
+                  }
+                >
+                  Notifications
+                </NavLink>
+              </>
+            ) : (
+              <>
+                <NavLink
+                  to={"/shop"}
+                  className={({ isActive }) =>
+                    `p-[0.625rem] hover:opacity-75 transition-opacity duration-[250ms] indicatorL ${
+                      isActive ? "active" : ""
+                    }`
+                  }
+                >
+                  Shop
+                </NavLink>
+                <NavLink
+                  to={"/gallery"}
+                  className={({ isActive }) =>
+                    `p-[0.625rem] hover:opacity-75 transition-opacity duration-[250ms] indicatorL ${
+                      isActive ? "active" : ""
+                    }`
+                  }
+                >
+                  Bitcoin art gallery
+                </NavLink>
+                <NavLink
+                  to={"/about"}
+                  className={({ isActive }) =>
+                    `p-[0.625rem] hover:opacity-75 transition-opacity duration-[250ms] indicatorL ${
+                      isActive ? "active" : ""
+                    }`
+                  }
+                >
+                  About me
+                </NavLink>
+              </>
+            )}
           </div>
 
-          <button
-            onClick={popupAuthOpen}
-            className="hidden xl:flex font-main rounded-[1.25rem] w-[107px] h-[40px] bg-[#FCCB00] text-[#522700] font-[600] items-center justify-center hover:bg-[#D4A900] hover:text-[#1C1600] transition-colors duration-[250ms]"
-          >
-            Login
-          </button>
+          {!isAdminPage && (
+            <button
+              onClick={popupAuthOpen}
+              className="hidden xl:flex font-main rounded-[1.25rem] w-[107px] h-[40px] bg-[#FCCB00] text-[#522700] font-[600] items-center justify-center hover:bg-[#D4A900] hover:text-[#1C1600] transition-colors duration-[250ms]"
+            >
+              Login
+            </button>
+          )}
 
           <div className="flex w-auto h-[24px] items-center gap-4">
-            <button className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#212121] transition-colors duration-[250ms]">
-              <svg
-                className="xl:w-[24px] relative top-[-1px] xl:h-[24px] w-[28px] h-[28px]"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16.927 17.54L20.4001 20.9M19.2801 11.94C19.2801 16.2699 15.77 19.78 11.4401 19.78C7.11019 19.78 3.6001 16.2699 3.6001 11.94C3.6001 7.61006 7.11019 4.09998 11.4401 4.09998C15.77 4.09998 19.2801 7.61006 19.2801 11.94Z"
-                  stroke="white"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </button>
-            <button
-              className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#212121] transition-colors duration-[250ms] flex justify-center items-center"
-              onClick={popupCartOpen}
-            >
-              <svg
-                className="xl:w-[24px] relative top-[-1px] xl:h-[24px] w-[28px] h-[28px]"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M15.5999 8.84203C15.5999 10.8303 13.9881 12.442 11.9999 12.442C10.0117 12.442 8.3999 10.8303 8.3999 8.84203M4.72717 21.442H19.2726C20.5579 21.442 21.5999 20.4194 21.5999 19.158L20.109 5.842C20.109 4.58057 19.067 3.55798 17.7817 3.55798H5.92717C4.64186 3.55798 3.5999 4.58057 3.5999 5.842L2.3999 19.158C2.3999 20.4194 3.44186 21.442 4.72717 21.442Z"
-                  stroke="white"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+            {!isAdminPage ? (
+              <>
+                <button className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#212121] transition-colors duration-[250ms]">
+                  <svg
+                    className="xl:w-[24px] relative top-[-1px] xl:h-[24px] w-[28px] h-[28px]"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M16.927 17.54L20.4001 20.9M19.2801 11.94C19.2801 16.2699 15.77 19.78 11.4401 19.78C7.11019 19.78 3.6001 16.2699 3.6001 11.94C3.6001 7.61006 7.11019 4.09998 11.4401 4.09998C15.77 4.09998 19.2801 7.61006 19.2801 11.94Z"
+                      stroke="white"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </button>
+                <button
+                  className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#212121] transition-colors duration-[250ms] flex justify-center items-center"
+                  onClick={popupCartOpen}
+                >
+                  <svg
+                    className="xl:w-[24px] relative top-[-1px] xl:h-[24px] w-[28px] h-[28px]"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15.5999 8.84203C15.5999 10.8303 13.9881 12.442 11.9999 12.442C10.0117 12.442 8.3999 10.8303 8.3999 8.84203M4.72717 21.442H19.2726C20.5579 21.442 21.5999 20.4194 21.5999 19.158L20.109 5.842C20.109 4.58057 19.067 3.55798 17.7817 3.55798H5.92717C4.64186 3.55798 3.5999 4.58057 3.5999 5.842L2.3999 19.158C2.3999 20.4194 3.44186 21.442 4.72717 21.442Z"
+                      stroke="white"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
 
-              <span
-                className={`absolute ${
-                  cart.length
-                    ? "scale-100 opacity-100 visible"
-                    : "scale-0 opacity-0 invisible"
-                } transition-[transform,opacity,visibility] duration-[250ms] font-main text-[10px] leading-[100%] w-[14px] flex justify-center font-[600] items-center h-[14px] right-[1px] top-[-4px] text-[#522700] bg-[#FCCB00] rounded-full`}
-              >
-                {cart.length}
-              </span>
-            </button>
-            <button
-              className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group transition-colors duration-[250ms] justify-center items-center xl:hidden flex"
-              onClick={menuToggle}
-            >
-              <div className="xl:w-[24px] w-[28px] xl:h-[24px] h-[28px] relative flex flex-col justify-center items-center gap-1.5 top-[2px]">
-                <div
-                  className={`w-full h-[1px] absolute left-1/2 -translate-x-[50%] transition-[top,transform] duration-500 bg-white ${
-                    isMenuOpen ? "top-[12px] rotate-45" : "top-[6px]"
-                  }`}
-                />
-                <div
-                  className={`w-full h-[1px] absolute top-[12px] left-1/2  bg-white transition-[opacity,transform,visibility] duration-500 -translate-x-[50%] ${
-                    isMenuOpen
-                      ? "opacity-0 invisible -translate-x-[-350%]"
-                      : "opacity-100 visible"
-                  }`}
-                />
-                <div
-                  className={`w-full h-[1px] absolute left-1/2 -translate-x-[50%] transition-[top,transform] duration-500 bg-white ${
-                    isMenuOpen ? "top-[12px] -rotate-45" : "top-[18px]"
-                  }`}
-                />
-              </div>
-            </button>
+                  <span
+                    className={`absolute ${
+                      cart.length
+                        ? "scale-100 opacity-100 visible"
+                        : "scale-0 opacity-0 invisible"
+                    } transition-[transform,opacity,visibility] duration-[250ms] font-main text-[10px] leading-[100%] w-[14px] flex justify-center font-[600] items-center h-[14px] right-[1px] top-[-4px] text-[#522700] bg-[#FCCB00] rounded-full`}
+                  >
+                    {cart.length}
+                  </span>
+                </button>
+                <button
+                  className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group transition-colors duration-[250ms] justify-center items-center xl:hidden flex"
+                  onClick={menuToggle}
+                >
+                  <div className="xl:w-[24px] w-[28px] xl:h-[24px] h-[28px] relative flex flex-col justify-center items-center gap-1.5 top-[2px]">
+                    <div
+                      className={`w-full h-[1px] absolute left-1/2 -translate-x-[50%] transition-[top,transform] duration-500 bg-white ${
+                        isMenuOpen ? "top-[12px] rotate-45" : "top-[6px]"
+                      }`}
+                    />
+                    <div
+                      className={`w-full h-[1px] absolute top-[12px] left-1/2  bg-white transition-[opacity,transform,visibility] duration-500 -translate-x-[50%] ${
+                        isMenuOpen
+                          ? "opacity-0 invisible -translate-x-[-350%]"
+                          : "opacity-100 visible"
+                      }`}
+                    />
+                    <div
+                      className={`w-full h-[1px] absolute left-1/2 -translate-x-[50%] transition-[top,transform] duration-500 bg-white ${
+                        isMenuOpen ? "top-[12px] -rotate-45" : "top-[18px]"
+                      }`}
+                    />
+                  </div>
+                </button>
+              </>
+            ) : (
+              <>
+                <button className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#212121] transition-colors duration-[250ms]">
+                  <svg
+                    width="24"
+                    height="25"
+                    viewBox="0 0 24 25"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <mask
+                      id="mask0_712_3637"
+                      style={{ maskType: "alpha" }}
+                      maskUnits="userSpaceOnUse"
+                      x="0"
+                      y="0"
+                      width="24"
+                      height="25"
+                    >
+                      <rect y="0.5" width="24" height="24" fill="#D9D9D9" />
+                    </mask>
+                    <g mask="url(#mask0_712_3637)">
+                      <path
+                        d="M5 21.5C4.45 21.5 3.97917 21.3042 3.5875 20.9125C3.19583 20.5208 3 20.05 3 19.5V5.5C3 4.95 3.19583 4.47917 3.5875 4.0875C3.97917 3.69583 4.45 3.5 5 3.5H12V5.5H5V19.5H12V21.5H5ZM16 17.5L14.625 16.05L17.175 13.5H9V11.5H17.175L14.625 8.95L16 7.5L21 12.5L16 17.5Z"
+                        fill="white"
+                      />
+                    </g>
+                  </svg>
+                </button>
+                <button
+                  className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group transition-colors duration-[250ms] justify-center items-center xl:hidden flex"
+                  onClick={menuToggle}
+                >
+                  <div className="xl:w-[24px] w-[28px] xl:h-[24px] h-[28px] relative flex flex-col justify-center items-center gap-1.5 top-[2px]">
+                    <div
+                      className={`w-full h-[1px] absolute left-1/2 -translate-x-[50%] transition-[top,transform] duration-500 bg-white ${
+                        isMenuOpen ? "top-[12px] rotate-45" : "top-[6px]"
+                      }`}
+                    />
+                    <div
+                      className={`w-full h-[1px] absolute top-[12px] left-1/2  bg-white transition-[opacity,transform,visibility] duration-500 -translate-x-[50%] ${
+                        isMenuOpen
+                          ? "opacity-0 invisible -translate-x-[-350%]"
+                          : "opacity-100 visible"
+                      }`}
+                    />
+                    <div
+                      className={`w-full h-[1px] absolute left-1/2 -translate-x-[50%] transition-[top,transform] duration-500 bg-white ${
+                        isMenuOpen ? "top-[12px] -rotate-45" : "top-[18px]"
+                      }`}
+                    />
+                  </div>
+                </button>
+              </>
+            )}
           </div>
         </div>
 
         <div
-          className={`w-full h-[calc(310px+52px)] absolute left-0 bg-black border-b-[1px] border-b-[#ffffff1A] pt-[52px] flex flex-col gap-6 px-[16px] transition-[top,opacity,visibility] duration-700 ${isMenuOpen ? 'top-0 opacity-100 visible pointer-events-auto' : '-top-[calc(310px+52px+10px)] opacity-0 invisible pointer-events-none'}`}
+          className={`w-full ${isAdminPage ? 'h-[235px]' : 'h-[305px]'} absolute left-0 bg-black border-b-[1px] border-b-[#ffffff1A] pt-[52px] flex flex-col gap-6 px-[16px] transition-[top,opacity,visibility] duration-700 ${
+            isMenuOpen
+              ? "top-0 opacity-100 visible pointer-events-auto"
+              : "-top-[calc(310px+52px+10px)] opacity-0 invisible pointer-events-none"
+          }`}
         >
           <div className="flex flex-col gap-3 w-full h-auto mt-[12px] relative font-main font-[400]">
-            <NavLink
-              to={"/shop"}
-              onClick={menuClose}
-              className={({ isActive }) =>
-                `p-[10px] indicatorR transition-colors duration-[250ms] rounded-lg ${
-                  isActive ? "active bg-[#FFFFFF1A]" : ""
-                }`
-              }
-            >
-              Shop
-            </NavLink>
-            <NavLink
-              to={"/gallery"}
-              onClick={menuClose}
-              className={({ isActive }) =>
-                `p-[10px] indicatorR transition-colors duration-[250ms] rounded-lg ${
-                  isActive ? "active bg-[#FFFFFF1A]" : ""
-                }`
-              }
-            >
-              Bitcoin art gallery
-            </NavLink>
-            <NavLink
-              to={"/contact"}
-              onClick={menuClose}
-              className={({ isActive }) =>
-                `p-[10px] indicatorR transition-colors duration-[250ms] rounded-lg ${
-                  isActive ? "active bg-[#FFFFFF1A]" : ""
-                }`
-              }
-            >
-              Contact
-            </NavLink>
-            <NavLink
-              to={"/about"}
-              onClick={menuClose}
-              className={({ isActive }) =>
-                `p-[10px] indicatorR transition-colors duration-[250ms] rounded-lg ${
-                  isActive ? "active bg-[#FFFFFF1A]" : ""
-                }`
-              }
-            >
-              About me
-            </NavLink>
+            {isAdminPage ? (
+              <>
+                <NavLink
+                  to={`${import.meta.env.VITE_ADMIN_ROUTE}/items`}
+                  onClick={menuClose}
+                  className={({ isActive }) =>
+                    `p-[10px] indicatorR transition-colors duration-[250ms] rounded-lg ${
+                      isActive ? "active bg-[#FFFFFF1A]" : ""
+                    }`
+                  }
+                >
+                  Items
+                </NavLink>
+                <NavLink
+                  to={`${import.meta.env.VITE_ADMIN_ROUTE}/content`}
+                  onClick={menuClose}
+                  className={({ isActive }) =>
+                    `p-[10px] indicatorR transition-colors duration-[250ms] rounded-lg ${
+                      isActive ? "active bg-[#FFFFFF1A]" : ""
+                    }`
+                  }
+                >
+                  Content
+                </NavLink>
+                <NavLink
+                  to={`${import.meta.env.VITE_ADMIN_ROUTE}/notifications`}
+                  onClick={menuClose}
+                  className={({ isActive }) =>
+                    `p-[10px] indicatorR transition-colors duration-[250ms] rounded-lg ${
+                      isActive ? "active bg-[#FFFFFF1A]" : ""
+                    }`
+                  }
+                >
+                  Notifications
+                </NavLink>
+              </>
+            ) : (
+              <>
+                <NavLink
+                  to={"/shop"}
+                  onClick={menuClose}
+                  className={({ isActive }) =>
+                    `p-[10px] indicatorR transition-colors duration-[250ms] rounded-lg ${
+                      isActive ? "active bg-[#FFFFFF1A]" : ""
+                    }`
+                  }
+                >
+                  Shop
+                </NavLink>
+                <NavLink
+                  to={"/gallery"}
+                  onClick={menuClose}
+                  className={({ isActive }) =>
+                    `p-[10px] indicatorR transition-colors duration-[250ms] rounded-lg ${
+                      isActive ? "active bg-[#FFFFFF1A]" : ""
+                    }`
+                  }
+                >
+                  Bitcoin art gallery
+                </NavLink>
+                <NavLink
+                  to={"/about"}
+                  onClick={menuClose}
+                  className={({ isActive }) =>
+                    `p-[10px] indicatorR transition-colors duration-[250ms] rounded-lg ${
+                      isActive ? "active bg-[#FFFFFF1A]" : ""
+                    }`
+                  }
+                >
+                  About me
+                </NavLink>
+              </>
+            )}
           </div>
-          <button
+          {!isAdminPage && <button
             onClick={popupAuthOpen}
             className="flex font-main rounded-[1.25rem] w-full h-[40px] bg-[#FCCB00] text-[#522700] font-[600] items-center justify-center hover:bg-[#D4A900] hover:text-[#1C1600] transition-colors duration-[250ms]"
           >
             Login
-          </button>
+          </button>}
         </div>
       </nav>
 

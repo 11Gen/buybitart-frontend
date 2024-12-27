@@ -10,11 +10,7 @@ const Cart = ({ isCartOpen, cart, setCart, popupClose }) => {
     Number(txt?.includes("BTC") ? txt.replace("BTC", "") : txt);
 
   useEffect(() => {
-    if (cart.length) {
-      setTotalPrice(
-        cart.reduce((a, b) => a + getPrice(b.price) * b.quantity, 0)
-      );
-    }
+    setTotalPrice(cart.reduce((a, b) => a + getPrice(b.price) * b.quantity, 0));
   }, [cart]);
 
   return (
@@ -45,7 +41,7 @@ const Cart = ({ isCartOpen, cart, setCart, popupClose }) => {
         </div>
 
         <div
-          className="flex flex-col w-full sm:gap-6 gap-8 h-full flex-1 max-h-[540px] overflow-y-auto"
+          className="flex flex-col w-full sm:gap-6 gap-8 h-full flex-1 max-h-[540px] overflow-y-auto overflow-x-hidden"
           id="scrollItemsCart"
           style={{
             overflowY: "auto",
@@ -55,13 +51,14 @@ const Cart = ({ isCartOpen, cart, setCart, popupClose }) => {
           {cart.length ? (
             <AnimatePresence>
               {cart.map((product, index) => (
-              <CartItem
-                data={product}
-                key={product.title}
-                cart={cart}
-                setCart={setCart}
-                index={index}
-              />
+                <CartItem
+                  data={product}
+                  key={product.title}
+                  cart={cart}
+                  setCart={setCart}
+                  index={index}
+                  popupClose={popupClose}
+                />
               ))}
             </AnimatePresence>
           ) : (
@@ -102,9 +99,13 @@ const Cart = ({ isCartOpen, cart, setCart, popupClose }) => {
           </div>
 
           <Link
-            to="/payment"
+            to={cart.length ? "/payment" : null}
             onClick={popupClose}
-            className="w-auto h-[40px] rounded-full py-[10px] px-6 bg-[#FCCB00] text-[#522700] hover:bg-[#D4A900] hover:text-[#1C1600] transition-colors duration-[250ms] font-main font-[600] text-base text-center flex justify-center items-center"
+            className={`w-auto h-[40px] rounded-full py-[10px] px-6 ${
+              cart.length
+                ? "bg-[#FCCB00] text-[#522700] hover:bg-[#D4A900] hover:text-[#1C1600] pointer-events-auto"
+                : "bg-[#c3c3c3] text-[black] pointer-events-none"
+            } transition-colors duration-[250ms] font-main font-[600] text-base text-center flex justify-center items-center`}
           >
             Pay
           </Link>

@@ -41,7 +41,7 @@ const CardShow = ({ data, setCart, cart }) => {
           className="flex flex-col relative gap-3"
         >
           <img
-            src={data.image}
+            src={data.images[0]}
             draggable={false}
             alt={data.title}
             className="z-[1] relative h-[23.313rem] w-auto object-cover object-center rounded-[10px]"

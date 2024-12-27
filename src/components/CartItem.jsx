@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import useResponsive from "../hooks/useResponsive";
 import { useAnimate, usePresence } from "framer-motion";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
-const CartItem = ({ data, cart, setCart, index }) => {
+const CartItem = ({ data, cart, setCart, index, popupClose }) => {
   const [qty, setQty] = useState(data.quantity);
   const { isSmallMobile } = useResponsive();
   const [isPresent, safeToRemove] = usePresence();
@@ -69,15 +70,17 @@ const CartItem = ({ data, cart, setCart, index }) => {
       className="w-full sm:h-[258px] h-auto flex sm:flex-row flex-col sm:gap-8 gap-3"
     >
       <div className="w-full h-auto flex sm:gap-8 gap-2">
-        <img
-          src={data.image}
-          alt=""
-          className={`sm:w-full w-auto sm:max-w-[225px] sm:h-full ${
-            isSmallMobile
-              ? "h-[120px] max-w-[100px]"
-              : "h-[148px] max-w-[129px]"
-          } object-cover rounded-xl`}
-        />
+        <Link to={`/shop/${data.hash}`} onClick={popupClose}>
+          <img
+            src={data.images[0]}
+            alt=""
+            className={`sm:w-full w-auto sm:max-w-[225px] sm:h-full ${
+              isSmallMobile
+                ? "h-[120px] max-w-[100px]"
+                : "h-[148px] max-w-[129px]"
+            } object-cover rounded-xl`}
+          />
+        </Link>
 
         <div className="flex flex-col w-full sm:py-5 gap-8 h-full flex-1">
           <div className="w-full h-auto flex justify-between">

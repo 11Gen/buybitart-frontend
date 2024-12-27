@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const PriceLabel = ({ IsCardHash, price, difColor, auction }) => {
+const PriceLabel = ({ IsCardHash, price, difColor, auction, admRes }) => {
   if (IsCardHash)
     return (
       <Link
         to={auction ? `/auction/${IsCardHash}` : `/shop/${IsCardHash}`}
-        className={`flex w-max h-[32px] rounded-[20px] p-1 pr-2.5 gap-[8px] items-center z-[1] relative ${
+        className={`flex w-max ${admRes ? 'h-[28px] sm:h-[32px]' : 'h-[32px]'} rounded-[20px] p-1 pr-2.5 gap-1 items-center z-[1] relative ${
           difColor ? "" : "bg-[#2c2c2e]"
         }`}
         style={difColor ? { backgroundColor: difColor } : null}
@@ -14,7 +14,7 @@ const PriceLabel = ({ IsCardHash, price, difColor, auction }) => {
         <img
           src={"/btcIcon.png"}
           alt="icon Btc"
-          className="w-[24px] h-[24px]"
+          className={admRes ? 'w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]' : 'w-[24px] h-[24px]'}
         />
         <span className="font-main font-[400]">{price}</span>
       </Link>
@@ -22,7 +22,7 @@ const PriceLabel = ({ IsCardHash, price, difColor, auction }) => {
   else
     return (
       <div
-        className={`flex w-max h-[32px] rounded-[20px] p-1 pr-2.5 gap-[8px] items-center z-[1] relative ${
+        className={`flex w-max ${admRes ? 'h-[25px] sm:h-[32px]' : 'h-[32px]'} rounded-[20px] p-1 pr-2.5 gap-1 items-center z-[1] relative ${
           difColor ? "" : "bg-[#2c2c2e]"
         }`}
         style={difColor ? { backgroundColor: difColor } : null}
@@ -30,9 +30,9 @@ const PriceLabel = ({ IsCardHash, price, difColor, auction }) => {
         <img
           src={"/btcIcon.png"}
           alt="icon Btc"
-          className="w-[24px] h-[24px]"
+          className={admRes ? 'w-[20px] h-[20px] sm:w-[24px] sm:h-[24px]' : 'w-[24px] h-[24px]'}
         />
-        <span className="font-main font-[400]">{price}</span>
+        <span className={`font-main font-[400] ${admRes ? 'text-sm sm:text-base' : 'text-base'}`}>{price}</span>
       </div>
     );
 };
