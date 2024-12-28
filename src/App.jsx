@@ -28,6 +28,7 @@ import AdminItems from "./pages/Admin/AdminItems";
 import AdminAddItems from "./pages/Admin/AdminAddItems";
 import Gallery from "./pages/Gallery";
 import GalleryProduct from "./pages/GalleryProduct";
+import AdminNotifications from "./pages/Admin/AdminNotifications";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -76,6 +77,10 @@ const App = () => {
     {
       path: `${import.meta.env.VITE_ADMIN_ROUTE}/items/plus`,
       element: <AdminAddItems />,
+    },
+    {
+      path: `${import.meta.env.VITE_ADMIN_ROUTE}/notifications`,
+      element: <AdminNotifications />,
     },
   ]);
 

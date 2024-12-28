@@ -142,8 +142,8 @@ html {
   height: 20px;
   width: 20px;
   border-radius: 20px;
-  left: 0.15em;
-  bottom: 0.1em;
+  left: 2.4px;
+  bottom: 1.6px;
   background-color: #adb5bd;
   transition: .3s;
 }

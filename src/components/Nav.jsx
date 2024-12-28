@@ -225,7 +225,7 @@ const Nav = ({ cart, setCart }) => {
               </>
             ) : (
               <>
-                <button className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#212121] transition-colors duration-[250ms]">
+                <Link to={`/shop`} className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#212121] transition-colors duration-[250ms]">
                   <svg
                     width="24"
                     height="25"
@@ -251,7 +251,7 @@ const Nav = ({ cart, setCart }) => {
                       />
                     </g>
                   </svg>
-                </button>
+                </Link>
                 <button
                   className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group transition-colors duration-[250ms] justify-center items-center xl:hidden flex"
                   onClick={menuToggle}

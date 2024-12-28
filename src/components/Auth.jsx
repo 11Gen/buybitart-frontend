@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Input from "./Input";
 import SocialButton from "./SocialButton";
+import InputLabel from "./InputLabel";
 
 const Auth = ({ isAuthOpen, popupClose, setIsAuthOpen }) => {
   const [type, setType] = useState("login");
@@ -37,34 +38,18 @@ const Auth = ({ isAuthOpen, popupClose, setIsAuthOpen }) => {
           <form className="w-full h-auto flex flex-col gap-6 relative">
             <div className="w-full h-auto flex flex-col gap-8">
               <div className="w-full h-auto flex flex-col gap-5">
-                <div className="flex flex-col w-full h-auto gap-1.5">
-                  <label
-                    htmlFor="emailL"
-                    className="text-white text-sm leading-[16.8px] font-main tracking-wide"
-                  >
-                    Email *
-                  </label>
-                  <Input
-                    id="emailL"
-                    placeholder="Email"
-                    type="email"
-                    className="bg-[#212121] py-[10px] px-3 rounded-xl outline-none text-sm leading-[23px] border-[1px] border-[#ffffff05] transition-colors duration-[250ms] focus:placeholder-[#ffffff00]"
-                  />
-                </div>
-                <div className="flex flex-col w-full h-auto gap-1.5">
-                  <label
-                    htmlFor="passwordL"
-                    className="text-white text-sm leading-[16.8px] font-main tracking-wide"
-                  >
-                    Password *
-                  </label>
-                  <Input
-                    id="passwordL"
-                    placeholder="Password"
-                    type="password"
-                    className="bg-[#212121] py-[10px] px-3 rounded-xl outline-none text-sm leading-[23px] border-[1px] border-[#ffffff05] transition-colors duration-[250ms] focus:placeholder-[#ffffff00]"
-                  />
-                </div>
+                <InputLabel
+                  id="emailL"
+                  placeholder="Email"
+                  label="Email *"
+                  type="email"
+                />
+                <InputLabel
+                  id="passwordL"
+                  placeholder="Password"
+                  label="Password *"
+                  type="password"
+                />
               </div>
               <button className="flex font-main rounded-[1.25rem] w-full h-[40px] bg-[#FCCB00] text-[#522700] font-[600] items-center justify-center hover:bg-[#D4A900] hover:text-[#1C1600] transition-colors duration-[250ms]">
                 Sign In
@@ -119,48 +104,24 @@ const Auth = ({ isAuthOpen, popupClose, setIsAuthOpen }) => {
           <form className="w-full h-auto flex flex-col gap-6 relative">
             <div className="w-full h-auto flex flex-col gap-8">
               <div className="w-full h-auto flex flex-col gap-5">
-                <div className="flex flex-col w-full h-auto gap-1.5">
-                  <label
-                    htmlFor="emailL"
-                    className="text-white text-sm leading-[16.8px] font-main tracking-wide"
-                  >
-                    Email *
-                  </label>
-                  <Input
-                    id="emailL"
-                    placeholder="Email"
-                    type="email"
-                    className="bg-[#212121] py-[10px] px-3 rounded-xl outline-none text-sm leading-[23px] border-[1px] border-[#ffffff05] transition-colors duration-[250ms] focus:placeholder-[#ffffff00]"
-                  />
-                </div>
-                <div className="flex flex-col w-full h-auto gap-1.5">
-                  <label
-                    htmlFor="passwordL"
-                    className="text-white text-sm leading-[16.8px] font-main tracking-wide"
-                  >
-                    Password *
-                  </label>
-                  <Input
-                    id="passwordL"
-                    placeholder="Password"
-                    type="password"
-                    className="bg-[#212121] py-[10px] px-3 rounded-xl outline-none text-sm leading-[23px] border-[1px] border-[#ffffff05] transition-colors duration-[250ms] focus:placeholder-[#ffffff00]"
-                  />
-                </div>
-                <div className="flex flex-col w-full h-auto gap-1.5">
-                  <label
-                    htmlFor="passwordL"
-                    className="text-white text-sm leading-[16.8px] font-main tracking-wide"
-                  >
-                    Confirm Password *
-                  </label>
-                  <Input
-                    id="passwordL"
-                    placeholder="Confirm Password"
-                    type="password"
-                    className="bg-[#212121] py-[10px] px-3 rounded-xl outline-none text-sm leading-[23px] border-[1px] border-[#ffffff05] transition-colors duration-[250ms] focus:placeholder-[#ffffff00]"
-                  />
-                </div>
+                <InputLabel
+                  id="emailR"
+                  placeholder="Email"
+                  label="Email *"
+                  type="email"
+                />
+                <InputLabel
+                  id="passwordR"
+                  placeholder="Password"
+                  label="Password *"
+                  type="password"
+                />
+                <InputLabel
+                  id="passwordRC"
+                  placeholder="Confirm Password"
+                  label="Confirm Password *"
+                  type="password"
+                />
               </div>
               <button className="flex font-main rounded-[1.25rem] w-full h-[40px] bg-[#FCCB00] text-[#522700] font-[600] items-center justify-center hover:bg-[#D4A900] hover:text-[#1C1600] transition-colors duration-[250ms]">
                 Sign Up

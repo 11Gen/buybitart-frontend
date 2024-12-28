@@ -50,7 +50,7 @@ const ProductItem = ({ data, index }) => {
             {data.title}
           </h4>
 
-          <div className="flex items-center gap-2">
+          <div className="w-auto flex items-center gap-2">
             <PriceLabel price={data.price} difColor={"#FFFFFF26"} admRes />
             <div
               className={`flex w-max h-[32px] rounded-[20px] p-1 sm:pr-2.5 gap-1 items-center z-[1] relative`}
@@ -67,8 +67,8 @@ const ProductItem = ({ data, index }) => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col h-full w-auto justify-between">
-        <div className="flex w-auto h-auto items-center gap-0.5 ml-auto">
+      <div className="flex flex-col h-full w-max justify-between">
+        <div className="flex w-max h-auto items-center gap-0.5 ml-auto">
           <button className="w-[30px] h-[30px] flex justify-center group items-center relative hover:bg-[#212121] transition-colors duration-[250ms] rounded-xl">
             <MdEdit className="w-[23px] h-[23px] text-[#a0a0a0] group-hover:text-white transition-colors duration-[250ms]" />
           </button>

@@ -8,6 +8,7 @@ import { createMarkup } from "../utils";
 import Input from "../components/Input";
 import BetCard from "../components/BetCard";
 import Footer from "../components/Footer";
+import Toggle from '../components/Toggle';
 
 const Auction = () => {
   const { hash } = useParams();
@@ -129,23 +130,7 @@ const Auction = () => {
 
               {/* Tiebreaker Feature */}
               <div className="flex flex-col gap-2">
-                <label
-                    htmlFor="switchInp"
-                    className="w-max h-auto flex gap-2 items-center"
-                  >
-                    <label className="text-base relative inline-block w-[44px] h-[26px]">
-                      <input
-                        type="checkbox"
-                        className="opacity-0 w-0 h-0 inpCheckSwitch"
-                        defaultChecked={true}
-                        id="switchInp"
-                      />
-                      <span className="sliderSwitch border-[1px] border-[#212121] absolute inset-0 cursor-pointer bg-[#212121] transition-colors duration-300 rounded-full"></span>
-                    </label>
-                  <span className="text-white">
-                    Increase in rate at equal rates
-                  </span>
-                </label>
+                <Toggle id="switchInp" label='Increase in rate at equal rates' defaultChecked={true} />
                 <p className="text-sm text-gray-400">
                   If you and another bidder have the same maximum bid, the
                   tiebreaker feature will automatically add another bid

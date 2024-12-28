@@ -3,20 +3,15 @@ import Footer from "../components/Footer";
 import Input from "../components/Input";
 import TextArea from "../components/TextArea";
 import { Link } from "react-router-dom";
-import {
-  AnimatePresence,
-  motion,
-  useAnimate,
-  usePresence,
-} from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import InputLabel from "../components/InputLabel";
+import TextAreaLabel from "../components/TextAreaLabel";
 
 const Payment = ({ cart }) => {
   const [typePay, setTypePay] = useState("crypto");
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const inputCSS = `w-full h-[44px] rounded-xl py-[10px] px-3 bg-[#212121] tracking-wide font-main border-[1px] border-[#ffffff05] transition-colors duration-[250ms] focus:placeholder-[#ffffff00] focus:outline-none font-[300]`;
-  const textareaCSS = `w-full h-[194px] resize-none rounded-xl py-[10px] px-3 bg-[#212121] tracking-wide font-main border-[1px] border-[#ffffff05] transition-colors duration-[250ms] focus:placeholder-[#ffffff00] focus:outline-none font-[300]`;
-  const labelCSS = `text-white text-sm font-[300] leading-[16.8px] font-main tracking-wide`;
+  const inputCSS = `w-full h-[44px] placeholder-[#707070] rounded-xl py-[10px] px-3 bg-[#212121] tracking-wide font-main border-[1px] border-[#ffffff05] transition-colors duration-[250ms] focus:placeholder-[#ffffff00] focus:outline-none font-[300]`;
 
   const getPrice = (txt) =>
     Number(txt?.includes("BTC") ? txt.replace("BTC", "") : txt);
@@ -37,50 +32,33 @@ const Payment = ({ cart }) => {
           <form className="w-full h-auto flex flex-col gap-8">
             <div className="flex w-full h-auto gap-6 flex-col">
               <div className="flex sm:flex-row flex-col gap-5 h-auto w-full">
-                <div className="flex flex-col gap-1.5 w-full h-auto">
-                  <label htmlFor="Fname" className={labelCSS}>
-                    First name *
-                  </label>
-                  <Input
-                    className={inputCSS}
-                    autocomplete="given-name"
-                    placeholder="Tyler"
-                    id="Fname"
-                    type="text"
-                  />
-                </div>
-                <div className="flex flex-col gap-1.5 w-full h-auto">
-                  <label htmlFor="Lname" className={labelCSS}>
-                    Last name *
-                  </label>
-                  <Input
-                    className={inputCSS}
-                    autocomplete="family-name"
-                    placeholder="Durden"
-                    id="Lname"
-                    type="text"
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col gap-1.5 w-full h-auto">
-                <label htmlFor="countryInp" className={labelCSS}>
-                  Country / Region *
-                </label>
-                <Input
-                  className={inputCSS}
-                  placeholder="Italy"
-                  id="countryInp"
-                  type="country"
+                <InputLabel
+                  id="Fname"
+                  placeholder="Tyler"
+                  label="First name *"
+                  type="text"
+                  autocomplete="given-name"
+                />
+                <InputLabel
+                  id="Lname"
+                  placeholder="Durden"
+                  label="Last name *"
+                  type="text"
+                  autocomplete="family-name"
                 />
               </div>
+              <InputLabel
+                id="countryInp"
+                placeholder="Italy"
+                label="Country / Region *"
+                type="country"
+                autocomplete="family-name"
+              />
               <div className="flex flex-col gap-1.5 w-full h-auto">
-                <label htmlFor="streetInp" className={labelCSS}>
-                  Street address *
-                </label>
-                <Input
-                  className={inputCSS}
-                  placeholder="Street name / (apartment, suite)"
+                <InputLabel
                   id="streetInp"
+                  placeholder="Street name / (apartment, suite)"
+                  label="Street address *"
                   type="country"
                   autocomplete="address-line1"
                 />
@@ -92,53 +70,33 @@ const Payment = ({ cart }) => {
                   autocomplete="address-level2"
                 />
               </div>
-              <div className="flex flex-col gap-1.5 w-full h-auto">
-                <label htmlFor="zipInp" className={labelCSS}>
-                  ZIP Code *
-                </label>
-                <Input
-                  className={inputCSS}
-                  autocomplete="postal-code"
-                  placeholder="ZIP Code"
-                  id="zipInp"
-                  type="text"
-                />
-              </div>
-              <div className="flex flex-col gap-1.5 w-full h-auto">
-                <label htmlFor="phoneInp" className={labelCSS}>
-                  Phone *
-                </label>
-                <Input
-                  className={inputCSS}
-                  placeholder="Phone"
-                  id="phoneInp"
-                  type="tel"
-                  autocomplete="tel"
-                />
-              </div>
-              <div className="flex flex-col gap-1.5 w-full h-auto">
-                <label htmlFor="emailInp" className={labelCSS}>
-                  Email address *
-                </label>
-                <Input
-                  className={inputCSS}
-                  autocomplete="email username"
-                  placeholder="Email address"
-                  id="emailInp"
-                  type="email"
-                />
-              </div>
-              <div className="flex flex-col gap-1.5 w-full h-auto">
-                <label htmlFor="notesInp" className={labelCSS}>
-                  Order notes (optional)
-                </label>
-                <TextArea
-                  className={textareaCSS}
-                  autocomplete="postal-code"
-                  placeholder="Order notes"
-                  id="notesInp"
-                />
-              </div>
+              <InputLabel
+                id="zipInp"
+                placeholder="ZIP Code"
+                label="ZIP Code *"
+                type="text"
+                autocomplete="postal-code"
+              />
+              <InputLabel
+                id="phoneInp"
+                placeholder="Phone"
+                label="Phone *"
+                type="tel"
+                autocomplete="tel"
+              />
+              <InputLabel
+                id="emailInp"
+                placeholder="Email address"
+                label="Email address *"
+                type="email"
+                autocomplete="email username"
+              />
+              <TextAreaLabel
+                id="notesInp"
+                placeholder="Order notes"
+                label="Order notes (optional)"
+                autocomplete="postal-code"
+              />
             </div>
           </form>
           {/* right side */}
@@ -170,7 +128,10 @@ const Payment = ({ cart }) => {
             {/* product */}
             <div className="flex flex-col w-full h-auto gap-2 relative">
               {(cart || []).map((item, index) => (
-                <div className="w-full h-auto flex justify-between font-main sm:text-base text-sm font-[300]" key={index}>
+                <div
+                  className="w-full h-auto flex justify-between font-main sm:text-base text-sm font-[300]"
+                  key={index}
+                >
                   <div className="flex gap-4 w-auto h-auto">
                     <span className="w-auto sm:max-w-[350px] max-w-[180px] inline-block whitespace-nowrap overflow-hidden text-ellipsis">
                       {item.title}
@@ -212,52 +173,32 @@ const Payment = ({ cart }) => {
                       Card Information
                     </h3>
                     <form className="flex flex-col gap-4 w-full h-auto relative">
-                      <div className="flex flex-col gap-1.5 w-full h-auto">
-                        <label htmlFor="nameCardInp" className={labelCSS}>
-                          Name on card
-                        </label>
-                        <Input
-                          className={inputCSS}
-                          placeholder="Name"
-                          id="nameCardInp"
-                          type="text"
-                        />
-                      </div>
-                      <div className="flex flex-col gap-1.5 w-full h-auto">
-                        <label htmlFor="numberCardInp" className={labelCSS}>
-                          Card number
-                        </label>
-                        <Input
-                          className={inputCSS}
-                          placeholder="Card number"
-                          id="numberCardInp"
-                          type="text"
-                        />
-                      </div>
+                      <InputLabel
+                        id="nameCardInp"
+                        placeholder="Name"
+                        label="Name on card"
+                        type="text"
+                      />
+                      <InputLabel
+                        id="numberCardInp"
+                        placeholder="Card number"
+                        label="Card number"
+                        type="text"
+                      />
 
                       <div className="flex gap-4 items-center w-full justify-between">
-                        <div className="flex flex-col gap-1.5 w-full h-auto">
-                          <label htmlFor="expCardInp" className={labelCSS}>
-                            Expiry
-                          </label>
-                          <Input
-                            className={inputCSS}
-                            placeholder="Expiry"
-                            id="expCardInp"
-                            type="text"
-                          />
-                        </div>
-                        <div className="flex flex-col gap-1.5 w-full h-auto">
-                          <label htmlFor="cvvCardInp" className={labelCSS}>
-                            CVV
-                          </label>
-                          <Input
-                            className={inputCSS}
-                            placeholder="CVV"
-                            id="cvvCardInp"
-                            type="text"
-                          />
-                        </div>
+                        <InputLabel
+                          id="expCardInp"
+                          placeholder="Expiry"
+                          label="Expiry"
+                          type="text"
+                        />
+                        <InputLabel
+                          id="cvvCardInp"
+                          placeholder="CVV"
+                          label="CVV"
+                          type="text"
+                        />
                       </div>
                     </form>
                     <div className="w-full h-[17px] flex justify-center items-center relative">
