@@ -69,6 +69,16 @@ html {
   filter: blur(250px);
 }
 
+.webkitBlurIos130 {
+  -webkit-filter: blur(130px);
+  filter: blur(130px);
+}
+
+.webkitBlurIos80 {
+  -webkit-filter: blur(80px);
+  filter: blur(80px);
+}
+
 .webkitBgBlurIos16 {
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);

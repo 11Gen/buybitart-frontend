@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from "react";
 import Footer from "../components/Footer";
-import { galleryProducts } from "../utils/data";
+import { galleryProducts, pages } from "../utils/data";
 import GalleryCard from "../components/GalleryCard";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -60,10 +60,10 @@ const Gallery = () => {
       <div className="w-full xl:h-[100svh] h-full relative px-[16px] xl:px-[6.25rem] pb-14 flex flex-col overflow-x-hidden">
         <div className="w-full h-auto relative flex justify-between items-center mt-[calc(52px+50px)] xl:mt-[calc(65px+50px)] ">
           <h2 className="font-main font-[600] sm:text-4xl text-3xl leading-[100%] uppercase">
-            Bitcoin Art Gallery
+            {pages.bitcoinartgallery.sections[0].title}
           </h2>
           <span className={`font-main text-[#FCCB00] ${isSmallMobile ? 'text-sm' : 'text-base'} sm:text-lg pointer-events-none select-none font-[300] inline-flex gap-1.5 items-center text-nowrap`}>
-            Scroll Down <FaAnglesDown size={14} />
+            {pages.bitcoinartgallery.sections[0].description} <FaAnglesDown size={14} />
           </span>
         </div>
 

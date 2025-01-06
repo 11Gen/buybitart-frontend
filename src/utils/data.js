@@ -468,3 +468,72 @@ Weight: 1,5 kg.</p>`,
                   Thanks for your order!</p>`,
   },
 ];
+
+export const pages = {
+  mainpage: {
+    sections: [
+      {
+        title: "5ksana",
+        description: `Bitcoin Artist & <br class="xl:block hidden" />Fashion Designer`,
+      },
+      {
+        title: "Explore the <br /> Collection",
+      },
+    ],
+  },
+  about: {
+    sections: [
+      {
+        title: "About Me",
+        images: [
+          { name: "me3.jpg", src: "/me3.jpg" },
+          { name: "me.png", src: "/me.png" },
+          { name: "me2.jpg", src: "/me2.jpg" },
+        ],
+      },
+      {
+        title: "Biography",
+        description: `I’m Aksana, also known as 5Ksana. I’m a Bitcoin artist and Fashion designer from Poland! <br /> <br /> I’ve been creating Bitcoin Physical Art since 2017!<br /> <br /> Also, I am a professional tailor (a person that cuts and sews) with over 22 years of experience!`,
+      },
+      {
+        title: "Education",
+        description: `Vocational-Technical Education (Professional Technical Program based on General Education with a specialization in Women’s Outerwear Cutting), 2001. <br /> <br /> Bachelor’s Degree in Consumer Services Technology (Instructor of Cutting and Sewing Technology), 2008.<br /> <br /> Main Technique: hand embroidery and sewing.`,
+      },
+      {
+        title: "Group Exhibitions / <br /> Associations:",
+        description: `To me, Bitcoin embodies the idea of absolute freedom, and I want to share that message with the world through my art. <br /> <br /> One of my favorite ways to be creative is through embroidery. I love making pretty paintings about Bitcoin using colorful threads. Embroidery lets me add a special touch to each piece, making them unique and interesting. <br /> <br /> Publication: Weaving Bitcoin into Art: The Unique Creations of 5Ksana <br /> <a href="https://loveisbitcoin.com/weaving-bitcoin-into-art-the-unique-creations-of-5ksana/" target="_blank" style="color: #FCCB00;" >https://loveisbitcoin.com/weaving-bitcoin-into-art-the-unique-creations-of-5ksana/</a>`,
+        list: [
+          "🏆 CoinFest, Manchester, UK, 2021",
+          "🏆 Lugano Plan ₿, Lugano, Switzerland, 2023",
+          "🏆 Bitcoin Atlantis, Funchal, Portugal 2024",
+          "🏆 Bitcoin FilmFest, Warsaw, Poland, 2024",
+          "🏆 Lugano Plan ₿, Lugano, Switzerland, 2024",
+        ],
+      },
+    ],
+  },
+  shop: {
+    sections: [
+      {
+        title: "Shop",
+      },
+    ],
+  },
+  bitcoinartgallery: {
+    sections: [
+      {
+        title: "Bitcoin Art Gallery",
+        description: "Scroll Down",
+      },
+    ],
+  },
+  elements: {
+    sections: [
+      {
+        title: `Let’s Stay <br class="sm:hidden block" /> Connected`,
+        description:
+          "Have a question or looking? Reach out the form, and I’ll respond as soon as possible.",
+      },
+    ],
+  },
+};

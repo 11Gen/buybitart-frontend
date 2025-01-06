@@ -2,6 +2,9 @@ import React from "react";
 import Input from "./Input";
 import TextArea from "./TextArea";
 import Checkbox from "./Checkbox";
+import { createMarkup } from "../utils";
+import { pages } from "../utils/data";
+
 const ContactForm = ({ decor }) => {
   const inputCss = `border-0 outline-0 w-full h-[44px] rounded-[20px] py-[10px] px-[12px] bg-[#212121] font-main font-[300] text-base placeholder-[#707070]`;
   const textareaCss = `border-0 outline-0 w-full h-full flex-1 flex rounded-[20px] py-[10px] px-[12px] resize-none bg-[#212121] font-main font-[300] text-base placeholder-[#707070]`;
@@ -11,12 +14,9 @@ const ContactForm = ({ decor }) => {
       <div className="w-full z-[1] h-auto rounded-[20px] p-4 sm:p-8 bg-[#FFFFFF1A] border-[1px] border-[#212121] backdrop-blur-xl xl:flex-row flex-col flex justify-between">
         <div className="flex flex-col gap-6 sm:gap-[40px] w-full h-auto xl:mb-0 mb-8">
           <div className="flex flex-col gap-4 w-full xl:w-fit h-auto relative">
-            <h4 className="font-main uppercase 2xl:text-5xl text-4xl font-[600] w-max tracking-wider">
-              Let’s Stay <br className="sm:hidden block" /> Connected
-            </h4>
+            <h4 dangerouslySetInnerHTML={createMarkup(pages.elements.sections[0].title)} className="font-main uppercase 2xl:text-5xl text-4xl font-[600] w-max tracking-wider" />
             <p className="font-main font-[300] opacity-50 xl:max-w-[450px] w-auto text-lg sm:text-xl sm:tracking-wide">
-              Have a question or looking? Reach out the form, and I’ll respond
-              as soon as possible.
+              {pages.elements.sections[0].description}
             </p>
           </div>
           <a

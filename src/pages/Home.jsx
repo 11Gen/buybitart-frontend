@@ -8,8 +8,9 @@ import ContactForm from "../components/ContactForm";
 import useResponsive from "../hooks/useResponsive";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { products } from "../utils/data";
-import { TitleAnimation } from "../components/animatedText";
-import {motion} from 'framer-motion';
+import { pages } from "../utils/data";
+import { motion } from 'framer-motion';
+import { createMarkup } from "../utils";
 
 const Home = ({ setCart, cart }) => {
   const btcRef = useRef();
@@ -57,12 +58,9 @@ const Home = ({ setCart, cart }) => {
                     isSmallMobile ? "text-7xl" : "text-8xl"
                   } sm:text-9xl uppercase sm:tracking-wider xl:text-left text-center`}
                 >
-                  5ksana
+                  {pages.mainpage.sections[0].title}
                 </h1>
-                <span className="mt-2 sm:mt-6 font-main font-[400] text-lg sm:text-[2.5rem] uppercase sm:leading-[3rem] sm:tracking-wider xl:text-left text-center opacity-90">
-                  Bitcoin Artist & <br className="xl:block hidden" /> Fashion
-                  Designer
-                </span>
+                <span dangerouslySetInnerHTML={createMarkup(pages.mainpage.sections[0].description)} className="mt-2 sm:mt-6 font-main font-[400] text-lg sm:text-[2.5rem] uppercase sm:leading-[3rem] sm:tracking-wider xl:text-left text-center opacity-90" />
                 <Link
                   to="/gallery"
                   className="font-main xl:w-max w-full xl:max-w-max max-w-[90%] xl:mx-0 mx-auto text-center text-base uppercase mt-5 sm:mt-[55px] border-[1px] border-[#2c2c2e] py-2.5 px-6 rounded-[1.8rem] font-[500] transition duration-[250ms] hover:text-[#522700] hover:bg-[#FCCB00] hover:border-[#FCCB00]"
@@ -113,12 +111,11 @@ const Home = ({ setCart, cart }) => {
           <div className="w-full h-auto sm:h-[100vh] sm:pb-0 pb-10 relative">
             <div className="w-auto xl:w-max h-auto xl:h-[100vh] xl:mt-0 mt-[120px] relative xl:flex-row flex-col flex xl:justify-center xl:items-center horizontalSection">
               <h2
+              dangerouslySetInnerHTML={createMarkup(pages.mainpage.sections[1].title)}
                 className={`font-extra w-auto xl:w-[100vw] text-center uppercase ${
                   isSmallMobile ? "text-4xl" : "text-5xl"
                 } sm:text-8xl xl:text-[10rem] leading-[100%] relative`}
-              >
-                Explore The <br /> Collection
-              </h2>
+              />
               <div className="min-w-[100vw] flex sm:justify-center items-center px-[16px] xl:px-[6.25rem] cardsCont xl:mt-0 sm:mt-14 mt-7">
                 <div className="w-full h-auto flex gap-6 xl:gap-20 items-center">
                   {isMobile ? (

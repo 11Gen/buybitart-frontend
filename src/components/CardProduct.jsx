@@ -11,8 +11,6 @@ import { productsAuction } from "../utils/data";
 
 const CardProduct = ({ data, setCart, cart, auction, index }) => {
   const { isSmallMobile } = useResponsive();
-  const [isPresent, safeToRemove] = usePresence();
-  const [scope, animate] = useAnimate();
   const [isAdded, setIsAdded] = useState(
     Boolean(cart.find((item) => item.hash === data.hash))
   );
@@ -40,48 +38,9 @@ const CardProduct = ({ data, setCart, cart, auction, index }) => {
     setIsAdded(Boolean(cart.find((item) => item.hash === data.hash)));
   }, [cart]);
 
-  useEffect(() => {
-    if (!isPresent) {
-      const exitAnimation = async () => {
-        await animate(
-          scope.current,
-          {
-            opacity: 0,
-            x: -24,
-          },
-          {
-            delay: index * 0.15,
-          }
-        );
-        safeToRemove();
-      };
-
-      exitAnimation();
-    } else {
-      const enterAnimation = async () => {
-        await animate(
-          scope.current,
-          {
-            opacity: [0,1],
-            x: [-24,0],
-          },
-          {
-            delay: auction ? index * 0.15 : (productsAuction.length * 0.15) + (index * 0.15),
-          }
-        );
-      };
-
-      enterAnimation();
-    }
-  }, [isPresent])
-
   return (
     <>
-      <motion.div
-        ref={scope}
-        layout
-        className="w-full h-full rounded-xl p-3.5 relative overflow-hidden border-[1px] border-[#FFFFFF1A] flex flex-col justify-between gap-3 bg-[#00000027] backdrop-blur-3xl"
-      >
+      <div className="w-full h-full rounded-xl p-3.5 relative overflow-hidden border-[1px] border-[#FFFFFF1A] hover:bg-[#ffffff10] transition-colors duration-300 flex flex-col justify-between gap-3 bg-[#00000027] backdrop-blur-3xl">
         <Link
           to={auction ? `/auction/${data.hash}` : `/shop/${data.hash}`}
           className="flex flex-col relative gap-3"
@@ -144,7 +103,7 @@ const CardProduct = ({ data, setCart, cart, auction, index }) => {
             <AddToCartButton addToCart={addToCart} isAdded={isAdded} />
           )}
         </div>
-      </motion.div>
+      </div>
     </>
   );
 };

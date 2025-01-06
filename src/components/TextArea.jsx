@@ -1,9 +1,9 @@
 import React from 'react'
 
-const TextArea = ({placeholder, className, autocomplete, id}) => {
+const TextArea = ({placeholder, className, autocomplete, id, defaultValue, onChange, name}) => {
   return (
     <>
-      <textarea placeholder={placeholder} className={className} autoComplete={autocomplete} id={id} />
+      <textarea placeholder={placeholder} className={className} name={name} autoComplete={autocomplete} id={id} defaultValue={defaultValue} onChange={onChange} />
     </>
   )
 }

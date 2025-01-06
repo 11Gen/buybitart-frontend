@@ -1,41 +1,73 @@
-import React, { useState } from "react";
-import CategoryButton from "../components/CategoryButton";
+import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import CardProduct from "../components/CardProduct";
-import { products, productsAuction } from "../utils/data";
+import { pages, products, productsAuction } from "../utils/data";
 import useResponsive from "../hooks/useResponsive";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useLenis } from "lenis/react";
+import { smoothScrollTo } from "../utils/index";
 
 const Shop = ({ setCart, cart }) => {
-  const [currentCategory, setCurrentCategory] = useState(null);
   const [isAuction, setIsAuction] = useState(true);
-  const [auctionProducts, setAuctionProducts] = useState([...productsAuction]);
   const [page, setPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(12);
   const { isMobile } = useResponsive();
+  const lenis = useLenis();
 
-  const categories = [
-    "category",
-    "category",
-    "category",
-    "category",
-    "category",
-    "category",
-    "category",
-    "category",
-    "category",
-    "category",
-    "category",
-    "category",
-    "category",
-  ];
+  const combinedProducts = isAuction
+    ? [...productsAuction, ...products]
+    : [...products];
+
+  const totalPages = Math.ceil(combinedProducts.length / itemsPerPage);
+  const paginatedProducts = combinedProducts.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage
+  );
+
+  const handlePageChange = (newPage) => {
+    if (newPage > 0 && newPage <= totalPages) {
+      setPage(newPage);
+    }
+  };
+
+  useEffect(() => {
+    const updateItemsPerPage = () => {
+      const width = window.innerWidth;
+      if (width >= 1536) setItemsPerPage(12); // 2xl
+      else if (width >= 1280) setItemsPerPage(9); // xl
+      else if (width >= 640) setItemsPerPage(10); // sm
+      else setItemsPerPage(8); // smaller than sm
+    };
+
+    updateItemsPerPage();
+    window.addEventListener("resize", updateItemsPerPage);
+    return () => window.removeEventListener("resize", updateItemsPerPage);
+  }, []);
+
+  useEffect(() => {
+    const combinedLength = isAuction
+      ? [...productsAuction, ...products].length
+      : [...products].length;
+
+    const maxPages = Math.ceil(combinedLength / itemsPerPage);
+
+    if (page > maxPages) {
+      setPage(1);
+    }
+  }, [isAuction, itemsPerPage, page]);
+
+  const fadeVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+    exit: { opacity: 0 },
+  };
 
   return (
     <div className="w-[100vw] h-full contShop">
-      <div className="w-full h-full min-h-[155px] sticky top-[30px] xl:top-[51px] mt-[72px] px-[16px] pb-4 flex flex-col justify-end xl:px-[6.25rem] overflow-x-hidden z-[2] webkitBgBlurIos16 bg-gradient-to-t from-[#000000]/75 to-[#000] to-[85%] border-b-[1px] border-[#FFFFFF1A]">
-        <div className="w-full h-auto relative flex justify-between items-end">
+      <div className="w-full h-full sticky top-[30px] xl:top-[52px] mt-[72px] px-[16px] pb-4 flex flex-col justify-end xl:px-[6.25rem] overflow-x-hidden z-[2]">
+        <div className="w-full h-auto relative flex justify-between items-end webkitBgBlurIos16 bg-gradient-to-t from-[#000000]/75 to-[#000] to-[85%] py-5 border-b-[1px] border-[#FFFFFF1A]">
           <h2 className="font-main font-[600] text-4xl leading-[100%] uppercase">
-            Shop
+            {pages.shop.sections[0].title}
           </h2>
 
           <div className="flex w-auto h-full items-center gap-6">
@@ -100,55 +132,44 @@ const Shop = ({ setCart, cart }) => {
             </button>
           </div>
         </div>
-        <Swiper
-          slidesPerView={"auto"}
-          spaceBetween={8}
-          className="mt-[20px] xl:mt-[27px] w-full h-auto flex items-center !mx-0"
-        >
-          {(categories || []).map((category, index) => (
-            <SwiperSlide className={`!w-auto !flex-shrink-0 mr-2`} key={index}>
-              {category ? (
-                <CategoryButton
-                  data={category}
-                  index={index + 1}
-                  currentCategory={currentCategory}
-                  setCurrentCategory={setCurrentCategory}
-                />
-              ) : (
-                <div className="w-[110px] h-[35px] opacity-0 pointer-events-none"></div>
-              )}
-            </SwiperSlide>
-          ))}
-        </Swiper>
       </div>
 
-      <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 w-full px-[16px] xl:px-[6.25rem] relative mt-[37px] mb-[47px]">
-        <AnimatePresence>
-          {(isAuction ? auctionProducts : []).map((product, index) => (
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={page}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={fadeVariants}
+          transition={{ duration: 0.4 }}
+          className="grid 2xl:grid-cols-4 xl:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 w-full px-[16px] xl:px-[6.25rem] relative mt-[12px] mb-[47px]"
+        >
+          {paginatedProducts.map((product, index) => (
             <CardProduct
               data={product}
-              key={product.timeToEnd}
+              key={product.id || index}
               setCart={setCart}
               cart={cart}
               index={index}
-              auction
+              auction={isAuction && product?.timeToEnd}
             />
           ))}
-          {(products || []).map((product, index) => (
-            <CardProduct
-              data={product}
-              key={index}
-              setCart={setCart}
-              index={index}
-              cart={cart}
-            />
-          ))}
-        </AnimatePresence>
-      </div>
+        </motion.div>
+      </AnimatePresence>
 
       <div className="w-full flex justify-center items-center h-auto px-[16px] xl:px-[6.25rem] mb-[53px]">
         <div className="w-auto h-[40px] flex items-center gap-2">
-          <button className="h-full flex items-center justify-center w-[40px]">
+          <button
+            onClick={() => {
+              handlePageChange(page - 1);
+              if (!isMobile) lenis?.scrollTo(0, { duration: 1 });
+              else smoothScrollTo(0, 1000);
+            }}
+            disabled={page === 1}
+            className={`h-full flex items-center justify-center w-[40px] ${
+              page === 1 ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+          >
             <img
               src="/chevron_left.svg"
               alt=""
@@ -156,25 +177,37 @@ const Shop = ({ setCart, cart }) => {
             />
           </button>
 
-          <div className="w-auto h-full flex gap-1 items-center">
-            <button className="w-[40px] h-[40px] bg-[#FCCB00] rounded-full flex items-center justify-center font-main font-[400] text-base text-[#241D00]">
-              1
-            </button>
-            <button className="w-[40px] h-[40px] bg-[#FFFFFF1A] rounded-full flex items-center justify-center font-main font-[400] text-base text-white">
-              2
-            </button>
-            <button className="w-[40px] h-[40px] bg-[#FFFFFF1A] rounded-full flex items-center justify-center font-main font-[400] text-base text-white">
-              ...
-            </button>
-            <button className="w-[40px] h-[40px] bg-[#FFFFFF1A] rounded-full flex items-center justify-center font-main font-[400] text-base text-white">
-              7
-            </button>
-            <button className="w-[40px] h-[40px] bg-[#FFFFFF1A] rounded-full flex items-center justify-center font-main font-[400] text-base text-white">
-              8
-            </button>
+          <div className="w-auto h-full flex gap-2 items-center">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+              <button
+                key={p}
+                onClick={() => {
+                  handlePageChange(p);
+                  if (!isMobile) lenis?.scrollTo(0, { duration: 1 });
+                  else smoothScrollTo(0, 1000);
+                }}
+                className={`w-[40px] h-[40px] rounded-full flex items-center justify-center font-main font-[400] text-base ${
+                  page === p
+                    ? "bg-[#FCCB00] text-[#241D00]"
+                    : "bg-[#FFFFFF1A] text-white"
+                }`}
+              >
+                {p}
+              </button>
+            ))}
           </div>
 
-          <button className="h-full flex items-center justify-center w-[40px]">
+          <button
+            onClick={() => {
+              handlePageChange(page + 1);
+              if (!isMobile) lenis?.scrollTo(0, { duration: 1 });
+              else smoothScrollTo(0, 1000);
+            }}
+            disabled={page === totalPages}
+            className={`h-full flex items-center justify-center w-[40px] ${
+              page === totalPages ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+          >
             <img
               src="/chevron_right.svg"
               alt=""
