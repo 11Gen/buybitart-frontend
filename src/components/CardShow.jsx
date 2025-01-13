@@ -35,7 +35,7 @@ const CardShow = ({ data, setCart, cart }) => {
 
   return (
     <div className="w-auto xl:min-w-[634px] h-auto xl:h-[32.5rem] xl:flex-row flex-col flex xl:items-end xl:gap-6 gap-3">
-      <div className="w-[316px] sm:w-[376px] h-full rounded-xl border-[1px] border-[#FFFFFF1A] p-3.5 relative overflow-hidden bg-[#00000027] backdrop-blur-3xl flex flex-col justify-between lg:gap-0 gap-3 z-[0]">
+      <div className="w-[316px] sm:w-[376px] h-full rounded-xl border-[1px] border-[#FFFFFF1A] p-3.5 relative overflow-hidden bg-[#00000027] hover:bg-[#ffffff10] transition-colors duration-300 backdrop-blur-3xl flex flex-col justify-between lg:gap-0 gap-3 z-[0]">
         <Link
           to={`/shop/${data.hash}`}
           className="flex flex-col relative gap-3"

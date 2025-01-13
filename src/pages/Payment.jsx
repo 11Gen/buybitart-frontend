@@ -1,28 +1,51 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Input from "../components/Input";
-import TextArea from "../components/TextArea";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import InputLabel from "../components/InputLabel";
 import TextAreaLabel from "../components/TextAreaLabel";
+import { getPrice } from "../utils";
+import axios from "axios";
 
 const Payment = ({ cart }) => {
-  const [typePay, setTypePay] = useState("crypto");
   const [totalPrice, setTotalPrice] = useState(0);
+  const [btcPrice, setBtcPrice] = useState(0);
+
+  const [searchParams] = useSearchParams();
+
+  const typePay = searchParams.get("typePay") || "crypto";
 
   const inputCSS = `w-full h-[44px] placeholder-[#707070] rounded-xl py-[10px] px-3 bg-[#212121] tracking-wide font-main border-[1px] border-[#ffffff05] transition-colors duration-[250ms] focus:placeholder-[#ffffff00] focus:outline-none font-[300]`;
 
-  const getPrice = (txt) =>
-    Number(txt?.includes("BTC") ? txt.replace("BTC", "") : txt);
+  useEffect(() => {
+    async function fetchBTCPrice() {
+      try {
+        const response = await axios.get(import.meta.env.VITE_USDBTC_API);
+        setBtcPrice(response.data.USD.sell);
+      } catch (error) {
+        console.error("Failed to fetch BTC price:", error);
+      }
+    }
+
+    fetchBTCPrice();
+  }, []);
 
   useEffect(() => {
     if (cart.length) {
-      setTotalPrice(
-        cart.reduce((a, b) => a + getPrice(b.price) * b.quantity, 0)
-      );
+      if (btcPrice && typePay === "card")
+        setTotalPrice(
+          cart.reduce(
+            (a, b) => a + btcPrice * getPrice(b.price) * b.quantity,
+            0
+          )
+        );
+      else if (typePay === "crypto")
+        setTotalPrice(
+          cart.reduce((a, b) => a + getPrice(b.price) * b.quantity, 0)
+        );
     }
-  }, [cart]);
+  }, [cart, btcPrice, typePay]);
 
   return (
     <div className="w-[100vw] h-full">
@@ -103,18 +126,18 @@ const Payment = ({ cart }) => {
           <div className="xl:w-[calc(100%-25cqw)] w-full h-auto flex flex-col gap-8 items-center">
             {/* type */}
             <div className="flex xl:sticky relative shadow-xl xl:top-[81px] justify-between gap-1 bg-[#FFFFFF1A] backdrop-blur-md z-[2] p-2 w-full max-w-[336px] mx-auto rounded-xl h-[47px] font-main text-white text-base items-center">
-              <button
-                onClick={() => setTypePay("crypto")}
+              <Link
+                to={`?${new URLSearchParams({ typePay: "crypto" })}`}
                 className="w-full h-auto text-center"
               >
                 Crypto pay
-              </button>
-              <button
-                onClick={() => setTypePay("card")}
+              </Link>
+              <Link
+                to={`?${new URLSearchParams({ typePay: "card" })}`}
                 className="w-full h-auto text-center"
               >
                 Card pay
-              </button>
+              </Link>
 
               <div
                 className={`bg-[#A2A2A24D] h-[31px] rounded-[7px] w-[164px] absolute transition-[left] duration-300 top-2 ${
@@ -140,7 +163,7 @@ const Payment = ({ cart }) => {
                       x{item.quantity}
                     </span>
                   </div>
-                  <span className="text-[#FCCB00]">{item.price}</span>
+                  <span className="text-[#FCCB00]">{typePay === 'crypto' ? item.price : typePay === 'card' ? (btcPrice * getPrice(item.price)).toFixed(2) + "USD" : null}</span>
                 </div>
               ))}
             </div>
@@ -241,13 +264,21 @@ const Payment = ({ cart }) => {
                 <div className="font-main text-base font-[300] tracking-wide w-full flex justify-between items-center">
                   <span className="text-[#CFCFCF]">Total</span>
                   <span className="text-white font-[500]">
-                    {totalPrice.toFixed(4) + "BTC"}
+                    {typePay === "crypto"
+                      ? totalPrice.toFixed(4) + "BTC"
+                      : typePay === "card"
+                      ? totalPrice.toFixed(2) + "USD"
+                      : null}
                   </span>
                 </div>
                 <div className="font-main text-base font-[300] tracking-wide w-full flex justify-between items-center">
                   <span className="text-[#CFCFCF]">To pay</span>
                   <span className="text-[#FCCB00] font-[500]">
-                    {totalPrice.toFixed(4) + "BTC"}
+                    {typePay === "crypto"
+                      ? totalPrice.toFixed(4) + "BTC"
+                      : typePay === "card"
+                      ? totalPrice.toFixed(2) + "USD"
+                      : null}
                   </span>
                 </div>
               </div>

@@ -5,11 +5,9 @@ import { toast } from "react-toastify";
 import PriceLabel from "./PriceLabel";
 import AddToCartButton from "./AddToCartButton";
 import { MdArrowOutward } from "react-icons/md";
-import { useAnimate, usePresence } from "framer-motion";
-import { motion } from "framer-motion";
-import { productsAuction } from "../utils/data";
+import { getPrice } from "../utils";
 
-const CardProduct = ({ data, setCart, cart, auction, index }) => {
+const CardProduct = ({ data, setCart, cart, auction, priceType }) => {
   const { isSmallMobile } = useResponsive();
   const [isAdded, setIsAdded] = useState(
     Boolean(cart.find((item) => item.hash === data.hash))
@@ -67,7 +65,7 @@ const CardProduct = ({ data, setCart, cart, auction, index }) => {
               </div>
 
               <div className="w-auto text-[13px] font-main font-[300] h-[28px] absolute bg-[#0000003d] flex items-center backdrop-blur-xl justify-center z-[2] right-2.5 top-2.5 leading-[100%] rounded-xl py-[2px] px-2.5 border-[1px] border-[#ffffff1A]">
-                {data.timeToEnd}
+                {data.endTime}
               </div>
             </>
           ) : (
@@ -88,8 +86,9 @@ const CardProduct = ({ data, setCart, cart, auction, index }) => {
         <div className="w-full h-auto flex justify-between items-center z-[1] relative mt-2">
           <PriceLabel
             auction
+            priceType={priceType}
             IsCardHash={data.hash}
-            price={auction ? `~ ${data.price}` : data.price}
+            price={priceType === "BTC" ? auction ? getPrice(data.currentPrice) != 0 ? data.currentPrice : data.startPrice : data.price : priceType === "USD" ? auction ? data.usdPrice : data.usdPrice : null}
           />
           {auction ? (
             <Link

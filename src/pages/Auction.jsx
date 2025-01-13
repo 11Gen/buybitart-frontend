@@ -4,7 +4,7 @@ import Slider from "../components/Slider";
 import { productsAuction } from "../utils/data";
 import { useParams } from "react-router-dom";
 import convert from "convert-length";
-import { createMarkup } from "../utils";
+import { createMarkup, getPrice } from "../utils";
 import Input from "../components/Input";
 import BetCard from "../components/BetCard";
 import Footer from "../components/Footer";
@@ -24,6 +24,8 @@ const Auction = () => {
     () => productsAuction.find((item) => item.hash === hash),
     [hash]
   );
+
+  const increaseRateBid = 0.001;
 
   // Generate dimensions in inches
   const inchesSize = useMemo(() => {
@@ -94,7 +96,7 @@ const Auction = () => {
                 <div>
                   <p className="text-gray-400 text-sm">Current rate</p>
                   <span className="text-yellow-400 text-2xl sm:text-3xl font-bold">
-                    {currentData?.price}
+                    {getPrice(currentData?.currentPrice) != 0 ? currentData?.currentPrice : currentData?.startPrice}
                   </span>
                 </div>
                 <div>
@@ -118,7 +120,7 @@ const Auction = () => {
                 )}
                 <Input
                   label="Your Bet"
-                  placeholder={currentData?.price}
+                  placeholder={getPrice(currentData?.currentPrice) != 0 ? (getPrice(currentData?.currentPrice) + increaseRateBid).toFixed(4) + "BTC" : (getPrice(currentData?.startPrice) + increaseRateBid).toFixed(4) + "BTC"}
                   id="betInput"
                   className="w-full h-[50px] font-[300] font-main py-[10px] px-3 bg-[#212121] rounded-xl outline-none border-[1px] border-[#ffffff05] transition-colors duration-[250ms] focus:placeholder-[#ffffff00] mb-2"
                   type="text"

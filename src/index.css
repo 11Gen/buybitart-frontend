@@ -167,3 +167,84 @@ html {
   transform: translateX(1.15em);
   background-color: #fff;
 }
+
+
+.tiptap p.is-editor-empty:first-child::before {
+  color: #707070;
+  content: attr(data-placeholder);
+  float: left;
+  font-weight: 400;
+  height: 0;
+  pointer-events: none;
+}
+
+ul,
+ol {
+  padding: 0 1rem;
+  margin: 0.4rem;
+  list-style-position: inside;
+}
+
+ul {
+  list-style: initial;
+  list-style-type: square;
+}
+
+ol {
+  list-style: decimal;
+}
+
+li {
+  position: relative;
+}
+
+li p {
+  display: inline;
+  position: relative;
+}
+
+ul > li p {
+  left: -4px;
+}
+
+ol > li p {
+  left: 3px;
+}
+
+ul > li {
+  left: 3px
+}
+
+blockquote {
+  border-left: 3px solid #ffffff1A;
+  margin: 0.5rem 0;
+  padding-left: 1rem;
+}
+
+blockquote p::before {
+  content: '\201C';
+}
+
+blockquote p::after {
+  content: '\201D';
+}
+
+p > a {
+  color: #FCCB00;
+  cursor: pointer;
+}
+
+p > strong {
+  font-weight: 600;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}

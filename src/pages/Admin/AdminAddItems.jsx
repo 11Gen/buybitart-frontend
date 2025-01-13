@@ -4,17 +4,35 @@ import { MdArrowBack } from "react-icons/md";
 import Dropzone from "../../components/Dropzone";
 import Input from "../../components/Input";
 import InputLabel from "../../components/InputLabel";
-import TextAreaLabel from "../../components/TextAreaLabel";
 import Footer from "../../components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
+import BtcIcon from "../../components/subComponents/BtcIcon";
+import TextEditor from "../../components/TextEditor";
+import { useForm } from "react-hook-form";
 
 const AdminAddItems = () => {
   const [searchParams] = useSearchParams();
   const [images, setImages] = useState([]);
-  const type = searchParams.toString().replace("=", "");
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm();
+  const [type, setType] = useState(searchParams.toString().replace("=", ""));
+
+  const inputCSS =
+    "bg-[#212121] w-full py-[10px] px-3 rounded-xl outline-none leading-[23px] border-[1px] border-[#ffffff05] tracking-wide transition-colors duration-[250ms] font-main placeholder-[#707070] focus:placeholder-[#ffffff00]";
 
   const removeImage = (index) => {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  };
+
+  const handleImageChange = (newImages) => {
+    setImages(newImages);
+    clearErrors("images");
   };
 
   const containerVariants = {
@@ -29,6 +47,22 @@ const AdminAddItems = () => {
       scale: 0,
       transition: { delay: index * 0.05 },
     }),
+  };
+
+  function changeType(settedType) {
+    setType(settedType);
+    setValue("itemType", settedType);
+  }
+
+  const onSubmit = (data) => {
+    if (!images.length) {
+      setError("images", {
+        type: "manual",
+        message: "At least 1 image is required",
+      });
+      return;
+    }
+    console.log({ ...data, images });
   };
 
   return (
@@ -49,7 +83,13 @@ const AdminAddItems = () => {
         <div className="w-full h-auto flex xl:gap-[125px] gap-[60px] xl:flex-row flex-col justify-between">
           {/* Left */}
           <div className="w-full h-auto flex flex-col relative">
-            <div className="grid grid-cols-5 sm:grid-rows-6 grid-rows-5 sm:gap-4 gap-2.5">
+            <div
+              className={`${
+                errors.images
+                  ? ""
+                  : "grid grid-cols-5 sm:grid-rows-6 grid-rows-5 sm:gap-4 gap-2.5"
+              }`}
+            >
               <AnimatePresence initial={false}>
                 {!images.length ? (
                   <motion.div
@@ -58,9 +98,18 @@ const AdminAddItems = () => {
                     animate="visible"
                     exit="exit"
                     variants={containerVariants}
-                    className="col-span-5 sm:row-span-6 row-span-5 max-h-[600px]"
+                    className={`${
+                      errors.images
+                        ? "flex flex-col gap-3"
+                        : "col-span-5 sm:row-span-6 row-span-5"
+                    } max-h-[600px]`}
                   >
-                    <Dropzone data={images} setData={setImages} />
+                    <Dropzone data={images} setData={handleImageChange} />
+                    {errors.images && (
+                      <p className="text-red-500 text-xs">
+                        {errors.images.message}
+                      </p>
+                    )}
                   </motion.div>
                 ) : (
                   images.map(
@@ -83,7 +132,7 @@ const AdminAddItems = () => {
                           <img
                             src={image.src}
                             alt={`Uploaded-${image.name}`}
-                            className="w-full h-full object-cover rounded-3xl"
+                            className="w-full h-full object-cover rounded-3xl max-h-[600px]"
                             draggable={false}
                           />
                           <button
@@ -146,57 +195,164 @@ const AdminAddItems = () => {
           </div>
 
           {/* Right */}
-          <form className="w-full h-auto flex flex-col gap-6">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="w-full h-auto flex flex-col gap-6"
+          >
             {/* Input fields */}
-            <div className="flex flex-col w-full h-auto gap-1.5">
-              <label
-                htmlFor="titleA"
-                className="text-white text-sm leading-[16.8px] font-main tracking-wide"
-              >
-                Title
-              </label>
-              <Input
+            <div className="flex flex-col gap-3 w-full h-auto relative">
+              <InputLabel
                 id="titleA"
+                label="Title"
                 placeholder="Painting-Embroidery «Unknown Bitcoin»"
                 type="text"
-                className="bg-[#212121] py-[10px] px-3 rounded-xl outline-none leading-[23px] border-[1px] border-[#ffffff05] tracking-wide transition-colors duration-[250ms] font-main placeholder-[#707070] focus:placeholder-[#ffffff00]"
+                name="title"
+                register={register("title", { required: "Title is required" })}
               />
+              {errors.title && (
+                <p className="text-red-500 text-xs">{errors.title.message}</p>
+              )}
             </div>
 
             {/* Price, Size, Delivery */}
-            <InputLabel
-              id="priceA"
-              placeholder="0.0013"
-              label="Price"
-              type="text"
-            />
-            <InputLabel
-              id="sizeA"
-              placeholder="30x40"
-              label="Size"
-              type="text"
-            />
-            <InputLabel
-              id="deliveryA"
-              label="Delivery"
-              placeholder="International-Free"
-              type="text"
-            />
-            <TextAreaLabel
-              id="descA"
-              label="Description"
+            {type === "gallery" ? (
+              <></>
+            ) : type === "auction" ? (
+              <>
+                <div className="flex flex-col gap-3 w-full h-auto relative">
+                  <div className="flex flex-col w-full h-auto gap-1.5">
+                    <label
+                      htmlFor="minPriceA"
+                      className="text-white text-sm leading-[16.8px] font-main tracking-wide"
+                    >
+                      Price
+                    </label>
+                    <div className="w-full h-auto flex items-center gap-3">
+                      <Input
+                        id="minPriceA"
+                        placeholder="min."
+                        type="number"
+                        {...register("minPrice", {
+                          required: "min. price is required",
+                        })}
+                        className={inputCSS}
+                      />
+                      -
+                      <Input
+                        id="maxPriceA"
+                        placeholder="max."
+                        type="number"
+                        {...register("maxPrice", {
+                          required: "max. price is required",
+                        })}
+                        className={inputCSS}
+                      />
+                    </div>
+                  </div>
+                  {(errors.minPrice || errors.maxPrice) && (
+                    <div className="w-full h-auto flex justify-between gap-9 items-start">
+                      <p className="text-red-500 text-xs w-full text-left">
+                        {errors.minPrice.message}
+                      </p>
+                      <p className="text-red-500 text-xs w-full text-left">
+                        {errors.maxPrice.message}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </>
+            ) : (
+              <div className="flex flex-col gap-3 w-full h-auto relative">
+                <InputLabel
+                  id="priceA"
+                  placeholder="0.0013"
+                  label="Price"
+                  icon={<BtcIcon />}
+                  type="number"
+                  {...register("price", { required: "Price is required" })}
+                />
+                {errors.price && (
+                  <p className="text-red-500 text-xs">{errors.price.message}</p>
+                )}
+              </div>
+            )}
+
+            {type === "auction" && (
+              <div className="flex flex-col gap-3 w-full h-auto relative">
+                <InputLabel
+                  id="endTimeA"
+                  placeholder="30x40"
+                  label="End time"
+                  type="datetime-local"
+                  {...register("endTime", {
+                    required: "End time is required",
+                  })}
+                />
+                {errors.endTime && (
+                  <p className="text-red-500 text-xs">
+                    {errors.endTime.message}
+                  </p>
+                )}
+              </div>
+            )}
+
+            {type !== "gallery" && (
+              <>
+                <div className="flex flex-col gap-3 w-full h-auto relative">
+                  <InputLabel
+                    id="sizeA"
+                    placeholder="30x40"
+                    label="Size"
+                    type="text"
+                    {...register("size", { required: "Size is required" })}
+                  />
+                  {errors.size && (
+                    <p className="text-red-500 text-xs">
+                      {errors.size.message}
+                    </p>
+                  )}
+                </div>
+                <div className="flex flex-col gap-3 w-full h-auto relative">
+                  <InputLabel
+                    id="deliveryA"
+                    label="Delivery"
+                    placeholder="International-Free"
+                    type="text"
+                    {...register("delivery", {
+                      required: "Delivery information is required",
+                    })}
+                  />
+                  {errors.delivery && (
+                    <p className="text-red-500 text-xs">
+                      {errors.delivery.message}
+                    </p>
+                  )}
+                </div>
+              </>
+            )}
+
+            <TextEditor
+              description=""
               placeholder="Your product description"
+              onChange={(desc) => setValue("description", desc)}
             />
 
             {/* Radio buttons */}
             <div className="flex flex-col w-full h-auto gap-3 relative">
-              {["Usual", "Auction", "Gallery"].map((category) => (
+              {["Usual", "Auction", "Gallery"].map((category, index) => (
                 <label
                   key={category}
+                  onClick={() =>
+                    changeType(
+                      category === "Usual" ? "" : category.toLowerCase()
+                    )
+                  }
                   className="relative flex items-center cursor-pointer justify-between select-none"
                 >
                   <input
-                    defaultChecked={type === category.toLowerCase()}
+                    defaultChecked={
+                      type === category.toLowerCase() || (!type && index === 0)
+                    }
                     className="sr-only peer"
                     name="futuristic-radio"
                     type="radio"

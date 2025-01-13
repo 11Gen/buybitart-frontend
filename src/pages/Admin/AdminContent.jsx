@@ -2,13 +2,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { pages } from "../../utils/data";
 import InputLabel from "../../components/InputLabel";
-import TextAreaLabel from "../../components/TextAreaLabel";
 import { createMarkup, removeHtmlTags } from "../../utils";
 import Input from "../../components/Input";
 import DropboxReplace from "../../components/DropboxReplace";
 import Footer from "../../components/Footer";
 import SlidingBullets from "../../components/SlidingBullets";
-import useResponsive from '../../hooks/useResponsive'
+import useResponsive from "../../hooks/useResponsive";
+import TextEditor from "../../components/TextEditor";
+import { useSearchParams } from "react-router-dom";
 
 const getCategoryKey = (category) => category.toLowerCase().replace(/ /g, "");
 
@@ -22,7 +23,7 @@ const ImageGrid = ({ images, setImages }) => (
   </div>
 );
 
-const ListEditor = ({ list }) => (
+const ListEditor = ({ list, onListChange }) => (
   <div className="flex flex-col gap-3 w-full h-auto">
     <span className="text-white text-sm font-main tracking-wide">List</span>
     <div className="flex flex-col gap-3">
@@ -34,6 +35,7 @@ const ListEditor = ({ list }) => (
           <Input
             defaultValue={item}
             type="text"
+            onChange={(e) => onListChange(index, e.target.value)}
             className="bg-[#212121] py-[10px] w-full px-3 rounded-xl outline-none border-[1px] border-[#ffffff05] font-main placeholder-[#707070] focus:placeholder-[#ffffff00] transition-colors duration-[250ms]"
           />
         </div>
@@ -70,24 +72,46 @@ const ListEditor = ({ list }) => (
   </div>
 );
 
-const renderSectionContent = (key, value, setImages, images, onInputChange) => {
+const renderSectionContent = (
+  key,
+  value,
+  setImages,
+  images,
+  onInputChange,
+  sectionIndex
+) => {
   const contentMap = {
     description: () => (
-      <TextAreaLabel
-        label={capitalizeFirstLetter(key)}
-        defaultValue={removeHtmlTags(value)}
-        name={key}
-        onChange={onInputChange}
+      <TextEditor
+        description={value}
+        onChange={(newValue) =>
+          onInputChange(
+            { target: { name: key, value: newValue } },
+            sectionIndex
+          )
+        }
+        placeholder={`Enter ${capitalizeFirstLetter(key)}`}
       />
     ),
     images: () => <ImageGrid images={images} setImages={setImages} />,
-    list: () => <ListEditor list={value} />,
+    list: () => (
+      <ListEditor
+        list={value}
+        onListChange={(listIndex, value) =>
+          onInputChange(
+            { target: { name: "list", value } },
+            sectionIndex,
+            listIndex
+          )
+        }
+      />
+    ),
     default: () => (
       <InputLabel
         label={capitalizeFirstLetter(key)}
         defaultValue={removeHtmlTags(value)}
         name={key}
-        onChange={onInputChange}
+        onChange={(e) => onInputChange(e, index)}
       />
     ),
   };
@@ -107,8 +131,13 @@ const SectionSetting = ({
     <div className="flex flex-col gap-6">
       {Object.entries(section).map(([key, value]) => (
         <React.Fragment key={key}>
-          {renderSectionContent(key, value, setImages, images, (e) =>
-            onInputChange(e, index)
+          {renderSectionContent(
+            key,
+            value,
+            setImages,
+            images,
+            onInputChange,
+            index
           )}
         </React.Fragment>
       ))}
@@ -117,7 +146,7 @@ const SectionSetting = ({
 );
 
 const ContentDisplay = ({ section, category, index }) => {
-  const {isSmallMobile, isMobile} = useResponsive();
+  const { isSmallMobile, isMobile } = useResponsive();
 
   const contentMapping = {
     "main page": {
@@ -125,19 +154,33 @@ const ContentDisplay = ({ section, category, index }) => {
         <div className="w-full h-full px-5 sm:px-10 relative flex flex-row justify-between items-center">
           <div className="w-full h-auto flex flex-col max-w-[50%]">
             <h1
-              className={`font-main font-[700] 2xl:text-6xl xl:text-5xl sm:text-7xl ${isSmallMobile ? 'text-3xl' : 'text-4xl'} uppercase sm:tracking-wider text-left w-auto break-words`}
+              className={`font-main font-[700] 2xl:text-6xl xl:text-5xl sm:text-7xl ${
+                isSmallMobile ? "text-3xl" : "text-4xl"
+              } uppercase sm:tracking-wider text-left w-auto break-words`}
             >
               {section.title}
             </h1>
             <span
               dangerouslySetInnerHTML={createMarkup(section.description)}
-              className={`sm:mt-3 mt-2 font-main font-[400] 2xl:text-lg xl:text-base sm:text-xl sm:max-w-max max-w-[90%] ${isSmallMobile ? 'text-[10px]' : 'text-xs'} uppercase break-words 2xl:leading-[115%] xl:leading-[110%] leading-[115%] tracking-wider text-left opacity-90`}
+              className={`sm:mt-3 mt-2 font-main font-[400] 2xl:text-lg xl:text-base sm:text-xl sm:max-w-max max-w-[90%] ${
+                isSmallMobile ? "text-[10px]" : "text-xs"
+              } uppercase break-words 2xl:leading-[115%] xl:leading-[110%] leading-[115%] tracking-wider text-left opacity-90`}
             />
-            <button className={`font-main w-max max-w-max mx-0 text-center sm:text-[10px] uppercase ${isSmallMobile ? 'text-[5px] px-1.5 mt-3' : 'text-[7px] px-3 mt-4'} sm:mt-[22px] border-[1px] border-[#2c2c2e] py-1 sm:py-1.5 rounded-[1.8rem] font-[500] transition duration-[250ms] hover:text-[#522700] hover:bg-[#FCCB00] hover:border-[#FCCB00]`}>
+            <button
+              className={`font-main w-max max-w-max mx-0 text-center sm:text-[10px] uppercase ${
+                isSmallMobile
+                  ? "text-[5px] px-1.5 mt-3"
+                  : "text-[7px] px-3 mt-4"
+              } sm:mt-[22px] border-[1px] border-[#2c2c2e] py-1 sm:py-1.5 rounded-[1.8rem] font-[500] transition duration-[250ms] hover:text-[#522700] hover:bg-[#FCCB00] hover:border-[#FCCB00]`}
+            >
               Browse Gallery
             </button>
             <button
-              className={`2xl:w-[70px] xl:w-[60px] sm:w-[75px] ${isSmallMobile ? 'w-[30px] h-[30px] mt-3' : 'w-[50px] h-[50px] mt-5'} opacity-50 hover:opacity-70 transition-[opacity,left] duration-700 2xl:h-[70px] xl:h-[60px] sm:h-[75px] flex items-center justify-center relative rounded-full sm:mt-9 mx-0 group`}
+              className={`2xl:w-[70px] xl:w-[60px] sm:w-[75px] ${
+                isSmallMobile
+                  ? "w-[30px] h-[30px] mt-3"
+                  : "w-[50px] h-[50px] mt-5"
+              } opacity-50 hover:opacity-70 transition-[opacity,left] duration-700 2xl:h-[70px] xl:h-[60px] sm:h-[75px] flex items-center justify-center relative rounded-full sm:mt-9 mx-0 group`}
             >
               <img
                 src="/roundedScroll.svg"
@@ -148,18 +191,24 @@ const ContentDisplay = ({ section, category, index }) => {
               <img
                 src="/down-arrow.svg"
                 alt=""
-                className={`sm:w-[20px] sm:h-[20px] ${isSmallMobile ? 'h-[10px] w-[10px]' : 'h-[16px] w-[16px]'} object-contain group-hover:scale-110 transition-transform duration-700`}
+                className={`sm:w-[20px] sm:h-[20px] ${
+                  isSmallMobile ? "h-[10px] w-[10px]" : "h-[16px] w-[16px]"
+                } object-contain group-hover:scale-110 transition-transform duration-700`}
                 draggable={false}
               />
             </button>
           </div>
           <div className="w-full h-full relative flex justify-center items-center max-w-[50%]">
             <div
-              className={`absolute sm:w-[15rem] sm:h-[15rem] w-[10rem] h-[10rem] bg-[#FFB82BB2] left-[50%] xl:left-[55%] top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full ${!isMobile ? 'webkitBlurIos130' : 'webkitBlurIos80'} pointer-events-none`}
+              className={`absolute sm:w-[15rem] sm:h-[15rem] w-[10rem] h-[10rem] bg-[#FFB82BB2] left-[50%] xl:left-[55%] top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full ${
+                !isMobile ? "webkitBlurIos130" : "webkitBlurIos80"
+              } pointer-events-none`}
             />
             <img
               src="/btcMain.png"
-              className={`2xl:w-[11.5rem] 2xl:h-[11.5rem] xl:w-[10rem] xl:h-[10rem] sm:w-[11.5rem] sm:h-[11.5rem] ${isSmallMobile ? "w-[6rem] h-[6rem]" : "w-[8rem] h-[8rem]"}`}
+              className={`2xl:w-[11.5rem] 2xl:h-[11.5rem] xl:w-[10rem] xl:h-[10rem] sm:w-[11.5rem] sm:h-[11.5rem] ${
+                isSmallMobile ? "w-[6rem] h-[6rem]" : "w-[8rem] h-[8rem]"
+              }`}
               alt="btc"
               draggable={false}
             />
@@ -186,18 +235,24 @@ const ContentDisplay = ({ section, category, index }) => {
 };
 
 const AdminContent = () => {
-  const [currentCategory, setCurrentCategory] = useState("Main page");
   const [websiteData, setWebsiteData] = useState({ ...pages });
   const [images, setImages] = useState([]);
+  const [searchParams] = useSearchParams();
 
-  const onInputChange = (event, sectionIndex) => {
+  const currentCategory = searchParams.get("currentCategory") || "Main page"
+
+  const onInputChange = (event, sectionIndex, listIndex = null) => {
     const { name, value } = event.target;
     const categoryKey = getCategoryKey(currentCategory);
 
     setWebsiteData((prev) => {
       const updated = { ...prev };
       const sections = updated[categoryKey]?.sections;
-      if (sections?.[sectionIndex]) sections[sectionIndex][name] = value;
+      if (sections?.[sectionIndex]) {
+        if (listIndex !== null) {
+          sections[sectionIndex].list[listIndex] = value;
+        } else sections[sectionIndex][name] = value;
+      }
       return updated;
     });
   };
@@ -207,6 +262,20 @@ const AdminContent = () => {
     setImages(initialImages);
     return () => setImages([]);
   }, []);
+
+  useEffect(() => {
+    setWebsiteData((prev) => {
+      const updated = { ...prev };
+      const sections = updated["about"]?.sections;
+      if (sections?.[0]) {
+        sections[0]["images"] = sections[0]["images"].map((image, index) => ({
+          ...image,
+          ...images[index],
+        }));
+      }
+      return updated;
+    });
+  }, [images]);
 
   const renderSections = () => {
     const categoryKey = getCategoryKey(currentCategory);
@@ -269,7 +338,6 @@ const AdminContent = () => {
               "Elements",
             ]}
             state={currentCategory}
-            setState={setCurrentCategory}
             className="w-full h-auto flex items-center !mx-0"
           />
         </nav>
@@ -296,4 +364,4 @@ const AdminContent = () => {
 const capitalizeFirstLetter = (str) =>
   str.charAt(0).toUpperCase() + str.slice(1);
 
-export default AdminContent;
+export default AdminContent;``

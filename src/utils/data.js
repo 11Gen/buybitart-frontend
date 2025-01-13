@@ -19,16 +19,16 @@ export const products = [
     delivery: "International-Free",
     description: `<p>Have no fear of moving into the unknown. Simply step out fearlessly knowing that Bitcoin is with you, therefore no harm can befall you; all is very, very well. Do this in complete faith and confidence.</p>
                   <ul>
-                    <span>- 5 months of work! Only HandMade!</span> </br>
-                    <span>- 30,000 stitches! Only BitcoinArt !</span>
+                    <li>5 months of work! Only HandMade!</li>
+                    <li>30,000 stitches! Only BitcoinArt !</li>
                   </ul>
 
                   <span>Materials:</span>
                     <ul>
-                      <span>- Threads DMC” New Colors ” Embroidery Floss Pack;</span> </br>
-                      <span>- DMC Gold Embroidery Hand Needles;</span> </br>
-                      <span>- Fabric</span> </br>
-                      <span>- Handmade decorative frame</span>
+                      <li>Threads DMC” New Colors ” Embroidery Floss Pack;</li>
+                      <li>DMC Gold Embroidery Hand Needles;</li>
+                      <li>Fabric</li>
+                      <li>Handmade decorative frame</li>
                     </ul>
                   `,
   },
@@ -81,12 +81,12 @@ export const products = [
                   <span>Material:</span>
 
                   <ul>
-                    <span>– piece of fabric;</span><br/>
-                    <span>– beads;</span><br/>
-                    <span>– sequins;</span><br/>
-                    <span>– crystal;</span><br/>
-                    <span>– theards;</span><br/>
-                    <span>– wood frame.</span>
+                    <li>piece of fabric;</li>
+                    <li>beads;</li>
+                    <li>sequins;</li>
+                    <li>crystal;</li>
+                    <li>theards;</li>
+                    <li>wood frame.</li>
                   </ul>
 `,
   },
@@ -107,12 +107,12 @@ export const products = [
 
     <span>Material:</span>
         <ul>
-            <span>– piece of fabric;</span> <br/>
-            <span>– beads;</span> <br/>
-            <span>– sequins;</span> <br/>
-            <span>– crystal;</span> <br/>
-            <span>– metallic theards;</span> <br/>
-            <span>– wood frame.</span>
+            <li>piece of fabric;</li>
+            <li>beads;</li>
+            <li>sequins;</li>
+            <li>crystal;</li>
+            <li>metallic theards;</li>
+            <li>wood frame.</li>
         </ul>
      `,
   },
@@ -137,16 +137,16 @@ export const products = [
                   <span>Materials:</span>
 
                   <ul>
-                    <span>- fabric</span><br/>
-                    <span>- beads Preciosa</span><br/>
-                    <span>- threads Tytan 100 for bead embroidery</span><br/>
-                    <span>- needles for beadwork</span><br/>
-                    <span>- Swarovski stones</span><br/>
-                    <span>- Rhinestones</span><br/>
+                    <li>fabric</li>
+                    <li>beads Preciosa</li>
+                    <li>threads Tytan 100 for bead embroidery</li>
+                    <li>needles for beadwork</li>
+                    <li>Swarovski stones</li>
+                    <li>Rhinestones</li>
                   </ul>
 
-                  <p>«And maybe, – the first woman has started talking, – soul of the person lives in his hands?
-                  Because all, what we do in peace, we do hands». <br/> (c) Ray Bradbury “Embroider”</p>
+                  <blockquote>«And maybe, – the first woman has started talking, – soul of the person lives in his hands?
+                  Because all, what we do in peace, we do hands». <br/> (c) Ray Bradbury “Embroider”</blockquote>
 `,
   },
   {
@@ -167,10 +167,10 @@ export const products = [
                   <span>Materials:</span>
 
                   <ul>
-                    <span>- Threads DMC” New Colors ” Embroidery Floss Pack;</span><br/>
-                    <span>- DMC Gold Embroidery Hand Needles;</span><br/>
-                    <span>- Fabric;</span><br/>
-                    <span>- Handmade decorative frame.</span>
+                    <li>Threads DMC” New Colors ” Embroidery Floss Pack;</li>
+                    <li>DMC Gold Embroidery Hand Needles;</li>
+                    <li>Fabric;</li>
+                    <li>Handmade decorative frame.</li>
                   </ul>
                  `,
   },
@@ -193,13 +193,13 @@ export const products = [
                   <span>Material:</span>
 
                   <ul>
-                    <span>– piece of fabric;</span><br/>
-                    <span>– beads;</span><br/>
-                    <span>– sequins;</span><br/>
-                    <span>– crystal;</span><br/>
-                    <span>– metallic theards;</span><br/>
-                    <span>– physical coins (2 pcs.) of Bitcoin ( Denarium 2015)</span><br/>
-                    <span>– wood frame.</span><br/>
+                    <li>piece of fabric;</li>
+                    <li>beads;</li>
+                    <li>sequins;</li>
+                    <li>crystal;</li>
+                    <li>metallic theards;</li>
+                    <li>physical coins (2 pcs.) of Bitcoin ( Denarium 2015)</li>
+                    <li>wood frame.</li>
                   </ul>
 `,
   },
@@ -221,13 +221,13 @@ export const products = [
                   <span>Material:</span>
 
                   <ul>
-                    <span>– piece of fabric;</span><br/>
-                        <span>– beads;</span><br/>
-                        <span>– sequins;</span><br/>
-                        <span>– crystal;</span><br/>
-                        <span>– metallic theards;</span><br/>
-                        <span>– TGBEX physical coin – 1 bitcoin (UNLOADED & UNNUMBERED)</span><br/>
-                        <span>– wood frame.</span>
+                    <li>piece of fabric;</li>
+                    <li>beads;</li>
+                    <li>sequins;</li>
+                    <li>crystal;</li>
+                    <li>metallic theards;</li>
+                    <li>TGBEX physical coin – 1 bitcoin (UNLOADED & UNNUMBERED)</li>
+                    <li>wood frame.</li>
                   </ul>
                  `,
   },
@@ -251,10 +251,10 @@ export const products = [
                   <span>Materials:</span>
 
                   <ul>
-                    <span>- Threads DMC” New Colors ” Embroidery Floss Pack;</span><br/>
-                    <span>- DMC Gold Embroidery Hand Needles;</span><br/>
-                    <span>- Fabric</span><br/>
-                    <span>- Handmade decorative frame</span>
+                    <li>Threads DMC” New Colors ” Embroidery Floss Pack;</li>
+                    <li>DMC Gold Embroidery Hand Needles;</li>
+                    <li>Fabric</li>
+                    <li>Handmade decorative frame</li>
                   </ul>
 `,
   },
@@ -271,20 +271,22 @@ export const productsAuction = [
     ],
     video: "https://5ksana.art/wp-content/uploads/2024/05/Sunny-Bitcoin.mp4",
     hash: "sunny-btc",
-    price: "0.0450BTC",
+    startPrice: "0.0450BTC",
+    currentPrice: "0",
+    bids: [],
     dimensions: "35x42",
     delivery: "International-Free",
-    timeToEnd: "2 days",
+    endTime: "2 days",
     description: `<p>El Salvador became the first country to embrace Bitcoin as legal tender, marking a bold step toward a new financial future where innovation and opportunity converge.</p>
 
     <span>Material:</span>
         <ul>
-            <span>– piece of fabric;</span> <br/>
-            <span>– beads;</span> <br/>
-            <span>– sequins;</span> <br/>
-            <span>– crystal;</span> <br/>
-            <span>– metallic theards;</span> <br/>
-            <span>– wood frame.</span>
+            <li>piece of fabric;</li>
+            <li>beads;</li>
+            <li>sequins;</li>
+            <li>crystal;</li>
+            <li>metallic theards;</li>
+            <li>wood frame.</li>
         </ul>
      `,
   },
@@ -298,9 +300,18 @@ export const productsAuction = [
     ],
     video: "https://5ksana.art/wp-content/uploads/2024/04/btc.mp4",
     hash: "fiery-bitcoin",
-    price: "0.0500BTC",
+    startPrice: "0.0500BTC",
+    currentPrice: "0.0700BTC",
+    bids: [
+      {
+          amount: 0.07,
+          time: "2024-12-11T18:21:23.022Z",
+          userId:"6759d0c6b1d92266c62e22a9",
+          _id: "6759d82390262e6f75dee896"
+      }
+  ],
     dimensions: "55x50",
-    timeToEnd: "23 hours",
+    endTime: "23 hours",
     delivery: "International-Free",
     description: `<p>Painting  “Fiery Bitcoin”  embroidered and decorated with beads, rhinestones and Swarovski stones</p>
 
@@ -310,16 +321,16 @@ export const productsAuction = [
                   <span>Materials:</span>
 
                   <ul>
-                    <span>- fabric</span><br/>
-                    <span>- beads Preciosa</span><br/>
-                    <span>- threads Tytan 100 for bead embroidery</span><br/>
-                    <span>- needles for beadwork</span><br/>
-                    <span>- Swarovski stones</span><br/>
-                    <span>- Rhinestones</span><br/>
+                    <li>fabric</li>
+                    <li>beads Preciosa</li>
+                    <li>threads Tytan 100 for bead embroidery</li>
+                    <li>needles for beadwork</li>
+                    <li>Swarovski stones</li>
+                    <li>Rhinestones</li>
                   </ul>
 
-                  <p>«And maybe, – the first woman has started talking, – soul of the person lives in his hands?
-                  Because all, what we do in peace, we do hands». <br/> (c) Ray Bradbury “Embroider”</p>
+                  <blockquote>«And maybe, – the first woman has started talking, – soul of the person lives in his hands?
+                  Because all, what we do in peace, we do hands». <br/> (c) Ray Bradbury “Embroider”</blockquote>
 `,
   },
   {
@@ -332,19 +343,28 @@ export const productsAuction = [
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9174-528x427.jpg.webp",
     ],
     hash: "world-of-bitcoin",
-    price: "0.0800BTC",
+    startPrice: "0.0800BTC",
+    currentPrice: "1.0000BTC",
+    bids: [
+      {
+          amount: 1,
+          time: "2024-12-11T18:21:23.022Z",
+          userId:"6759d0c6b1d92266c62e22a9",
+          _id: "6759d82390262e6f75dee896"
+      }
+  ],
     dimensions: "35x50",
-    timeToEnd: "1 hour",
+    endTime: "1 hour",
     delivery: "International-Free",
     description: `<p>«World of Bitcoin» is a cool artwork that mixes Bitcoin with space stuff. In the middle, there’s a shiny Bitcoin symbol that looks like an eye in the sky, kind of like the stars. The picture shows space looking awesome, like the digital money world is huge. There’s a big explosion thing too, showing how Bitcoin shakes up things, like when stars are born.</p>
 
                   <span>Materials:</span>
 
                   <ul>
-                    <span>- Threads DMC” New Colors ” Embroidery Floss Pack;</span><br/>
-                    <span>- DMC Gold Embroidery Hand Needles;</span><br/>
-                    <span>- Fabric;</span><br/>
-                    <span>- Handmade decorative frame.</span>
+                    <li>Threads DMC” New Colors ” Embroidery Floss Pack;</li>
+                    <li>DMC Gold Embroidery Hand Needles;</li>
+                    <li>Fabric;</li>
+                    <li>Handmade decorative frame.</li>
                   </ul>
                  `,
   },
@@ -358,9 +378,11 @@ export const productsAuction = [
       "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_9638-528x427.jpg.webp",
     ],
     hash: "girl-with-btc-eye",
-    price: "0.0500BTC",
+    startPrice: "0.0500BTC",
+    currentPrice: "0",
+    bids: [],
     dimensions: "50x20",
-    timeToEnd: "3 weeks",
+    endTime: "3 weeks",
     delivery: "International-Free",
     description: `<p>“The Girl with the Bitcoin Eye” is a painting-embroidery created in the diptych technique. It consists of two parts, each of which represents a separate painting</p>
 
@@ -369,10 +391,10 @@ export const productsAuction = [
                   <span>Materials:</span>
 
                   <ul>
-                    <span>- Threads DMC” New Colors ” Embroidery Floss Pack;</span><br/>
-                    <span>- DMC Gold Embroidery Hand Needles;</span><br/>
-                    <span>- Fabric</span><br/>
-                    <span>- Handmade decorative frame</span>
+                    <li>Threads DMC” New Colors ” Embroidery Floss Pack;</li>
+                    <li>DMC Gold Embroidery Hand Needles;</li>
+                    <li>Fabric</li>
+                    <li>Handmade decorative frame</li>
                   </ul>
 `,
   },
@@ -428,14 +450,14 @@ export const galleryProducts = [
                   Runes are loaded with power. I also draw them in different places — on my car for safety in travel, on the doorpost of my home for protection, on flower pots to aid in the growth of plants. The list of possibilities is endless.<br/><br/>
                   On a wooden stand I painted the “Flower of Prosperity” rune to attract good luck and financial well-being!<br/><br/>
 
-Material:<br/>
-– handmade oak stand;<br/>
-– 160 pcs. coins «Denarium Bitcoin» (Denarium 1/10 BTC 2015, Denarium 1/100 BTC 2015, Denarium Bitcoin 2015);<br/>
-– hand-painted.<br/><br/>
-
+<span>Material:</span>
+<ul>
+<li>handmade oak stand;</li>
+<li>160 pcs. coins «Denarium Bitcoin» (Denarium 1/10 BTC 2015, Denarium 1/100 BTC 2015, Denarium Bitcoin 2015);</li>
+<li>hand-painted.</li>
+</ul>
 Size: height – 31 cm.;<br/>
-width – 9 cm;<br/><br/>
-
+width – 9 cm;<br/>
 Weight: 1,5 kg.</p>`,
   },
   {
@@ -466,6 +488,253 @@ Weight: 1,5 kg.</p>`,
     hash: "wood-boxes-claycast",
     description: `<p>Wooden boxes for storage of jewelry made to order for <a href="https://twitter.com/ClayCastCrypto">ClayCastCrypto</a> (@ClayCastCrypto).<br/><br/>
                   Thanks for your order!</p>`,
+  },
+  {
+    title: "Unique Handcrafted Case for BarCard",
+    images: [
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/denarium_wood_box-1-1-%E2%80%94-%D0%BA%D0%BE%D0%BF%D0%B8%D1%8F-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/denarium_wood_box-2-1-%E2%80%94-%D0%BA%D0%BE%D0%BF%D0%B8%D1%8F-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/denarium_wood_box-3-1-%E2%80%94-%D0%BA%D0%BE%D0%BF%D0%B8%D1%8F-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/denarium_wood_box-4-1-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/denarium_wood_box-6-1-%E2%80%94-%D0%BA%D0%BE%D0%BF%D0%B8%D1%8F-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/denarium_wood_box-8-1-528x427.jpg.webp",
+    ],
+    hash: "uniq-case-barcard",
+    description: `<p>The inside of the box is covered with soft fabric upholstery, which gives a sophisticated impression and perfect protection for the product, and it feels comfortable. It is a practical and unique piece of handmade art.<br/><br/>
+                  Compatible coins: All coins which are sold in a BarCard</p>`,
+  },
+  {
+    title: "Painting-Embroidery «Phoenix»",
+    images: [
+      "https://5ksana.art/wp-content/uploads/2024/04/11.webp",
+      "https://5ksana.art/wp-content/uploads/2024/04/22-528x427.webp",
+      "https://5ksana.art/wp-content/uploads/2024/04/33-528x427.webp",
+      "https://5ksana.art/wp-content/uploads/2024/04/44-528x427.webp",
+    ],
+    hash: "painting-embro-phoenix",
+    description: `<p>Since the dawn of time,hand stitching with needle and thread has resulted in beautiful works of art-and I continue this tradition! There’s something deeply satisfying about stitching with your own two hands, and no matter how technology advances, freehand embroidery is here to stay!</p>
+                  <p>The Phoenix Bird will help creative people fulfill their desires and achieve their goals.</p>
+                  <span>Materials:</span>
+                  <ul>
+                    <li>Threads DMC” New Colors ” Embroidery Floss Pack;</li>
+                    <li>DMC Gold Embroidery Hand Needles;</li>
+                    <li>Fabric</li>
+                    <li>Handmade decorative frame</li>
+                  </ul>
+                  `,
+  },
+  {
+    title: "Painting-Embroidery «Magic Bitcoin»",
+    images: [
+      "https://5ksana.art/wp-content/uploads/2024/04/1.webp",
+      "https://5ksana.art/wp-content/uploads/2024/04/2-528x427.webp",
+      "https://5ksana.art/wp-content/uploads/2024/04/3-528x427.webp",
+      "https://5ksana.art/wp-content/uploads/2024/04/4-528x427.webp",
+    ],
+    hash: "painting-embro-magicbtc",
+    description: `<p>Since the dawn of time,hand stitching with needle and thread has resulted in beautiful works of art-and I continue this tradition! There’s something deeply satisfying about stitching with your own two hands, and no matter how technology advances, freehand embroidery is here to stay!</p>
+                  <span>Materials:</span>
+                  <ul>
+                    <li>Threads DMC” New Colors ” Embroidery Floss Pack;</li>
+                    <li>DMC Gold Embroidery Hand Needles;</li>
+                    <li>Fabric</li>
+                    <li>Handmade decorative frame</li>
+                  </ul>
+                  `,
+  },
+  {
+    title: "Painting-Embroidery «Lotus of Bitcoin»",
+    images: [
+      "https://5ksana.art/wp-content/uploads/2024/04/IMG_4269-scaled.jpg",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_4266-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_4268-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_4270-528x427.jpg.webp",
+    ],
+    hash: "painting-embro-lotus",
+    video: "https://5ksana.art/wp-content/uploads/2024/04/IMG_4272.mp4",
+    description: `<p>Lotus is a symbol of purity, fertility, birth and rebirth!</p>
+                  <p>Bitcoin is a symbol of freedom!</p>
+                  <p>My painting «Lotus of Bitcoin» is a symbol of spiritual growth and a person’s ability to achieve perfection and freedom! A blossoming flower in the form of physical coins Bitcoin symbolizes the present, and the «pearl in the lotus» means rebirth and the achievement of well-being!</p>
+                  <p>Materials: fabric, beads, threads Tytan 100 for bead embroidery, wooden frame, rhinestones, swarovski stones</p>
+                  <ul>
+                  <li>Physical bitcoin coins (48 pcs)</li>
+                  <li>Denarium 1/100 BTC 2015 (8 pcs)</li>
+                  <li>Denarium 1/10 BTC 2015 (16 pcs)</li>
+                  <li>Denarium BTC 2015 (24 pcs)</li>
+                  </ul>
+                  `,
+  },
+  {
+    title: "Painting-Embroidery «Bitcoin Footprint»",
+    images: [
+      "https://5ksana.art/wp-content/uploads/2024/04/1btc-scaled.jpg",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/2IMG_4812-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/4IMG_4810-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/5IMG_4809-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/6MG_4808-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/7MG_4807-528x427.jpg.webp",
+    ],
+    hash: "painting-embro-footprint",
+    video: "https://5ksana.art/wp-content/uploads/2024/04/9IMG_4814.mp4",
+    description: `<p>Bitcoin is the imprint of the soul as precise, as singular, as the fingerprint of a free person!</p>
+                  <p>Bitcoin is like a fingerprint: no two are alike.</p>
+                  <span>Material:</span>
+                  <ul>
+                    <li>fabric</li>
+                    <li>czech beads</li>
+                    <li>physical coin «Denarium 0 – 2 BTC 2015» (F0119);</li>
+                  </ul>
+                  `,
+  },
+  {
+    title: "Painting-Embroidery «Mighty Bull and Bitcoin»",
+    images: [
+      "https://5ksana.art/wp-content/uploads/2024/04/IMG_5111.jpg",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_5112-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_5113-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/uploads/2024/04/IMG_5114-528x427.jpg",
+      "https://5ksana.art/wp-content/uploads/2024/04/IMG_5115-528x427.jpg",
+    ],
+    hash: "painting-embro-mightybull",
+    video:
+      "https://5ksana.art/wp-content/uploads/2024/04/Mighty-Bull-and-Bitcoin.mp4",
+    description: `<p>The bull is a symbol of the Earth or fertility!</p>
+                  <p>Bitcoin is the idea of absolute freedom!</p>
+                  <p>Bitcoin&Bull is wealth and freedom!</p>
+                  <span>Materials:<span>
+                  <ul>
+                    <li>beads Preciosa</li>
+                    <li>fabric</li>
+                    <li>needles for beadwork/li>
+                  </ul>`,
+  },
+  {
+    title: "Painting-Embroidery «Bitcoin Bird»",
+    images: [
+      "https://5ksana.art/wp-content/uploads/2024/04/IMG_5849-scaled.jpg",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_5850-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_5851-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_5852-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_5854-528x427.jpg.webp",
+    ],
+    hash: "painting-embro-btcbird",
+    video: "https://5ksana.art/wp-content/uploads/2024/04/BitcoinBird.mp4",
+    description: `<p>If you have caught a BitcoinBird, so do not keep it inside a cage, do not make it be eager to fly away, but can not. Keep it the way it can be free to leave, but does not want to.</p>
+                  <span>Material:</span>
+                  <ul>
+                    <li>piece of fabric;</li>
+                    <li>beads;</li>
+                    <li>sequins;</li>
+                    <li>crystal;</li>
+                    <li>metallic theards;</li>
+                    <li>physical coins (7 pcs.) of Bitcoin ( Denarium 2015)</li>
+                    <li>wood frame.</li>
+                  </ul>`,
+  },
+  {
+    title: "Painting-Embroidery «Bitcoin Mind»",
+    images: [
+      "https://5ksana.art/wp-content/uploads/2024/04/1-1.jpg",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_6172-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_6176-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_6177-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_6178-528x427.jpg.webp",
+    ],
+    hash: "painting-embro-btcmind",
+    video: "https://5ksana.art/wp-content/uploads/2024/04/IMG_6186.mp4",
+    description: `<p>Nothing can be bought for more than a bit of human and freedom.</p>
+                  <p>Do not trust anything, that can think independently, if you don’t understand, where its brain is.</p>
+                  <span>Material:</span>
+                  <ul>
+                    <li>piece of fabric;</li>
+                    <li>beads;</li>
+                    <li>sequins;</li>
+                    <li>crystal;</li>
+                    <li>metallic theards;</li>
+                    <li>wood frame.</li>
+                  </ul>
+                  `,
+  },
+  {
+    title: "Painting-Embroidery «COSMIC BITCOIN»",
+    images: [
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_7599-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_7600-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_7602-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/uploads/2024/04/IMG_7603-528x427.jpg",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_7604-528x427.jpg.webp",
+    ],
+    hash: "painting-embro-cosmicbtc",
+    video: "https://5ksana.art/wp-content/uploads/2024/04/COSMIC-BITCOIN.mp4",
+    description: `<p>That’s how a COSMIC BITCOIN that leaves the atmosphere of the Earth looks like.</p>
+                  <span>Materials:</span>
+                  <ul>
+                    <li>Threads DMC” New Colors ” Embroidery Floss Pack;</li>
+                    <li>DMC Gold Embroidery Hand Needles;</li>
+                    <li>Fabric;</li>
+                    <li>Handmade decorative frame</li>
+                  </ul>`,
+  },
+  {
+    title: "Painting-Embroidery «Bitcoin is new reality»",
+    images: [
+      "https://5ksana.art/wp-content/uploads/2024/04/IMG_7764-scaled.jpg",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_7765-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_7768-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_7769-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_7770-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_7771-528x427.jpg.webp",
+    ],
+    hash: "painting-embro-btcreality",
+    video: "https://5ksana.art/wp-content/uploads/2024/04/btc-2.mp4",
+    description: `<p>The great understanding of your new reality must be shared from person to person.
+                  Use the Bitcoin to jump through to a new consciousness.</p>
+                  <span>Materials:</span>
+                  <ul>
+                    <li>Threads DMC” New Colors ” Embroidery Floss Pack;</li>
+                    <li>DMC Gold Embroidery Hand Needles;</li>
+                    <li>Fabric;</li>
+                    <li>Handmade decorative frame</li>
+                  </ul>`,
+  },
+  {
+    title: "Painting-Embroidery «₿ull»",
+    images: [
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/1-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_8044-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_8045-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_8046-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_8047-528x427.jpg.webp",
+    ],
+    hash: "painting-embro-bull",
+    video: "https://5ksana.art/wp-content/uploads/2024/04/bull.mp4",
+    description: `<p>The ₿ull will pursue their goals with great determination, and won’t be deterred.</p>
+                  <span>Materials:</span>
+                  <ul>
+                    <li>Threads DMC” New Colors ” Embroidery Floss Pack;</li>
+                    <li>DMC Gold Embroidery Hand Needles;</li>
+                    <li>Fabric;</li>
+                    <li>Handmade decorative frame</li>
+                    <li>Physical coin Denarium Bitcoin 2015</li>
+                  </ul>
+                  `,
+  },
+  {
+    title: "Painting-Embroidery «Eyes of Bitcoin»",
+    images: [
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_8594-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_8585-528x427.jpg.webp",
+      "https://5ksana.art/wp-content/webp-express/webp-images/uploads/2024/04/IMG_8589-528x427.jpg.webp",
+    ],
+    hash: "painting-embro-btceyes",
+    video: "https://5ksana.art/wp-content/uploads/2024/04/bull.mp4",
+    description: `<p>The Eyes of Bitcoin gaze upon the world, revealing its hidden truths and illuminating the path to financial freedom.</p>
+                  <ul>
+                    <li>Threads DMC” New Colors ” Embroidery Floss Pack;</li>
+                    <li>DMC Gold Embroidery Hand Needles;</li>
+                    <li>Fabric;</li>
+                    <li>Handmade decorative frame</li>
+                  </ul>`,
   },
 ];
 

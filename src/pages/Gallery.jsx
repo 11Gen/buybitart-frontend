@@ -54,7 +54,7 @@ const Gallery = () => {
       };
     }
   }, []);
-  
+
   return (
     <div className="w-[100vw] h-full" id="galleryPage">
       <div className="w-full xl:h-[100svh] h-full relative px-[16px] xl:px-[6.25rem] pb-14 flex flex-col overflow-x-hidden">
@@ -62,8 +62,13 @@ const Gallery = () => {
           <h2 className="font-main font-[600] sm:text-4xl text-3xl leading-[100%] uppercase">
             {pages.bitcoinartgallery.sections[0].title}
           </h2>
-          <span className={`font-main text-[#FCCB00] ${isSmallMobile ? 'text-sm' : 'text-base'} sm:text-lg pointer-events-none select-none font-[300] inline-flex gap-1.5 items-center text-nowrap`}>
-            {pages.bitcoinartgallery.sections[0].description} <FaAnglesDown size={14} />
+          <span
+            className={`font-main text-[#FCCB00] ${
+              isSmallMobile ? "text-sm" : "text-base"
+            } sm:text-lg pointer-events-none select-none font-[300] inline-flex gap-1.5 items-center text-nowrap`}
+          >
+            {pages.bitcoinartgallery.sections[0].description}{" "}
+            <FaAnglesDown size={14} />
           </span>
         </div>
 
@@ -75,11 +80,9 @@ const Gallery = () => {
             className="xl:w-max w-full h-full flex xl:flex-row flex-col gap-8 xl:gap-5"
             id="galleryContainer"
           >
-            {([...galleryProducts, ...galleryProducts] || []).map(
-              (item, index) => (
-                <GalleryCard data={item} key={index} />
-              )
-            )}
+            {(galleryProducts || []).map((item, index) => (
+              <GalleryCard data={item} key={index} />
+            ))}
           </div>
           <div className="justify-center items-center w-full h-auto pointer-events-none relative xl:flex hidden">
             <div className="w-full h-[1px] bg-[#333333] z-0 relative" />

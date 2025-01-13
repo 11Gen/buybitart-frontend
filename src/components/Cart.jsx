@@ -2,12 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import CartItem from "./CartItem";
 import { Link } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+import { getPrice } from "../utils";
 
 const Cart = ({ isCartOpen, cart, setCart, popupClose }) => {
   const [totalPrice, setTotalPrice] = useState(0);
-
-  const getPrice = (txt) =>
-    Number(txt?.includes("BTC") ? txt.replace("BTC", "") : txt);
 
   useEffect(() => {
     setTotalPrice(cart.reduce((a, b) => a + getPrice(b.price) * b.quantity, 0));

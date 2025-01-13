@@ -1,6 +1,13 @@
+import { sanitize } from "isomorphic-dompurify";
+
 export function createMarkup(data) {
-  return { __html: data };
+  return { __html: sanitize(data) };
 }
+
+export const getPrice = (txt) => {
+  if (!txt) return "";
+  return txt?.includes("BTC") ? Number(txt.replace("BTC", "").trim()) : txt?.includes("USD") ? Number(txt.replace("USD", "").trim()) : txt;
+};
 
 export const removeHtmlTags = (str) => {
   if (typeof str === 'string') {

@@ -4,6 +4,7 @@ import Modal from "./Modal";
 import Cart from "./Cart";
 import Auth from "./Auth";
 import useResponsive from "../hooks/useResponsive";
+import { AnimatePresence } from "framer-motion";
 
 const Nav = ({ cart, setCart }) => {
   const location = useLocation();
@@ -44,7 +45,11 @@ const Nav = ({ cart, setCart }) => {
 
   useEffect(() => {
     if (isMenuOpen) setIsMenuOpen(false);
-    if (location.pathname == "/shop" || location.pathname.includes(`${import.meta.env.VITE_ADMIN_ROUTE}/`)) setIsSolidBG(true);
+    if (
+      location.pathname == "/shop" || location.pathname == "/search" ||
+      location.pathname.includes(`${import.meta.env.VITE_ADMIN_ROUTE}/`)
+    )
+      setIsSolidBG(true);
     else setIsSolidBG(false);
 
     if (location.pathname.includes(`${import.meta.env.VITE_ADMIN_ROUTE}/`))
@@ -154,7 +159,7 @@ const Nav = ({ cart, setCart }) => {
           <div className="flex w-auto h-[24px] items-center gap-4">
             {!isAdminPage ? (
               <>
-                <button className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#212121] transition-colors duration-[250ms]">
+                <Link to={"/search"} className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#212121] transition-colors duration-[250ms]">
                   <svg
                     className="xl:w-[24px] relative top-[-1px] xl:h-[24px] w-[28px] h-[28px]"
                     viewBox="0 0 24 24"
@@ -168,7 +173,7 @@ const Nav = ({ cart, setCart }) => {
                       strokeLinecap="round"
                     />
                   </svg>
-                </button>
+                </Link>
                 <button
                   className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#212121] transition-colors duration-[250ms] flex justify-center items-center"
                   onClick={popupCartOpen}
@@ -225,7 +230,10 @@ const Nav = ({ cart, setCart }) => {
               </>
             ) : (
               <>
-                <Link to={`/shop`} className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#212121] transition-colors duration-[250ms]">
+                <Link
+                  to={`/shop`}
+                  className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#212121] transition-colors duration-[250ms]"
+                >
                   <svg
                     width="24"
                     height="25"
@@ -282,7 +290,9 @@ const Nav = ({ cart, setCart }) => {
         </div>
 
         <div
-          className={`w-full ${isAdminPage ? 'h-[235px]' : 'h-[305px]'} absolute left-0 bg-black border-b-[1px] border-b-[#ffffff1A] pt-[52px] flex flex-col gap-6 px-[16px] transition-[top,opacity,visibility] duration-700 ${
+          className={`w-full ${
+            isAdminPage ? "h-[235px]" : "h-[305px]"
+          } absolute left-0 bg-black border-b-[1px] border-b-[#ffffff1A] pt-[52px] flex flex-col gap-6 px-[16px] transition-[top,opacity,visibility] duration-700 ${
             isMenuOpen
               ? "top-0 opacity-100 visible pointer-events-auto"
               : "-top-[calc(310px+52px+10px)] opacity-0 invisible pointer-events-none"
@@ -363,36 +373,40 @@ const Nav = ({ cart, setCart }) => {
               </>
             )}
           </div>
-          {!isAdminPage && <button
-            onClick={popupAuthOpen}
-            className="flex font-main rounded-[1.25rem] w-full h-[40px] bg-[#FCCB00] text-[#522700] font-[600] items-center justify-center hover:bg-[#D4A900] hover:text-[#1C1600] transition-colors duration-[250ms]"
-          >
-            Login
-          </button>}
+          {!isAdminPage && (
+            <button
+              onClick={popupAuthOpen}
+              className="flex font-main rounded-[1.25rem] w-full h-[40px] bg-[#FCCB00] text-[#522700] font-[600] items-center justify-center hover:bg-[#D4A900] hover:text-[#1C1600] transition-colors duration-[250ms]"
+            >
+              Login
+            </button>
+          )}
         </div>
       </nav>
 
-      {
-        <Modal isOpen={isCartOpen}>
-          <Cart
-            setIsCartOpen={setIsCartOpen}
-            isCartOpen={isCartOpen}
-            cart={cart}
-            setCart={setCart}
-            popupClose={popupCartClose}
-          />
-        </Modal>
-      }
+      <AnimatePresence>
+        {isCartOpen && (
+          <Modal isOpen={isCartOpen}>
+            <Cart
+              setIsCartOpen={setIsCartOpen}
+              isCartOpen={isCartOpen}
+              cart={cart}
+              setCart={setCart}
+              popupClose={popupCartClose}
+            />
+          </Modal>
+        )}
 
-      {
-        <Modal isOpen={isAuthOpen}>
-          <Auth
-            setIsAuthOpen={setIsAuthOpen}
-            isAuthOpen={isAuthOpen}
-            popupClose={popupAuthClose}
-          />
-        </Modal>
-      }
+        {isAuthOpen && (
+          <Modal isOpen={isAuthOpen}>
+            <Auth
+              setIsAuthOpen={setIsAuthOpen}
+              isAuthOpen={isAuthOpen}
+              popupClose={popupAuthClose}
+            />
+          </Modal>
+        )}
+      </AnimatePresence>
     </>
   );
 };

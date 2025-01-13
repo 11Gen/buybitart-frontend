@@ -20,7 +20,7 @@ import { motion } from "framer-motion";
 import useResponsive from "./hooks/useResponsive";
 import useLocalStorage from "use-local-storage";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import About from "./pages/About";
 import Auction from "./pages/Auction";
 import Payment from "./pages/Payment";
@@ -31,6 +31,7 @@ import GalleryProduct from "./pages/GalleryProduct";
 import AdminNotifications from "./pages/Admin/AdminNotifications";
 import AdminContent from "./pages/Admin/AdminContent";
 import AdminEditItem from "./pages/Admin/AdminEditItem";
+import Search from "./pages/Search";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -38,6 +39,33 @@ const App = () => {
   const lenisRef = useRef();
   const [cart, setCart] = useLocalStorage("cart", []);
   const { isMobile } = useResponsive();
+
+  const adminRouter = function () {
+    const adminPath = import.meta.env.VITE_ADMIN_ROUTE;
+    
+    return [
+      {
+        path: `${adminPath}/items`,
+        element: <AdminItems />,
+      },
+      {
+        path: `${adminPath}/items/plus`,
+        element: <AdminAddItems />,
+      },
+      {
+        path: `${adminPath}/items/edit/:hash`,
+        element: <AdminEditItem />,
+      },
+      {
+        path: `${adminPath}/content`,
+        element: <AdminContent />,
+      },
+      {
+        path: `${adminPath}/notifications`,
+        element: <AdminNotifications />,
+      },
+    ];
+  };
 
   const router = useRoutes([
     {
@@ -73,25 +101,10 @@ const App = () => {
       element: <Payment cart={cart} />,
     },
     {
-      path: `${import.meta.env.VITE_ADMIN_ROUTE}/items`,
-      element: <AdminItems />,
+      path: "/search",
+      element: <Search />,
     },
-    {
-      path: `${import.meta.env.VITE_ADMIN_ROUTE}/items/plus`,
-      element: <AdminAddItems />,
-    },
-    {
-      path: `${import.meta.env.VITE_ADMIN_ROUTE}/items/edit/:hash`,
-      element: <AdminEditItem />,
-    },
-    {
-      path: `${import.meta.env.VITE_ADMIN_ROUTE}/content`,
-      element: <AdminContent />,
-    },
-    {
-      path: `${import.meta.env.VITE_ADMIN_ROUTE}/notifications`,
-      element: <AdminNotifications />,
-    },
+    ...adminRouter()
   ]);
 
   const location = useLocation();

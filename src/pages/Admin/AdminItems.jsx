@@ -7,10 +7,11 @@ import Footer from "../../components/Footer";
 import useResponsive from "../../hooks/useResponsive";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import SlidingBullets from "../../components/SlidingBullets";
 import Modal from "../../components/Modal";
 import DeletePopup from "../../components/DeletePopup";
+import Paginator from "../../components/Paginator";
 
 const optiData = [
   {
@@ -54,12 +55,24 @@ const OptiImage = ({ image, isMobile }) => (
   </div>
 );
 
-const ActionButtons = ({setPopup, item}) => (
+const ActionButtons = ({ setPopup, item }) => (
   <div className="flex w-max h-auto items-center gap-1 ml-auto">
-    <Link to={`edit/${item.hash}${item.category === 'Auction' ? '?auction' : item.category === 'Gallery' ? '?gallery' : ''}`} className="w-[30px] h-[30px] flex justify-center group items-center relative hover:bg-[#212121] transition-colors duration-[250ms] rounded-xl">
+    <Link
+      to={`edit/${item.hash}${
+        item.category === "Auction"
+          ? "?auction"
+          : item.category === "Gallery"
+          ? "?gallery"
+          : ""
+      }`}
+      className="w-[30px] h-[30px] flex justify-center group items-center relative hover:bg-[#212121] transition-colors duration-[250ms] rounded-xl"
+    >
       <MdEdit className="w-[23px] h-[23px] text-[#a0a0a0] group-hover:text-white transition-colors duration-[250ms]" />
     </Link>
-    <button onClick={() => setPopup({state: true, item})} className="w-[30px] h-[30px] flex justify-center group items-center relative hover:bg-[#212121] transition-colors duration-[250ms] rounded-xl">
+    <button
+      onClick={() => setPopup({ state: true, item })}
+      className="w-[30px] h-[30px] flex justify-center group items-center relative hover:bg-[#212121] transition-colors duration-[250ms] rounded-xl"
+    >
       <svg
         width="24"
         height="24"
@@ -103,7 +116,12 @@ const ProductItem = ({ data, isMobile, currentCategory, setPopup }) => (
       </div>
     </div>
     <div className="flex flex-col items-end justify-between">
-      {currentCategory !== "Sold" && <ActionButtons setPopup={setPopup} item={{...data, category: currentCategory}} />}
+      {currentCategory !== "Sold" && (
+        <ActionButtons
+          setPopup={setPopup}
+          item={{ ...data, category: currentCategory }}
+        />
+      )}
       <span className="text-xs flex items-center justify-end tracking-wider font-main py-1 mb-1 text-white/80">
         {moment().format("D.MM.YYYY")}
       </span>
@@ -111,12 +129,11 @@ const ProductItem = ({ data, isMobile, currentCategory, setPopup }) => (
   </div>
 );
 
-const CategoryTabs = ({ currentCategory, setCurrentCategory }) => (
-  <div className="w-full h-auto sticky sm:top-[70px] top-[52px] bg-black z-[5] flex gap-2 sm:gap-3 py-3 border-b-[1px] border-b-[#FFFFFF1A]">
+const CategoryTabs = ({ currentCategory }) => (
+  <div className="w-full h-auto sticky sm:top-[65px] top-[52px] bg-black z-[5] flex gap-2 sm:gap-3 py-3 border-b-[1px] border-b-[#FFFFFF1A]">
     <SlidingBullets
       data={optiData.map((property) => property.id)}
       state={currentCategory}
-      setState={setCurrentCategory}
       className="w-full h-auto flex items-center !mx-0"
     />
   </div>
@@ -131,19 +148,27 @@ const ProductList = ({ currentCategory, setPopup }) => {
     setCategoryData(category?.data || []);
   }, [currentCategory]);
 
+  const fadeXVariants = {
+    hidden: { x: 20, opacity: 0 },
+    visible: { x: 0, opacity: 1 },
+    exit: { x: -20, opacity: 0 },
+  };
+
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={currentCategory}
-        initial={{ x: 20, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        exit={{ x: -20, opacity: 0 }}
-        layout
-        transition={{ duration: 0.3 }}
-        className="w-full h-full relative grid 3xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 sm:gap-5 gap-3"
-      >
-        {categoryData.length ? (
-          categoryData.map((product, index) => (
+    <Paginator
+      data={categoryData}
+      animationVariants={fadeXVariants}
+      autoKey={currentCategory}
+      itemsPerPage={12}
+      className={`${
+        categoryData.length
+          ? "grid 3xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 sm:gap-5 gap-3 h-full"
+          : "flex flex-1 justify-center items-center"
+      } w-full relative`}
+    >
+      {(paginatedData) =>
+        paginatedData.length ? (
+          paginatedData.map((product, index) => (
             <ProductItem
               key={`${currentCategory}-${index}`}
               data={product}
@@ -153,18 +178,27 @@ const ProductList = ({ currentCategory, setPopup }) => {
             />
           ))
         ) : (
-          <div className="w-full relative h-full font-main opacity-90">
-            No items there yet :\
+          <div className="relative h-full flex flex-col w-full justify-center items-center gap-2">
+            <img
+              src="/empty-box.svg"
+              alt=""
+              className="w-full h-full max-h-[170px] sm:max-h-[225px] object-contain invert opacity-40"
+            />
+            <p className="font-main sm:text-xl text-lg font-[300] opacity-40">
+              No items there yet :\
+            </p>
           </div>
-        )}
-      </motion.div>
-    </AnimatePresence>
+        )
+      }
+    </Paginator>
   );
 };
 
 const AdminItems = () => {
-  const [currentCategory, setCurrentCategory] = useState("Shop");
-  const [popup, setPopup] = useState({state: false, item: null});
+  const [popup, setPopup] = useState({ state: false, item: null });
+  const [searchParams] = useSearchParams();
+
+  const currentCategory = searchParams.get("currentCategory") || "Shop";
 
   return (
     <>
@@ -195,13 +229,13 @@ const AdminItems = () => {
               </Link>
             </div>
 
-            <CategoryTabs
-              currentCategory={currentCategory}
-              setCurrentCategory={setCurrentCategory}
-            />
+            <CategoryTabs currentCategory={currentCategory} />
 
-            <div className="min-h-[580px] w-full h-auto relative">
-              <ProductList currentCategory={currentCategory} setPopup={setPopup} />
+            <div className="min-h-[580px] flex flex-col gap-12 w-full h-auto relative">
+              <ProductList
+                currentCategory={currentCategory}
+                setPopup={setPopup}
+              />
             </div>
           </div>
         </div>
@@ -209,9 +243,13 @@ const AdminItems = () => {
         <Footer />
       </div>
 
-      <Modal isOpen={popup.state}>
-        <DeletePopup setPopup={setPopup} popup={popup} />
-      </Modal>
+      <AnimatePresence>
+        {popup.state && (
+          <Modal isOpen={popup.state}>
+            <DeletePopup setPopup={setPopup} popup={popup} />
+          </Modal>
+        )}
+      </AnimatePresence>
     </>
   );
 };

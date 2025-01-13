@@ -4,28 +4,40 @@ import { MdArrowBack } from "react-icons/md";
 import Dropzone from "../../components/Dropzone";
 import Input from "../../components/Input";
 import InputLabel from "../../components/InputLabel";
-import TextAreaLabel from "../../components/TextAreaLabel";
 import Footer from "../../components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
 import { products, productsAuction, galleryProducts } from "../../utils/data";
+import { getPrice } from "../../utils";
+import BtcIcon from "../../components/subComponents/BtcIcon";
+import TextEditor from "../../components/TextEditor";
+import { useForm } from "react-hook-form";
 
 const AdminEditItem = () => {
   const { hash } = useParams();
   const [searchParams] = useSearchParams();
   const [images, setImages] = useState([]);
   const [data, setData] = useState({});
-  const type = React.useMemo(
-    () => searchParams.toString().replace("=", ""),
-    [searchParams]
-  );
+  const [type, setType] = useState(searchParams.toString().replace("=", ""));
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    setError,
+    reset,
+    clearErrors,
+    formState: { errors },
+  } = useForm();
+
+  const inputCSS =
+    "bg-[#212121] w-full py-[10px] px-3 rounded-xl outline-none leading-[23px] border-[1px] border-[#ffffff05] tracking-wide transition-colors duration-[250ms] font-main placeholder-[#707070] focus:placeholder-[#ffffff00]";
 
   const removeImage = useCallback((index) => {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index));
   }, []);
 
-  const getPrice = (txt) => {
-    if (!txt) return ""; // Return an empty string or default value
-    return txt.includes("BTC") ? txt.replace("BTC", "").trim() : txt;
+  const handleImageChange = (newImages) => {
+    setImages(newImages);
+    clearErrors("images");
   };
 
   const containerVariants = {
@@ -50,18 +62,58 @@ const AdminEditItem = () => {
         setImages([...itemA.images]);
         break;
       case "gallery":
-        const itemG = galleryProducts.find((item) => item.hash === hash)
+        const itemG = galleryProducts.find((item) => item.hash === hash);
         setData({ ...itemG });
-        setImages([ ...itemG.images ])
+        setImages([...itemG.images]);
         break;
       default:
-        const item = products.find((item) => item.hash === hash)
+        const item = products.find((item) => item.hash === hash);
         setData({ ...item });
-        setImages([ ...item.images ])
+        setImages([...item.images]);
     }
 
     return () => setData({});
-  }, [type, hash]);
+  }, [hash]);
+
+  function changeType(settedType) {
+    setType(settedType);
+    setValue("itemType", settedType);
+  }
+
+  useEffect(() => {
+    const baseValues = {
+      title: data.title,
+      description: data.description,
+      itemType: type === "" ? "usual" : type,
+    };
+
+    if (type === "auction") {
+      reset({
+        ...baseValues,
+        minPrice: data?.minPrice || "",
+        maxPrice: data?.maxPrice || "",
+        endTime: data?.endTime || "",
+      });
+    } else if (type === "" || type === "usual") {
+      reset({
+        ...baseValues,
+        price: getPrice(data?.price) || "",
+        size: data?.dimensions || "",
+        delivery: data?.delivery || "",
+      });
+    } else if (type === "gallery") reset(baseValues);
+  }, [data, type]);
+
+  const onSubmit = (data) => {
+    if (!images.length) {
+      setError("images", {
+        type: "manual",
+        message: "At least 1 image is required",
+      });
+      return;
+    }
+    console.log({ ...data, images });
+  };
 
   return (
     <div className="w-[100vw] h-full">
@@ -81,7 +133,13 @@ const AdminEditItem = () => {
         <div className="w-full h-auto flex xl:gap-[125px] gap-[60px] xl:flex-row flex-col justify-between">
           {/* Left */}
           <div className="w-full h-auto flex flex-col relative">
-            <div className="grid grid-cols-5 sm:grid-rows-6 grid-rows-5 sm:gap-4 gap-2.5">
+            <div
+              className={`${
+                errors.images
+                  ? ""
+                  : "grid grid-cols-5 sm:grid-rows-6 grid-rows-5 sm:gap-4 gap-2.5"
+              }`}
+            >
               <AnimatePresence initial={false}>
                 {!images.length ? (
                   <motion.div
@@ -90,9 +148,18 @@ const AdminEditItem = () => {
                     animate="visible"
                     exit="exit"
                     variants={containerVariants}
-                    className="col-span-5 sm:row-span-6 row-span-5 max-h-[600px]"
+                    className={`${
+                      errors.images
+                        ? "flex flex-col gap-3"
+                        : "col-span-5 sm:row-span-6 row-span-5"
+                    } max-h-[600px]`}
                   >
-                    <Dropzone data={images} setData={setImages} />
+                    <Dropzone data={images} setData={handleImageChange} />
+                    {errors.images && (
+                      <p className="text-red-500 text-xs">
+                        {errors.images.message}
+                      </p>
+                    )}
                   </motion.div>
                 ) : (
                   images.map(
@@ -113,7 +180,7 @@ const AdminEditItem = () => {
                           }`}
                         >
                           <img
-                            src={typeof image === 'object' ? image.src : image}
+                            src={typeof image === "object" ? image.src : image}
                             alt={`Uploaded-${index}`}
                             className="w-full h-full object-cover rounded-3xl"
                             draggable={false}
@@ -164,7 +231,7 @@ const AdminEditItem = () => {
                     <div className="absolute opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto transition-[opacity,visibility] duration-500 w-max rounded-3xl z-[3] top-[-110px] right-[5px] h-[90px] bg-[#1a1a1a] flex items-center gap-3 p-1">
                       {images.slice(5).map((image, index) => (
                         <img
-                          src={typeof image === 'object' ? image.src : image}
+                          src={typeof image === "object" ? image.src : image}
                           alt={`uploaded-additional-${index}`}
                           key={index}
                           className="w-full max-w-[82px] h-full object-cover rounded-3xl"
@@ -178,98 +245,169 @@ const AdminEditItem = () => {
           </div>
 
           {/* Right */}
-          <form className="w-full h-auto flex flex-col gap-6">
-            {/* Input fields */}
-            <div className="flex flex-col w-full h-auto gap-1.5">
-              <label
-                htmlFor="titleA"
-                className="text-white text-sm leading-[16.8px] font-main tracking-wide"
-              >
-                Title
-              </label>
-              <Input
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="w-full h-auto flex flex-col gap-6"
+          >
+            <div className="flex flex-col gap-3 w-full h-auto relative">
+              {/* Input fields */}
+              <InputLabel
+                label="Title"
                 id="titleA"
                 placeholder="Painting-Embroidery «Unknown Bitcoin»"
                 type="text"
                 defaultValue={data.title}
-                className="bg-[#212121] py-[10px] px-3 rounded-xl outline-none leading-[23px] border-[1px] border-[#ffffff05] tracking-wide transition-colors duration-[250ms] font-main placeholder-[#707070] focus:placeholder-[#ffffff00]"
+                register={register("title", { required: "Title is required" })}
               />
+              {errors.title && (
+                <p className="text-red-500 text-xs">{errors.title.message}</p>
+              )}
             </div>
 
             {/* Price, Size, Delivery */}
-            {data.price && (
-              <InputLabel
-                id="priceA"
-                placeholder="0.0013"
-                defaultValue={getPrice(data.price) ? getPrice(data.price) : 0}
-                label="Price"
-                icon={
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="absolute right-3 top-[calc(50%+11.25px)] -translate-y-1/2 w-auto h-auto"
-                  >
-                    <mask
-                      id="mask0_853_6636"
-                      style={{ maskType: "luminance" }}
-                      maskUnits="userSpaceOnUse"
-                      x="0"
-                      y="0"
-                      width="24"
-                      height="24"
+            {type === "gallery" ? (
+              <></>
+            ) : type === "auction" ? (
+              <>
+                <div className="flex flex-col gap-3 w-full h-auto relative">
+                  <div className="flex flex-col w-full h-auto gap-1.5">
+                    <label
+                      htmlFor="minPriceA"
+                      className="text-white text-sm leading-[16.8px] font-main tracking-wide"
                     >
-                      <path d="M0 0H24V24H0V0Z" fill="white" />
-                    </mask>
-                    <g mask="url(#mask0_853_6636)">
-                      <path
-                        d="M11.3851 15.275C12.4961 15.271 14.9251 15.262 14.8971 13.717C14.8701 12.137 12.5371 12.232 11.4001 12.279C11.2721 12.285 11.1614 12.2887 11.0681 12.29L11.1201 15.277C11.1961 15.275 11.2844 15.2744 11.3851 15.275ZM11.2671 10.922C12.1941 10.921 14.2171 10.919 14.1931 9.51403C14.1671 8.07703 12.2241 8.16203 11.2751 8.20403C11.1684 8.20936 11.0757 8.2127 10.9971 8.21403L11.0441 10.923L11.2671 10.922Z"
-                        fill="white"
+                      Price
+                    </label>
+                    <div className="w-full h-auto flex items-center gap-3">
+                      <Input
+                        id="minPriceA"
+                        placeholder="min."
+                        type="number"
+                        {...register("minPrice", {
+                          required: "min. price is required",
+                        })}
+                        className={inputCSS}
                       />
-                      <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M9.09616 23.641C15.5262 25.244 22.0382 21.331 23.6412 14.903C25.2442 8.47399 21.3302 1.96199 14.9002 0.359994C8.47416 -1.24401 1.96216 2.66999 0.360165 9.09999C-1.24284 15.528 2.67017 22.04 9.09717 23.642M13.3792 6.62199C15.1332 6.74599 16.5292 7.25999 16.7122 8.86399C16.8482 10.038 16.3682 10.753 15.5892 11.167C16.8892 11.455 17.7142 12.21 17.5842 13.938C17.4232 16.083 15.8362 16.686 13.5582 16.857L13.5962 19.107L12.2402 19.131L12.2012 16.911C11.8505 16.9177 11.4892 16.9203 11.1172 16.919L11.1572 19.149L9.80116 19.173L9.76116 16.919L9.37817 16.922C9.1835 16.922 8.98816 16.924 8.79216 16.928L7.02617 16.958L7.26717 15.334C7.26717 15.334 8.27116 15.332 8.25317 15.317C8.63717 15.309 8.73417 15.032 8.75517 14.858L8.69316 11.3L8.79016 11.298H8.83617C8.7884 11.2922 8.74027 11.2899 8.69217 11.291L8.64816 8.75099C8.59116 8.47699 8.40716 8.16099 7.85816 8.17099C7.87316 8.15099 6.87217 8.18799 6.87217 8.18799L6.84617 6.73999L8.71817 6.70799V6.71499C9.00016 6.70966 9.28783 6.70099 9.58117 6.68899L9.54317 4.45999L10.8992 4.43699L10.9372 6.62099C11.2992 6.60799 11.6632 6.59399 12.0202 6.58799L11.9822 4.41799L13.3392 4.39399L13.3792 6.62199Z"
-                        fill="white"
+                      -
+                      <Input
+                        id="maxPriceA"
+                        placeholder="max."
+                        type="number"
+                        {...register("maxPrice", {
+                          required: "max. price is required",
+                        })}
+                        className={inputCSS}
                       />
-                    </g>
-                  </svg>
-                }
-                type="text"
-              />
+                    </div>
+                  </div>
+                  {(errors.minPrice || errors.maxPrice) && (
+                    <div className="w-full h-auto flex justify-between gap-9 items-start">
+                      <p className="text-red-500 text-xs w-full text-left">
+                        {errors.minPrice.message}
+                      </p>
+                      <p className="text-red-500 text-xs w-full text-left">
+                        {errors.maxPrice.message}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </>
+            ) : (
+              <div className="flex flex-col gap-3 w-full h-auto relative">
+                <InputLabel
+                  id="priceA"
+                  placeholder="0.0013"
+                  defaultValue={
+                    getPrice(data.price) ? getPrice(data.price) : ""
+                  }
+                  label="Price"
+                  icon={<BtcIcon />}
+                  type="number"
+                  {...register("price", { required: "Price is required" })}
+                />
+                {errors.price && (
+                  <p className="text-red-500 text-xs">{errors.price.message}</p>
+                )}
+              </div>
             )}
-            <InputLabel
-              id="sizeA"
-              placeholder="30x40"
-              label="Size"
-              defaultValue={data.dimensions}
-              type="text"
-            />
-            <InputLabel
-              id="deliveryA"
-              label="Delivery"
-              placeholder="International-Free"
-              defaultValue={data.delivery}
-              type="text"
-            />
-            <TextAreaLabel
-              id="descA"
-              label="Description"
-              defaultValue={data.description}
+
+            {type === "auction" && (
+              <div className="flex flex-col gap-3 w-full h-auto relative">
+                <InputLabel
+                  id="endTimeA"
+                  placeholder="30x40"
+                  label="End time"
+                  defaultValue={data.endTime}
+                  type="datetime-local"
+                  {...register("endTime", {
+                    required: "End time is required",
+                  })}
+                />
+                {errors.endTime && (
+                  <p className="text-red-500 text-xs">
+                    {errors.endTime.message}
+                  </p>
+                )}
+              </div>
+            )}
+            {type !== "gallery" && (
+              <>
+                <div className="flex flex-col gap-3 w-full h-auto relative">
+                  <InputLabel
+                    id="sizeA"
+                    placeholder="30x40"
+                    label="Size"
+                    defaultValue={data.dimensions}
+                    type="text"
+                    {...register("size", { required: "Size is required" })}
+                  />
+                  {errors.size && (
+                    <p className="text-red-500 text-xs">
+                      {errors.size.message}
+                    </p>
+                  )}
+                </div>
+                <div className="flex flex-col gap-3 w-full h-auto relative">
+                  <InputLabel
+                    id="deliveryA"
+                    label="Delivery"
+                    placeholder="International-Free"
+                    defaultValue={data.delivery}
+                    type="text"
+                    {...register("delivery", {
+                      required: "Delivery information is required",
+                    })}
+                  />
+                  {errors.delivery && (
+                    <p className="text-red-500 text-xs">
+                      {errors.delivery.message}
+                    </p>
+                  )}
+                </div>
+              </>
+            )}
+
+            <TextEditor
+              description={data.description}
               placeholder="Your product description"
+              onChange={(desc) => setValue("description", desc)}
             />
 
             {/* Radio buttons */}
             <div className="flex flex-col w-full h-auto gap-3 relative">
-              {["Usual", "Auction", "Gallery"].map((category) => (
+              {["Usual", "Auction", "Gallery"].map((category, index) => (
                 <label
                   key={category}
+                  onClick={() =>
+                    changeType(
+                      category === "Usual" ? "" : category.toLowerCase()
+                    )
+                  }
                   className="relative flex items-center cursor-pointer justify-between select-none"
                 >
                   <input
-                    defaultChecked={type === category.toLowerCase()}
+                    defaultChecked={
+                      type === category.toLowerCase() || (!type && index === 0)
+                    }
                     className="sr-only peer"
                     name="futuristic-radio"
                     type="radio"

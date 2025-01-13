@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const SlidingBullets = ({
@@ -6,8 +7,6 @@ const SlidingBullets = ({
   className,
   spaceBetween,
   state,
-  setState,
-  removeOnClick,
 }) => {
   return (
     <Swiper
@@ -18,11 +17,9 @@ const SlidingBullets = ({
       {(data || []).map((item, index) => (
         <SwiperSlide className={`!w-auto !flex-shrink-0 mr-2`} key={index}>
           {item ? (
-            <button
-              onClick={() => {
-                if (state == item && removeOnClick) return setState(null);
-                return setState(item);
-              }}
+            <Link
+              to={`?${new URLSearchParams({ currentCategory: item })}`}
+              replace
               className={`w-auto px-4 h-[35px] flex justify-center items-center rounded-full ${
                 state == item
                   ? "bg-[#FCCB00] text-[#241D00] hover:bg-[#D4A900] hover:text-[#1C1600]"
@@ -30,7 +27,7 @@ const SlidingBullets = ({
               } transition duration-[250ms] font-main font-[300] text-base capitalize`}
             >
               {item}
-            </button>
+            </Link>
           ) : (
             <div className="w-[110px] h-[35px] opacity-0 pointer-events-none"></div>
           )}
