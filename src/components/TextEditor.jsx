@@ -6,7 +6,7 @@ import { useCallback, useEffect } from "react";
 import Link from "@tiptap/extension-link";
 import Heading from "@tiptap/extension-heading";
 
-export default function TextEditor({ description, onChange, placeholder }) {
+export default function TextEditor({ description, onChange, placeholder, resetEditor }) {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -26,8 +26,8 @@ export default function TextEditor({ description, onChange, placeholder }) {
             : this.options.levels[0];
 
           const classes = {
-            2: "text-3xl font-[600]",
-            4: "text-xl font-[500]",
+            2: "text-2xl font-[600]",
+            4: "text-lg font-[500]",
           };
 
           return [
@@ -50,7 +50,7 @@ export default function TextEditor({ description, onChange, placeholder }) {
         placeholder,
       }),
     ],
-    content: "",
+    content: description || "",
     editorProps: {
       attributes: {
         class:
@@ -63,8 +63,14 @@ export default function TextEditor({ description, onChange, placeholder }) {
   });
 
   useEffect(() => {
-    editor.commands.setContent(description)
-  }, [editor, description])
+    if (editor && description) editor.commands.setContent(description);
+  }, [editor]);
+
+  useEffect(() => {
+    if (resetEditor) {
+      editor.commands.clearContent();
+    }
+  }, [resetEditor, editor]);
 
   const setLink = useCallback(() => {
     const previousUrl = editor.getAttributes("link").href;

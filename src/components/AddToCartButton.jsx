@@ -20,7 +20,7 @@ const AddToCartButton = ({ addToCart, isAdded }) => {
         isAdded
           ? "bg-[#FCCB00] text-[#241D00] hover:bg-[#D4A900] hover:text-[#1C1600] pointer-events-none"
           : "bg-white text-black hover:bg-[#fff0] hover:text-[#ffffff]"
-      } flex items-center rounded-[20px] font-main uppercase font-[600] gap-2 text-sm transition-[color,transform,background-color,width] duration-[250ms] group border-[1px] border-[#2c2c2e]`}
+      } flex items-center rounded-[20px] font-main uppercase font-[600] gap-[9.5px] text-sm transition-[color,transform,background-color,width] duration-[250ms] group border-[1px] border-[#2c2c2e]`}
     >
       <img
         src="/bag.svg"

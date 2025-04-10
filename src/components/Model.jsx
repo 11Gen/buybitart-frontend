@@ -1,6 +1,5 @@
 import React, { Suspense, useEffect } from "react";
 import Canvas from '../utils/Canvas';
-import useResponsive from "../hooks/useResponsive";
 
 const Model = ({ btcRef }) => {
 

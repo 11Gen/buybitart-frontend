@@ -1,7 +1,7 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import TextArea from "./TextArea";
 
-const TextAreaLabel = ({id, label, autocomplete, placeholder, defaultValue, onChange, name}) => {
+const TextAreaLabel = forwardRef(({id, label, autocomplete, placeholder, defaultValue, onChange, name, ...rest}, ref) => {
   return (
     <div className="flex flex-col gap-1.5 w-full h-auto">
       <label htmlFor={id} className={`text-white text-sm font-[300] leading-[16.8px] font-main tracking-wide`}>
@@ -14,10 +14,12 @@ const TextAreaLabel = ({id, label, autocomplete, placeholder, defaultValue, onCh
         defaultValue={defaultValue}
         id={id}
         onChange={onChange}
+        ref={ref}
         name={name}
+        {...rest}
       />
     </div>
   );
-};
+});
 
 export default TextAreaLabel;

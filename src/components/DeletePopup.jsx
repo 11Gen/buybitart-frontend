@@ -1,6 +1,36 @@
 import React from "react";
+import api from "../http";
+import { toast } from "react-toastify";
 
-const DeletePopup = ({ setPopup, popup }) => {
+const DeletePopup = ({ setPopup, popup, type, setCategoryData, categoryData }) => {
+  const deleteItem = async () => {
+    try {
+      const itemId = popup.item._id;
+      setPopup({ state: false, item: null });
+      await toast.promise(
+        api.delete(
+          `/${
+            type === "Shop"
+              ? "products"
+              : type === "Gallery"
+              ? "gallery-products"
+              : type === "Auction"
+              ? "auctions"
+              : "products"
+          }/${itemId}`
+        ),
+        {
+          pending: `Deleting...`,
+          success: `Deleted Successfully!`,
+          error: `Failed to delete :/`,
+        }
+      );
+      setCategoryData(categoryData.filter(item => item._id !== itemId));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div className="w-full max-w-[383px] h-full max-h-[319px] rounded-[32px] p-8 flex flex-col gap-10 bg-[#171717]">
       <div className="w-full h-auto flex flex-col gap-3 items-center relative">
@@ -44,11 +74,14 @@ const DeletePopup = ({ setPopup, popup }) => {
       </div>
 
       <div className="w-full h-auto flex flex-col gap-4 relative">
-        <button className="bg-[#EE4445] hover:opacity-85 transition-opacity duration-300 h-[40px] rounded-[20px] py-[10px] px-6 font-main text-white text-base leading-[19.2px] tracking-wide font-[500]">
+        <button
+          onClick={deleteItem}
+          className="bg-[#EE4445] hover:opacity-85 transition-opacity duration-300 h-[40px] rounded-[20px] py-[10px] px-6 font-main text-white text-base leading-[19.2px] tracking-wide font-[500]"
+        >
           Delete item
         </button>
         <button
-          onClick={() => setPopup({state:false, item: null})}
+          onClick={() => setPopup({ state: false, item: null })}
           className="bg-[#ffffff] hover:opacity-85 transition-opacity duration-300 h-[40px] rounded-[20px] py-[10px] px-6 font-main text-black text-base leading-[19.2px] tracking-wide font-[500]"
         >
           Cancel

@@ -1,14 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CartItem from "./CartItem";
 import { Link } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import { getPrice } from "../utils";
+import { UserContext } from "../main";
 
-const Cart = ({ isCartOpen, cart, setCart, popupClose }) => {
+const Cart = ({ isCartOpen, cart, setCart, popupClose, popupAuthOpen }) => {
+  const { userStore } = useContext(UserContext);
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
-    setTotalPrice(cart.reduce((a, b) => a + getPrice(b.price) * b.quantity, 0));
+    setTotalPrice(cart.reduce((a, b) => a + b.price * b.quantity, 0));
   }, [cart]);
 
   return (
@@ -96,17 +97,33 @@ const Cart = ({ isCartOpen, cart, setCart, popupClose }) => {
             </div>
           </div>
 
-          <Link
-            to={cart.length ? "/payment" : null}
-            onClick={popupClose}
-            className={`w-auto h-[40px] rounded-full py-[10px] px-6 ${
-              cart.length
-                ? "bg-[#FCCB00] text-[#522700] hover:bg-[#D4A900] hover:text-[#1C1600] pointer-events-auto"
-                : "bg-[#c3c3c3] text-[black] pointer-events-none"
-            } transition-colors duration-[250ms] font-main font-[600] text-base text-center flex justify-center items-center`}
-          >
-            Pay
-          </Link>
+          {userStore.isAuth ? (
+            <Link
+              to={cart.length ? "/payment" : null}
+              onClick={popupClose}
+              className={`w-auto h-[40px] rounded-full py-[10px] px-6 ${
+                cart.length
+                  ? "bg-[#FCCB00] text-[#522700] hover:bg-[#D4A900] hover:text-[#1C1600] pointer-events-auto"
+                  : "bg-[#c3c3c3] text-[black] pointer-events-none"
+              } transition-colors duration-[250ms] font-main font-[600] text-base text-center flex justify-center items-center`}
+            >
+              Pay
+            </Link>
+          ) : (
+            <button
+              onClick={() => {
+                popupClose();
+                popupAuthOpen();
+              }}
+              className={`w-auto h-[40px] rounded-full py-[10px] px-6 ${
+                cart.length
+                  ? "bg-[#FCCB00] text-[#522700] hover:bg-[#D4A900] hover:text-[#1C1600] pointer-events-auto"
+                  : "bg-[#c3c3c3] text-[black] pointer-events-none"
+              } transition-colors duration-[250ms] font-main font-[600] text-base text-center flex justify-center items-center`}
+            >
+              Pay
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -274,6 +274,8 @@ export const productsAuction = [
     startPrice: "0.0450BTC",
     currentPrice: "0",
     bids: [],
+    minPrice: "",
+    maxPrice: "",
     dimensions: "35x42",
     delivery: "International-Free",
     endTime: "2 days",

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import useResponsive from "../hooks/useResponsive";
 import { toast } from "react-toastify";
 import PriceLabel from "./PriceLabel";
+import ImageLoader from "./ImageLoader";
 
 const CardShow = ({ data, setCart, cart }) => {
   const { isSmallMobile, isMobile } = useResponsive();
@@ -40,8 +41,8 @@ const CardShow = ({ data, setCart, cart }) => {
           to={`/shop/${data.hash}`}
           className="flex flex-col relative gap-3"
         >
-          <img
-            src={data.images[0]}
+          <ImageLoader
+            src={data.images[0].optimized}
             draggable={false}
             alt={data.title}
             className="z-[1] relative h-[23.313rem] w-auto object-cover object-center rounded-[10px]"

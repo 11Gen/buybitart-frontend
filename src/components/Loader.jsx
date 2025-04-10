@@ -1,37 +1,22 @@
-import React, { useEffect, useRef } from "react";
-import useResponsive from "../hooks/useResponsive";
+import React from "react";
+import { motion } from "framer-motion";
 
-const Loader = () => {
-  const { isSmallMobile } = useResponsive();
-  const loaderRef = useRef();
-
-//   useEffect(() => {
-//     const timeout = setTimeout(() => {
-//       if (loaderRef.current) {
-//         loaderRef.current.style.opacity = "0";
-//         loaderRef.current.style.pointerEvents = "none";
-//         loaderRef.current.style.zIndex = "-1";
-//       }
-//     }, 700);
-
-//     return () => clearTimeout(timeout);
-//   }, []);
-
+const Loader = ({customSize}) => {
   return (
-    <motion.div
-      ref={loaderRef}
-      id="loader"
-      className="fixed inset-0 w-full h-[100svh] bg-black z-[100110] flex justify-center items-center transition-all duration-500"
-      style={{ willChange: "opacity" }}
-    >
-      <h2
-        className={`font-main font-bold ${
-          isSmallMobile ? "text-8xl" : "text-9xl"
-        } sm:text-9xl uppercase sm:tracking-wider text-center pointer-events-none select-none`}
+    <>
+      <motion.div
+        initial={{ opacity: 1, visibility: "visible" }}
+        exit={{ opacity: 0, visibility: "hidden" }}
+        transition={{ duration: 0.3 }}
+        className={`${customSize ? customSize : 'w-[100vw] lg:w-[calc(100vw-14px)] h-[100svh] fixed inset-0 z-[9999]'} flex items-center justify-center bg-black`}
       >
-        5ksana
-      </h2>
-    </motion.div>
+        <div className="loader">
+          <span className="hour" />
+          <span className="min" />
+          <span className="circel" />
+        </div>
+      </motion.div>
+    </>
   );
 };
 

@@ -1,10 +1,11 @@
 import { motion, AnimatePresence } from "framer-motion";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, memo } from "react";
 import { smoothScrollTo } from "../utils";
 import { useLenis } from "lenis/react";
 import useResponsive from "../hooks/useResponsive";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const Paginator = ({
+const Paginator = memo(({
   data,
   itemsPerPage,
   children,
@@ -33,6 +34,9 @@ const Paginator = ({
     if (page > maxPages) {
       setPage(1);
     }
+
+    if(!isMobile) ScrollTrigger.refresh();
+    
   }, [itemsPerPage, page, data]);
 
   return (
@@ -117,6 +121,6 @@ const Paginator = ({
       )}
     </>
   );
-};
+});
 
 export default Paginator;

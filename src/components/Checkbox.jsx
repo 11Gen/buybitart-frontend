@@ -1,7 +1,7 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styled from "styled-components";
 
-const Checkbox = () => {
+const Checkbox = forwardRef(({...rest}, ref) => {
   return (
     <StyledWrapper>
       <div className="flex gap-[10px] idk w-[19px] h-[19px] justify-center items-center">
@@ -9,12 +9,14 @@ const Checkbox = () => {
           type="checkbox"
           id="checkPrivacy"
           className="absolute opacity-0 cursor-pointer h-0 w-0"
+          ref={ref}
+          {...rest}
         />
         <div className="checkmark" />
       </div>
     </StyledWrapper>
   );
-};
+});
 
 const StyledWrapper = styled.div`
   .checkmark {

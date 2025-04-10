@@ -3,6 +3,8 @@ import { useDropzone } from "react-dropzone";
 import imageCompression from "browser-image-compression";
 import { imagesOnly } from "../utils";
 import LoadingCircle from "./LoadingCircle";
+import ImageLoader from "./ImageLoader";
+import { MdAdd } from "react-icons/md";
 
 const Dropzone = ({ data, setData, index }) => {
   const [loading, setLoading] = useState(false);
@@ -39,10 +41,11 @@ const Dropzone = ({ data, setData, index }) => {
     [data, index, setData]
   );
 
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop,
-    accept: imagesOnly,
-  });
+  const { getRootProps, getInputProps, isDragAccept, isDragReject } =
+    useDropzone({
+      onDrop,
+      accept: imagesOnly,
+    });
 
   return (
     <div
@@ -60,11 +63,20 @@ const Dropzone = ({ data, setData, index }) => {
           <LoadingCircle />
         ) : (
           <>
-            <img
-              src={data[index].src}
-              alt={data[index].name}
-              className="w-full h-full object-cover pointer-events-none"
-            />
+            {data[index]?.src || data[index]?.original ? (
+              <ImageLoader
+                src={data[index].src || data[index].original}
+                alt={`me-upload-${index}`}
+                className="w-full h-full object-cover pointer-events-none"
+              />
+            ) : (
+              <MdAdd
+                size={45}
+                className={`group-hover:scale-125 transition-[transform,color] duration-300 ${
+                  isDragReject && "rotate-45 scale-125 text-red-500"
+                } ${isDragAccept && "scale-125 text-[#FCCB00]"}`}
+              />
+            )}
           </>
         )}
       </div>

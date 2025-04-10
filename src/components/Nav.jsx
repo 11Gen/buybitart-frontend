@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import Modal from "./Modal";
 import Cart from "./Cart";
 import Auth from "./Auth";
 import useResponsive from "../hooks/useResponsive";
-import { AnimatePresence } from "framer-motion";
+import { observer } from "mobx-react-lite";
+import { UserContext } from "../main";
+import { GoShieldLock } from "react-icons/go";
 
 const Nav = ({ cart, setCart }) => {
   const location = useLocation();
@@ -13,6 +15,7 @@ const Nav = ({ cart, setCart }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { userStore } = useContext(UserContext);
 
   const { isBigLaptop } = useResponsive();
 
@@ -32,6 +35,14 @@ const Nav = ({ cart, setCart }) => {
     setIsAuthOpen(false);
   }
 
+  async function userLogout() {
+    try {
+      await userStore.logout();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   function menuToggle() {
     setIsMenuOpen(!isMenuOpen);
     if (!isMenuOpen) document.documentElement.style.overflow = "hidden";
@@ -46,26 +57,44 @@ const Nav = ({ cart, setCart }) => {
   useEffect(() => {
     if (isMenuOpen) setIsMenuOpen(false);
     if (
-      location.pathname == "/shop" || location.pathname == "/search" ||
+      location.pathname == "/shop" ||
       location.pathname.includes(`${import.meta.env.VITE_ADMIN_ROUTE}/`)
     )
       setIsSolidBG(true);
     else setIsSolidBG(false);
 
-    if (location.pathname.includes(`${import.meta.env.VITE_ADMIN_ROUTE}/`))
+    if (
+      location.pathname.includes(`${import.meta.env.VITE_ADMIN_ROUTE}/`) &&
+      userStore?.user?.isAdmin
+    )
       setIsAdminPage(true);
     else setIsAdminPage(false);
   }, [location]);
 
+  const navClasses = [
+    "navBar",
+    "w-full",
+    "fixed",
+    "top-0",
+    "left-0",
+    "flex",
+    "justify-between",
+    "z-[1000]",
+    isSolidBG
+      ? "bg-black border-[#ffffff00]"
+      : "webkitBgBlurIos16 border-[#FFFFFF1A]",
+    "xl:h-[65px] h-[52px]",
+    "border-b-[1px]",
+    "px-[16px]",
+    "py-[0.781rem]",
+    "xl:px-[6.25rem]",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <>
-      <nav
-        className={`w-full xl:h-[65px] border-b-[1px] h-[52px] fixed top-0 px-[16px] left-0 xl:px-[6.25rem] py-[0.781rem] navBar flex justify-between z-[1000] ${
-          isSolidBG
-            ? "bg-black border-[#ffffff00]"
-            : "webkitBgBlurIos16 border-[#FFFFFF1A]"
-        }`}
-      >
+      <nav className={navClasses}>
         <div className="logo w-auto h-full relative z-[2]">
           <Link to={"/"} onClick={isBigLaptop ? menuClose : null}>
             <img
@@ -76,7 +105,7 @@ const Nav = ({ cart, setCart }) => {
             />
           </Link>
         </div>
-        <div className="w-auto flex h-full items-center gap-[3.75rem] z-[2]">
+        <div className="w-auto flex h-full items-center gap-[2.5rem] z-[2]">
           <div className="xl:flex h-auto w-auto items-center gap-6 font-main uppercase font-[500] hidden">
             {isAdminPage ? (
               <>
@@ -143,23 +172,67 @@ const Nav = ({ cart, setCart }) => {
                 >
                   About me
                 </NavLink>
+                <NavLink
+                  to={"/proof"}
+                  className={({ isActive }) =>
+                    `p-[0.625rem] hover:opacity-75 transition-opacity duration-[250ms] indicatorL ${
+                      isActive ? "active" : ""
+                    }`
+                  }
+                >
+                  Proof of Work
+                </NavLink>
+                <NavLink
+                  to={"/exhibitions"}
+                  className={({ isActive }) =>
+                    `p-[0.625rem] hover:opacity-75 transition-opacity duration-[250ms] indicatorL ${
+                      isActive ? "active" : ""
+                    }`
+                  }
+                >
+                  Exhibitions
+                </NavLink>
+                <NavLink
+                  to={"/faq"}
+                  className={({ isActive }) =>
+                    `p-[0.625rem] hover:opacity-75 transition-opacity duration-[250ms] indicatorL ${
+                      isActive ? "active" : ""
+                    }`
+                  }
+                >
+                  FAQ
+                </NavLink>
               </>
             )}
           </div>
 
           {!isAdminPage && (
-            <button
-              onClick={popupAuthOpen}
-              className="hidden xl:flex font-main rounded-[1.25rem] w-[107px] h-[40px] bg-[#FCCB00] text-[#522700] font-[600] items-center justify-center hover:bg-[#D4A900] hover:text-[#1C1600] transition-colors duration-[250ms]"
-            >
-              Login
-            </button>
+            <>
+              {userStore.isAuth ? (
+                <button
+                  onClick={userLogout}
+                  className="hidden xl:flex font-main rounded-[1.25rem] w-[107px] h-[40px] border-[#FCCB00] border-[1px] text-[#FCCB00] font-[600] items-center justify-center hover:border-[#D4A900] hover:text-[#D4A900] transition-colors duration-[250ms]"
+                >
+                  Logout
+                </button>
+              ) : (
+                <button
+                  onClick={popupAuthOpen}
+                  className="hidden xl:flex font-main rounded-[1.25rem] w-[107px] h-[40px] bg-[#FCCB00] text-[#522700] font-[600] items-center justify-center hover:bg-[#D4A900] hover:text-[#1C1600] transition-colors duration-[250ms]"
+                >
+                  Login
+                </button>
+              )}
+            </>
           )}
 
           <div className="flex w-auto h-[24px] items-center gap-4">
             {!isAdminPage ? (
               <>
-                <Link to={"/search"} className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#212121] transition-colors duration-[250ms]">
+                <Link
+                  to={"/search"}
+                  className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#212121] transition-colors duration-[250ms]"
+                >
                   <svg
                     className="xl:w-[24px] relative top-[-1px] xl:h-[24px] w-[28px] h-[28px]"
                     viewBox="0 0 24 24"
@@ -203,6 +276,16 @@ const Nav = ({ cart, setCart }) => {
                     {cart.length}
                   </span>
                 </button>
+                {userStore?.user?.isAdmin ? (
+                  <Link
+                    to={`${import.meta.env.VITE_ADMIN_ROUTE}/items`}
+                    className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group hover:bg-[#212121] transition-colors duration-[250ms]"
+                  >
+                    <GoShieldLock size={24} />
+                  </Link>
+                ) : (
+                  <></>
+                )}
                 <button
                   className="w-auto h-auto relative bg-[#fff0] py-1 xl:px-2 px-1 rounded-full group transition-colors duration-[250ms] justify-center items-center xl:hidden flex"
                   onClick={menuToggle}
@@ -291,7 +374,7 @@ const Nav = ({ cart, setCart }) => {
 
         <div
           className={`w-full ${
-            isAdminPage ? "h-[235px]" : "h-[305px]"
+            isAdminPage ? "h-[235px]" : "h-[455px]"
           } absolute left-0 bg-black border-b-[1px] border-b-[#ffffff1A] pt-[52px] flex flex-col gap-6 px-[16px] transition-[top,opacity,visibility] duration-700 ${
             isMenuOpen
               ? "top-0 opacity-100 visible pointer-events-auto"
@@ -370,45 +453,84 @@ const Nav = ({ cart, setCart }) => {
                 >
                   About me
                 </NavLink>
+                <NavLink
+                  to={"/proof"}
+                  onClick={menuClose}
+                  className={({ isActive }) =>
+                    `p-[10px] indicatorR transition-colors duration-[250ms] rounded-lg ${
+                      isActive ? "active bg-[#FFFFFF1A]" : ""
+                    }`
+                  }
+                >
+                  Proof of Work
+                </NavLink>
+                <NavLink
+                  to={"/exhibitions"}
+                  onClick={menuClose}
+                  className={({ isActive }) =>
+                    `p-[10px] indicatorR transition-colors duration-[250ms] rounded-lg ${
+                      isActive ? "active bg-[#FFFFFF1A]" : ""
+                    }`
+                  }
+                >
+                  Exhibitions
+                </NavLink>
+                <NavLink
+                  to={"/faq"}
+                  onClick={menuClose}
+                  className={({ isActive }) =>
+                    `p-[10px] indicatorR transition-colors duration-[250ms] rounded-lg ${
+                      isActive ? "active bg-[#FFFFFF1A]" : ""
+                    }`
+                  }
+                >
+                  FAQ
+                </NavLink>
               </>
             )}
           </div>
           {!isAdminPage && (
-            <button
-              onClick={popupAuthOpen}
-              className="flex font-main rounded-[1.25rem] w-full h-[40px] bg-[#FCCB00] text-[#522700] font-[600] items-center justify-center hover:bg-[#D4A900] hover:text-[#1C1600] transition-colors duration-[250ms]"
-            >
-              Login
-            </button>
+            <>
+              {userStore.isAuth ? (
+                <button
+                  onClick={userLogout}
+                  className="flex font-main rounded-[1.25rem] w-full h-[40px] border-[#FCCB00] border-[1px] text-[#FCCB00] font-[600] items-center justify-center hover:border-[#D4A900] hover:text-[#D4A900] transition-colors duration-[250ms]"
+                >
+                  Logout
+                </button>
+              ) : (
+                <button
+                  onClick={popupAuthOpen}
+                  className="flex font-main rounded-[1.25rem] w-full h-[40px] bg-[#FCCB00] text-[#522700] font-[600] items-center justify-center hover:bg-[#D4A900] hover:text-[#1C1600] transition-colors duration-[250ms]"
+                >
+                  Login
+                </button>
+              )}
+            </>
           )}
         </div>
       </nav>
 
-      <AnimatePresence>
-        {isCartOpen && (
-          <Modal isOpen={isCartOpen}>
-            <Cart
-              setIsCartOpen={setIsCartOpen}
-              isCartOpen={isCartOpen}
-              cart={cart}
-              setCart={setCart}
-              popupClose={popupCartClose}
-            />
-          </Modal>
-        )}
+      <Modal isOpen={isCartOpen}>
+        <Cart
+          setIsCartOpen={setIsCartOpen}
+          isCartOpen={isCartOpen}
+          cart={cart}
+          setCart={setCart}
+          popupClose={popupCartClose}
+          popupAuthOpen={popupAuthOpen}
+        />
+      </Modal>
 
-        {isAuthOpen && (
-          <Modal isOpen={isAuthOpen}>
-            <Auth
-              setIsAuthOpen={setIsAuthOpen}
-              isAuthOpen={isAuthOpen}
-              popupClose={popupAuthClose}
-            />
-          </Modal>
-        )}
-      </AnimatePresence>
+      <Modal isOpen={isAuthOpen}>
+        <Auth
+          setIsAuthOpen={setIsAuthOpen}
+          isAuthOpen={isAuthOpen}
+          popupClose={popupAuthClose}
+        />
+      </Modal>
     </>
   );
 };
 
-export default Nav;
+export default observer(Nav);

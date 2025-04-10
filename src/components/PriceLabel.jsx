@@ -8,6 +8,7 @@ const PriceLabel = ({
   auction,
   admRes,
   priceType,
+  smaller
 }) => {
   if (IsCardHash)
     return (

@@ -76,7 +76,7 @@ const Breadcamp = ({ auction, difRoute }) => {
           />
         </g>
       </svg>
-      <span className="capitalize text-[#fff]">
+      <span className="capitalize text-[#fff] line-clamp-1">
         {hash.split("-").join(" ")} {auction ? "(Auction)" : ""}
       </span>
     </div>

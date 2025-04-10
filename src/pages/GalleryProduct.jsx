@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Breadcamp from "../components/Breadcrumb";
 import Slider from "../components/Slider";
 import classNames from "classnames";
@@ -7,33 +7,80 @@ import CardRelated from "../components/CardRelated";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ContactForm from "../components/ContactForm";
 import Footer from "../components/Footer";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useResponsive from "../hooks/useResponsive";
-import { galleryProducts } from "../utils/data";
+import SEO from "../utils/SEO";
+import axios from "axios";
+import Loader from "../components/Loader";
+import Modal from "../components/Modal";
+import TransformOriginal from "../components/TransformOriginal";
 
 const GalleryProduct = () => {
   const { hash } = useParams();
   const sliderRef = useRef(null);
   const sliderContainerRef = useRef(null);
   const textContainerRef = useRef(null);
+  const [data, setData] = useState({});
+  const [relatedData, setRelatedData] = useState([]);
+  const [originalOpen, setOriginalOpen] = useState({
+    state: false,
+    index: null,
+  });
 
   const { isBigLaptop, isLaptop } = useResponsive();
-
-  // Current product and related products
-  const currentData = useMemo(
-    () => galleryProducts.find((item) => item.hash === hash),
-    [hash]
-  );
-
-  const relatedData = useMemo(
-    () => galleryProducts.filter((item) => item.hash !== hash),
-    [hash]
-  );
 
   const [indexesRelated, setIndexesRelated] = useState([]);
   const [isSticky, setIsSticky] = useState(false);
 
-  // Generate 4 unique random related product indexes
+  const navigate = useNavigate();
+
+  const handleOpenOriginal = (index) => {
+    setOriginalOpen({
+      state: true,
+      index: index,
+    });
+  };
+
+  const handleCloseOriginal = () => {
+    setOriginalOpen({
+      state: false,
+      index: originalOpen.index,
+    });
+  };
+
+  useEffect(() => {
+    if (
+      sliderContainerRef.current &&
+      textContainerRef.current &&
+      !isBigLaptop
+    ) {
+      const isSliderTaller =
+        sliderContainerRef.current.offsetHeight >
+        textContainerRef.current.offsetHeight * 1.3;
+      setIsSticky(isSliderTaller);
+    }
+  }, [isBigLaptop, data]);
+
+  useEffect(() => {
+    async function fetchProductDetails() {
+      try {
+        const galleryProductResponse = await axios.get(
+          `${import.meta.env.VITE_DB_LINK}/api/gallery-products/${hash}`
+        );
+        const relatedGalleryResponse = await axios.get(
+          `${import.meta.env.VITE_DB_LINK}/api/gallery-products`
+        );
+        setData(galleryProductResponse.data);
+        setRelatedData(
+          relatedGalleryResponse.data.filter((item) => item.hash !== hash)
+        );
+      } catch (error) {
+        console.error("Failed to fetch product details:", error);
+      }
+    }
+    fetchProductDetails();
+  }, [hash]);
+
   useEffect(() => {
     const generateRandomIndexes = () => {
       const indexes = new Set();
@@ -48,20 +95,20 @@ const GalleryProduct = () => {
     }
   }, [relatedData]);
 
-  // Check if sticky layout is needed
-  useEffect(() => {
-    if (sliderContainerRef.current && textContainerRef.current && !isBigLaptop) {
-      const isSliderTaller =
-        sliderContainerRef.current.offsetHeight >
-        textContainerRef.current.offsetHeight * 1.3;
-      setIsSticky(isSliderTaller);
-    }
-  }, [isBigLaptop]);
-
-  if (!currentData) return <div>Product not found</div>;
+  if (!data?.title) {
+    if (data === null) return navigate("/shop");
+    return <Loader />;
+  }
 
   return (
     <>
+      <SEO
+        title={`${data.title} - Bitcoin-Inspired Masterpiece by 5KSANA`}
+        description={`Explore ${data.title}, a captivating Bitcoin-inspired creation by 5KSANA. This gallery-exclusive piece showcases the perfect blend of blockchain culture and artistic vision. Immerse yourself in the world of crypto art and experience innovation redefined.`}
+        name={`${data.title} - Bitcoin-Inspired Masterpiece by 5KSANA`}
+        type="page"
+        page={`gallery/${hash}`}
+      />
       <div className="w-[100vw] h-full">
         <div className="w-full h-full relative mt-[calc(52px+25px)] xl:mt-[calc(65px+25px)] px-[16px] xl:px-[6.25rem]">
           <div className="w-full h-full relative mt-[25px]">
@@ -70,9 +117,10 @@ const GalleryProduct = () => {
             {/* Product Section */}
             <div className="flex xl:flex-row flex-col w-full h-auto relative mt-[34px] xl:justify-between xl:items-start items-center 2xl:gap-[120px] gap-[60px]">
               <Slider
-                data={currentData}
+                data={data}
                 sliderRef={sliderRef}
                 sliderContainerRef={sliderContainerRef}
+                handleOpenOriginal={handleOpenOriginal}
               />
 
               {/* Product Details */}
@@ -83,12 +131,12 @@ const GalleryProduct = () => {
                 ref={textContainerRef}
               >
                 <h2 className="uppercase font-main font-[600] 2xl:text-6xl sm:text-5xl text-3xl text-white">
-                  {currentData.title}
+                  {data.title}
                 </h2>
                 <div className="w-full h-auto flex flex-col gap-6 relative">
                   <div
                     className="w-full h-auto flex flex-col gap-4 relative font-main font-[400] tracking-wide 2xl:text-lg text-base text-[#CFCFCF] 2xl:max-w-[90%] text-pretty pt-0.5 pb-4"
-                    dangerouslySetInnerHTML={createMarkup(currentData.description)}
+                    dangerouslySetInnerHTML={createMarkup(data.description)}
                   />
                 </div>
               </div>
@@ -139,6 +187,11 @@ const GalleryProduct = () => {
         <ContactForm />
         <Footer />
       </div>
+
+
+      <Modal isOpen={originalOpen.state} nopaddings>
+        {(data.images && originalOpen.state) && <TransformOriginal closeOriginal={handleCloseOriginal} src={data.images[originalOpen.index].original} alt={data.hash + "_" + originalOpen.index} />}
+      </Modal>
     </>
   );
 };

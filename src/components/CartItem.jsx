@@ -3,6 +3,8 @@ import useResponsive from "../hooks/useResponsive";
 import { useAnimate, usePresence } from "framer-motion";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import ImageLoader from "./ImageLoader";
+import { getPrice } from "../utils";
 
 const CartItem = ({ data, cart, setCart, index, popupClose }) => {
   const [qty, setQty] = useState(data.quantity);
@@ -71,8 +73,9 @@ const CartItem = ({ data, cart, setCart, index, popupClose }) => {
     >
       <div className="w-full h-auto flex sm:gap-8 gap-2">
         <Link to={`/shop/${data.hash}`} onClick={popupClose}>
-          <img
-            src={data.images[0]}
+          <ImageLoader
+          containerStyles={`w-full h-full`}
+            src={data.images[0].optimized}
             alt=""
             className={`sm:w-full w-auto sm:max-w-[225px] sm:h-full ${
               isSmallMobile
@@ -181,7 +184,7 @@ const CartItem = ({ data, cart, setCart, index, popupClose }) => {
                 className="w-[24px] h-[24px] object-contain"
                 draggable="false"
               />
-              <span>{data.price}</span>
+              <span>{getPrice(data.price, 4, "BTC")}</span>
             </div>
           </div>
         </div>
@@ -227,7 +230,7 @@ const CartItem = ({ data, cart, setCart, index, popupClose }) => {
             className="w-[24px] h-[24px] object-contain"
             draggable="false"
           />
-          <span>{data.price}</span>
+          <span>{getPrice(data.price, 4, "BTC")}</span>
         </div>
       </div>
     </motion.div>
